@@ -71,8 +71,12 @@ AFLOS resolves post-disaster logistics chaos through **five integrated mechanism
    - Each Aid Zone defines specific operational **Time Slots** (e.g., `08:00–12:00`, `12:00–16:00`, `16:00–20:00`) with a strict **Maximum Vehicle Quota** per slot (e.g., `maxVehicles: 5`).
    - The system automatically blocks overbooking a full time slot or double-booking the same vehicle license plate across overlapping time intervals (`HTTP 409 Conflict`).
 
-4. **Three Public & Volunteer Onboarding Portals:**
-   - **Portal 1 – Regional Need Request Portal:** Citizens, village heads (*Muhtars*), or out-of-city relatives submit location-based need requests (`PENDING_VERIFICATION`). Upon Coordinator verification, the request becomes an active Aid Zone on the Turkey map.
+4. **Three Public & Volunteer Onboarding Portals (with Anti-False-Report Verification):**
+   - **Portal 1 – Regional Need Request Portal & 4-Step False Report Prevention:** Citizens, village heads (*Muhtars*), or out-of-city relatives submit location-based need requests. To prevent **false reports (*yalan ihbar*)** from misdirecting aid trucks:
+     1. *Quarantine Queue (`PENDING_VERIFICATION`):* No public submission ever appears directly on the live Turkey Map or becomes visible to carriers without Coordinator approval.
+     2. *Institutional & Local Cross-Check:* Coordinators cross-verify the request via the reporter's mandatory contact phone, local *Muhtars*, on-site `FIELD_STAFF`, or official agency channels (AFAD/municipality/gendarmerie) before approving.
+     3. *Geo-Clustering Confidence Indicator:* Multiple independent reports coming from the same neighborhood/coordinates for similar items increase the request's confidence score, whereas isolated anomalous reports are flagged for strict verification.
+     4. *Rate-Limiting & Blacklisting (`REJECTED_FAKE`):* Fraudulent or spam submissions are marked as `REJECTED_FAKE`, and the offending phone number/source is rate-limited and blacklisted.
    - **Portal 2 – Carrier & Fleet Application Portal (Dual Mode):**
      - *Mode A (Ready Cargo Application):* A truck owner (`34 ABC 123`) selects an active zone and an available time slot on the map, specifies the exact quantities of items they will carry, and submits a shipment application.
      - *Mode B (Standby Empty Vehicle Pool):* A truck owner with an available vehicle but no cargo registers into the standby fleet pool; Coordinators directly assign them to urgent routes and time slots.
@@ -110,10 +114,10 @@ AFLOS resolves post-disaster logistics chaos through **five integrated mechanism
 - **Audit Logging:** Traceable history of all approvals, assignments, and delivery confirmations.
 
 #### Excluded / Deferred from First Release (Out-of-Scope)
-- **Hardware GPS / IoT Transponder Integration:** Real-time satellite hardware telemetry inside trucks is out of scope; transit and delivery states are updated through authenticated role actions.
-- **Financial Donations & Payment Gateways:** The system coordinates physical relief supplies and logistics vehicles only; monetary fundraising, credit card processing, and accounting are excluded.
-- **AI Route Optimization & Fuel/Maintenance ERP:** Turn-by-turn navigation engines, fuel consumption calculation, and vehicle mechanical maintenance scheduling are outside the software boundary.
-- **Government Intranet / MERNİS Hardware Integration:** Official identity verification and SMS gateways are represented via clean service interfaces and local stubs for academic demonstration and automated testing.
+- **Financial Donations & Payment Gateways:** The system coordinates physical relief supplies and logistics vehicles only; monetary fundraising, credit card processing, and bank accounting are excluded.
+- **Turn-by-Turn Navigation & Vehicle Maintenance ERP:** Live satellite map navigation, fuel consumption analytics, and vehicle mechanical repair/insurance scheduling are outside the software boundary (shipment status transitions are driven by authenticated role confirmations).
+- **Warehouse Barcode / RFID Hardware Scanners:** Inventory quantities are managed at the category/line-item level through web forms rather than physical warehouse barcode hardware.
+- **Government Intranet / MERNİS Direct Integration:** Official identity verification and SMS gateways are represented via clean service interfaces and local stubs for academic demonstration and automated testing.
 
 ---
 
@@ -128,7 +132,7 @@ AFLOS resolves post-disaster logistics chaos through **five integrated mechanism
 | **Risk** | **RSK-01** | **Internet Blackout at the Distribution Point:** On-site Field Staff may lose cellular/internet connectivity when a truck arrives for unloading, preventing `DELIVERED` status updates. | **High** | **Mitigation:** Implement a **Coordinator Fallback Handover** capability allowing command-center Coordinators to mark shipments as `DELIVERED` upon verbal/radio confirmation from the field. |
 | **Risk** | **RSK-02** | **Concurrent Time-Slot Booking Race Condition:** Two carriers may simultaneously submit applications for the last remaining vehicle quota in a `08:00–12:00` time slot. | **High** | **Mitigation:** Treat as a core architectural driver; enforce atomic database transactions/locking and return standard `HTTP 409 Conflict` (`SLOT_FULL` or `VEHICLE_ALREADY_ASSIGNED`), verified by automated integration tests. |
 | **Risk** | **RSK-03** | **Inconsistent Manual Item Naming:** Users typing free-text item names (e.g., *"Su"*, *"0.5L Su"*, *"Bisküvi"*, *"Koli Bisküvi"*) could break national KPI aggregation. | **Medium** | **Mitigation:** Enforce a two-level input rule where every manually named item must belong to one of the 7 standardized **Master Aid Categories** (`WATER_BEVERAGE`, `FOOD_NUTRITION`, etc.) and use a standard unit (`CASE`, `PIECE`, `BOX`, `PALLET`, `KG`). |
-| **Risk** | **RSK-04** | **Unverified or Duplicate Public Need Requests:** Panic or malicious actors during a disaster may flood the system with unverified regional need reports. | **Medium** | **Mitigation:** All public need requests enter `PENDING_VERIFICATION` status and remain hidden from public carrier dispatch until reviewed, merged, or approved by an authenticated `COORDINATOR`. |
+| **Risk** | **RSK-04** | **False, Malicious, or Duplicate Public Need Reports (*Yalan İhbar*):** Malicious actors or panicked citizens may submit fake regional need requests, risking wasted truck dispatches. | **High** | **Mitigation (4-Layer Verification):** (1) Quarantine all public reports in `PENDING_VERIFICATION` (invisible to carriers); (2) Require Coordinator cross-check with local *Muhtars*/AFAD/Field Staff via mandatory contact phone; (3) Group/cluster nearby matching reports for confidence scoring; (4) Rate-limit and blacklist numbers flagged as `REJECTED_FAKE`. |
 | **Risk** | **RSK-05** | **Unavailable External Identity or Notification Services:** Third-party SMS or institutional identity providers may be inaccessible in the classroom/test environment. | **Low** | **Mitigation:** Isolate authentication and notification behind clean adapter boundaries with documented local stubs for deterministic CI/CD testing. |
 
 ---
