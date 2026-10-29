@@ -85,11 +85,13 @@ AFLOS resolves post-disaster logistics chaos through **five integrated mechanism
      - *Mode B (Standby Empty Vehicle Pool):* A truck owner with an available vehicle but no cargo registers into the standby fleet pool; Coordinators directly assign them to urgent routes and time slots.
    - **Portal 3 – Field Volunteer Application Portal:** Volunteers apply to serve at a specific Aid Zone and shift window. Once approved by a Coordinator, they gain `FIELD_STAFF` privileges for that zone.
 
-5. **Offline-Resilient Institutional Workflow, Actual-Quantity Verification & 2-Factor Handover Security:**
+5. **Offline-Resilient Institutional Workflow, Actual-Quantity Verification, 2-Factor Handover Security & Emergency Re-Routing:**
    - **Institutional Direct Entry:** If internet infrastructure collapses in the disaster zone, **Coordinators** open Aid Zones and enter needs directly based on official institutional communications (AFAD/municipality radio or satellite reports).
-   - **Zero-Cost Cryptographic Handover Code & QR Verification (2FA On-Site Match):** To eliminate plate spoofing and unauthorized cargo claiming without relying on expensive SMS gateways or government bureaucracy:
+   - **Emergency Zone Evacuation & Dynamic In-Transit Re-Routing (`REROUTED`):** If an active Aid Zone becomes hazardous (e.g., aftershock damage, secondary flooding, or security risks) and must be deactivated (`DEACTIVATED`), the system instantly flags all incoming `IN_TRANSIT` shipments and allows Coordinators to re-route them to the nearest safe, alternate Aid Zone with automated cargo/quota transfer.
+   - **Zero-Cost Cryptographic Handover Code & QR Verification (with Driver Device Failure Fallback):**
      - Upon shipment approval, the system generates a unique, tamper-proof **Shipment Verification Code (e.g., `AFL-7492`)** and dynamic QR code accessible in the driver's browser session.
-     - On-site Field Staff match both the physical **License Plate** and this **Verification Code/QR** before unloading. Without both matching, delivery cannot be confirmed.
+     - On-site Field Staff match both the physical **License Plate** and this **Verification Code/QR** before unloading.
+     - *Device Battery/Hardware Failure Fallback:* If a driver's phone battery dies or the screen breaks after a long trip, Field Staff can execute an emergency physical identity check (matching physical driver's license/TC-ID against the manifest) and request central Coordinator approval to complete handover without stranding supplies.
    - **Actual Delivered Quantity Verification (`actualDeliveredQuantity`):** When a truck arrives on-site, Field Staff record the **actual unloaded quantity** (handling partial deliveries or over-delivery adjustments), ensuring remaining zone needs and national KPI counters reflect real on-site inventory rather than initial pledges.
    - **Coordinator Central Fallback:** If Field Staff lose internet connectivity during unloading, the **Coordinator** can execute a **Fallback Handover Confirmation** centrally.
 
