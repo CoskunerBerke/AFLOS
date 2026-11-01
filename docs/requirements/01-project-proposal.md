@@ -24,7 +24,7 @@ Despite high civic and institutional mobilization, post-disaster logistics consi
 ### 1.2 Current Harm and Measurable Baseline
 | Problem Dimension | Observed Baseline in Uncoordinated Relief | Operational Consequence |
 |---|---|---|
-| **Supply-Need Mismatch** | 30%–40% of spontaneous initial shipments do not match the urgent category priorities of the destination zone. | Critical shortages of shelter/medical items alongside wasted surplus of unrequested goods. |
+| **Supply-Need Mismatch** | 30%–40% of spontaneous initial shipments do not match the urgent category priorities of the destination zone (observed in 2023 Kahramanmaraş post-disaster field reports & logistics retrospective studies). | Critical shortages of shelter/medical items alongside wasted surplus of unrequested goods. |
 | **Unscheduled Truck Arrivals** | Multiple heavy trucks arriving within the same hour at a single distribution school/camp. | Multi-hour unloading queues and road congestion in critical disaster corridors. |
 | **Data Fragmentation** | Separate spreadsheets maintained by different volunteer groups with no single source of truth. | Duplicate dispatches to the same address, conflicting inventory counts, and zero audit trail. |
 | **Free-Text Chaos** | Users recording items inconsistently ("Su", "0.5L Su", "İçme Suyu", "Bisküvi", "Koli Bisküvi"). | Inability to calculate national KPI totals for how much aid has been delivered vs. how much is in transit. |

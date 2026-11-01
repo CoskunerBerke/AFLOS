@@ -183,7 +183,7 @@ flowchart TD
 | **INT-05** | `FIELD_STAFF` | AFLOS | Volunteer shift application (zone ID, shift start/end, phone). | Shift Onboarding; requires Coordinator verification before granting zone access. |
 | **INT-06** | `FIELD_STAFF` | AFLOS | Shipment ID, License Plate, Verification Code, `actualDeliveredQuantity`. | Physical Handover; scoped to user's `zoneId` (`403 Forbidden` if mismatched); deducts remaining needs. |
 | **INT-07** | `COORDINATOR` | AFLOS | Zone coordinates, disaster type, time-slot intervals, vehicle quotas, item quotas. | Zone & Need Management; trusted operational role; enables direct institutional zone creation. |
-| **INT-08** | `COORDINATOR` | AFLOS | Application ID, approval/rejection decision, or standby vehicle assignment ID. | Application & Fleet Dispatch; updates status to `APPROVED` or assigns standby truck. |
+| **INT-08** | `COORDINATOR` | AFLOS | Application ID, verification/rejection decision, or standby vehicle assignment ID. | Application & Fleet Dispatch; verifies pending need reports and field staff, or assigns standby fleet trucks. |
 | **INT-09** | `COORDINATOR` | AFLOS | Shipment ID, fallback reason, or deactivated zone ID + target alternate zone ID. | Fallback Handover & Emergency Re-Routing; overrides field connectivity outages or hazardous zones. |
 | **INT-10** | `ADMIN` | AFLOS | Role assignments, disaster types, aid categories, measurement units, audit queries. | Platform Governance & Audit; strictly restricted to `ADMIN` role token. |
 | **INT-11 / 12** | AFLOS | Map Provider | Bounding box coordinates, zoom levels, tile requests. | Cartographic Rendering; standard HTTPS REST / Leaflet tile requests to OpenStreetMap. |
