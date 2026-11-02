@@ -1,148 +1,180 @@
-# SENG 321 – Sprint 1 Deliverable 3: OpenAPI Draft
+# SENG 321 – Sprint 1 Deliverable 3: OpenAPI Specification & Architecture Guide
 
-**Proje:** AFLOS – Afet Lojistik ve Koordinasyon Sistemi  
-**Çıktı sahibi:** Lead Software Architect / Technical Lead ekibi  
-**Sürüm:** 0.1.0 – ekip incelemesine hazır taslak  
-**Tarih:** 2 Kasım 2026  
-**Ana çıktı:** [api/openapi.yaml](../../api/openapi.yaml)
+**Project:** AFLOS – Disaster Logistics & Aid Coordination System  
+**Document Owner:** Lead Software Architect / Technical Lead Team  
+**Version:** 0.1.0 – Review-Ready Draft for Team Evaluation  
+**Date:** November 2, 2026  
+**Primary Deliverable:** [api/openapi.yaml](../../api/openapi.yaml)  
 
-## 1. Teslimin amacı ve sınırı
+---
 
-Bu teslim, arayüz ile sunucu ekibinin birlikte kullanacağı API sözleşmesidir. Sunucu uygulaması, veritabanı veya çalışan servis içermez. Dersin Sprint 1 gereksinimi olan geçerli OpenAPI YAML, kaynaklar, HTTP işlemleri, istek/yanıt şemaları ve örnek başarı/hata yanıtlarını sağlar. Ayrıntılı C4/UML teslimi ikinci sprint kapsamındadır.
+## 1. Purpose and Scope of Deliverable
 
-Takım numarası, architect isimleri/öğrenci numaraları, GitHub issue/PR/commit bağlantıları ve Sprint 1 release etiketi henüz sağlanmadığı için uydurulmamıştır. Bunlar takımın teslim üst belgesine ve PR kaydına eklenmelidir.
+This deliverable establishes the formal API contract shared between frontend and backend engineering teams. It does not provide an implemented backend service, database engine, or running runtime environment. In alignment with SENG 321 Sprint 1 academic requirements, it provides a valid OpenAPI 3.1.0 specification detailing endpoints, HTTP operations, request/response JSON schemas, and deterministic success/error payloads. Detailed C4 model diagrams and Unified Modeling Language (UML) structural artifacts are scheduled for Sprint 2.
 
-## 2. Kaynaklar ve karar önceliği
+Team identifiers, architect student credentials, GitHub issue/PR/commit hashes, and Sprint 1 release tags will be finalized within the team submission cover page and repository pull request metadata.
 
-Girdiler, Product Owner'ın paylaştığı `01-project-proposal.md`, `02-system-vision-and-boundary.md`, `06-initial-product-backlog.md` dosyaları ve 2 Kasım 2026 tarihinde bu çalışmaya aktarılan karar mesajıdır.
+---
 
-Çelişkide öncelik: **son açık PO kararı → güncel backlog → proposal/vision içindeki eski anlatım**. Kaynak dosyalar değiştirilmemiştir. Özellikle proposal ve vision içinde manuel taşıyıcı onayı, QR, güven puanlama, EXPIRED/APPROVED ve kategori toplamlarına ilişkin eski ifadeler kalmıştır. PO bu metinleri teslimden önce eşitlemelidir.
+## 2. Sources and Decision Precedence
 
-Resmî biçim kaynağı: [OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html). İşlem açıklamaları İngilizce, öğrenme ve karar notları Türkçedir. `x-user-stories` izlenebilirlik, `x-roles` uygulama yetkisi metaverisidir; bu alanlar kendiliğinden sunucuda yetki uygulamaz.
+The requirements for this specification derive from the Product Owner artifacts: `01-project-proposal.md`, `02-system-vision-and-boundary.md`, `06-initial-product-backlog.md`, and the architectural alignment decisions communicated on November 2, 2026.
 
-## 3. PO tarafından kesinleştirilen kurallar
+In the event of ambiguity or discrepancy, precedence is enforced as follows:  
+**Latest Explicit PO Decision $\longrightarrow$ Active Product Backlog $\longrightarrow$ Legacy Prose in Proposal/Vision**.  
+Upstream requirements files remain unmodified. Legacy references in the proposal and vision regarding manual truck approval queues, dynamic QR codes, automated trust scoring, `EXPIRED`/`APPROVED` statuses, and cross-category aggregate sums are superseded by these explicit backlog rules. The PO team is responsible for reconciling those legacy documents prior to final submission.
 
-- `POST /carrier-applications` doğrudan randevu oluşturur. Yolu backlog ile aynı tutulmuştur; manuel onay kuyruğu değildir.
-- Rezervasyon tek atomik işlemde araç kontrolü, kota tüketimi, ihtiyaç rezervasyonu, CONFIRMED sevkiyat ve kod üretimini gerçekleştirir. Bir aşama başarısızsa tüm değişiklikler geri alınır.
-- Durumlar yalnızca CONFIRMED, IN_TRANSIT, DELIVERED, CANCELLED ve NO_SHOW'dur.
-- Saatlerde tarih ve UTC farkı bulunur. Örnek: `2026-11-05T08:00:00+03:00`.
-- Aynı normalize plakanın çakışan aktif rezervasyonları engellenir. Bitiş ve başlangıcı aynı olan aralıklar çakışmaz: `[başlangıç, bitiş)`.
-- `assignedVehicles`, CONFIRMED + IN_TRANSIT + DELIVERED randevularını sayar. DELIVERED kotayı açmaz; CANCELLED ve NO_SHOW rezervasyonu serbest bırakır.
-- `reservedQuantity` CONFIRMED ve IN_TRANSIT yüklerini kapsar. Yola çıkışta tekrar artırılmaz.
-- `openDeficit = max(0, requiredQuantity - reservedQuantity - deliveredQuantity)`.
-- Teslimat her yük kalemi için fiili miktarı alır. Tüm taahhüt rezervasyonu kaldırılır, yalnızca gerçek miktar teslim hanesine eklenir.
-- İlerleme nokta ve ihtiyaç kalemi bazlıdır. Farklı ürünler veya birimler toplanmaz.
-- QR ve otomatik güven puanlama MVP'de yoktur.
-- Kimlik doğrulama sorunu 401; rol/sahiplik/nokta yetkisi sorunu 403; geçersiz veri 400; durum/kapasite çakışması 409; istek sınırı 429.
+Official specification standard: [OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html). Operation descriptions are documented in English; educational rationale and decision notes are presented for engineering evaluation. `x-user-stories` provides bidirectional requirement traceability, while `x-roles` documents authorization boundaries (these metadata extensions do not enforce server runtime security on their own).
 
-## 4. Ana akışın açıklaması
+---
 
-1. Koordinatör noktayı ve tarihli slotlarını oluşturur.
-2. Koordinatör ihtiyaç kalemlerini ekler. Sunucu her kaleme `itemId` verir.
-3. Taşıyıcı slot ve bu ihtiyaç kimlikleriyle yük taahhüdü gönderir.
-4. Başarılı işlem 201 ile sevkiyatı ve yalnızca yetkili tarafa doğrulama kodunu döndürür.
-5. Taşıyıcı kendi sevkiyatını IN_TRANSIT yapar.
-6. Atandığı noktada ve vardiyada yetkili saha görevlisi plaka/kod ve bütün gerçek miktarları gönderir. Alternatif olarak koordinatör gerekçe ve gerçek miktarlarla fallback işlemini yapar.
-7. Sunucu tek teslimat kaydı oluşturur; kodu tüketir; miktarları ve audit kaydını atomik günceller.
-8. Kamuya açık göstergeler en fazla belirtilen önbellek süresi kadar gecikmeli güncellenebilir.
+## 3. Core Domain Rules Finalized by the Product Owner
 
-### Kısmi teslimat örneği
+- **Self-Service Appointment Model:** `POST /carrier-applications` executes direct appointment booking. The path preserves backlog consistency; it is not an asynchronous manual triage queue.
+- **Single-Transaction Atomic Booking:** Booking execution atomically validates vehicle plate eligibility, increments slot quota (`assignedVehicles`), locks pledged inventory (`reservedQuantity`), sets shipment state directly to `CONFIRMED`, and generates the single-use verification code. If any constraint fails, the entire transaction rolls back.
+- **Strict 5-State Shipment Lifecycle:** Valid states are strictly `CONFIRMED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED`, and `NO_SHOW`.
+- **Full ISO 8601 Intervals:** Time slots contain explicit calendar dates and UTC offsets (e.g., `2026-11-05T08:00:00+03:00`).
+- **Overlapping Booking Prevention:** Normalized license plates cannot hold multiple active bookings across overlapping intervals. Half-open intervals apply: `[startsAt, endsAt)`.
+- **Slot Capacity as Total Arrival Ceiling:** `assignedVehicles` tracks total appointments in `CONFIRMED`, `IN_TRANSIT`, and `DELIVERED`. A completed physical delivery does not reopen or recycle slot quota (preventing physical road gridlock); only `CANCELLED` and `NO_SHOW` release quota.
+- **Reserved Inventory Accounting:** `reservedQuantity` covers inventory pledged across `CONFIRMED` and `IN_TRANSIT` shipments. It is not incremented a second time upon departure.
+- **Open Deficit Formula:**  
+  $$\text{openDeficit} = \max(0, \text{requiredQuantity} - \text{reservedQuantity} - \text{deliveredQuantity})$$
+- **Itemized Handover Reconciliation:** Delivery requests submit actual delivered quantities per item. The entire pledged reservation is released; only physical received amounts increment `deliveredQuantity`. Unfulfilled surplus reverts to `openDeficit`.
+- **Line-Item Progress Integrity:** Progress tracking is calculated strictly per individual need item. Different items or incompatible units (cases vs. kilograms) are never aggregated together.
+- **MVP Scope Boundaries:** Dynamic QR rendering and automated machine-learning trust scores are deferred beyond MVP.
+- **Standard HTTP Error Mapping:** Authentication failure returns `401 Unauthorized`; insufficient role or out-of-scope zone access returns `403 Forbidden`; malformed syntax returns `400 Bad Request`; domain state/capacity collisions return `409 Conflict`; rate limits return `429 Too Many Requests`.
 
-| An | required | reserved | delivered | openDeficit | assignedVehicles |
+---
+
+## 4. End-to-End Operational Workflow
+
+1. A Coordinator creates an active Aid Zone and configures ISO 8601 time slots with vehicle quotas.
+2. The Coordinator appends itemized need lines. The server generates unique opaque `itemId` keys.
+3. An authenticated Carrier selects an open slot and submits pledged cargo referencing these item keys.
+4. On success, the API returns `201 Created` with shipment details and exposes the secret verification code exclusively to the carrier.
+5. The Carrier transitions their assigned shipment to `IN_TRANSIT` upon physical departure.
+6. Authorized on-site Field Staff (scoped to that specific zone and shift) submit physical plate, verification code, and actual delivered quantities. Alternatively, a Coordinator executes central fallback delivery with mandatory justification during communication blackouts.
+7. The server commits the delivery atomically: consumes the single-use code, reconciles line-item quantities, and appends an immutable audit entry.
+8. Public dashboard metrics update deterministically, subject only to explicit edge cache TTL headers (e.g., 15 seconds).
+
+### Partial Delivery Reconciliation Example
+
+| Stage | required | reserved | delivered | openDeficit | assignedVehicles |
 |---|---:|---:|---:|---:|---:|
-| Başlangıç | 100 | 0 | 0 | 100 | 0 |
-| 100 birim randevu | 100 | 100 | 0 | 0 | 1 |
-| Yola çıkış | 100 | 100 | 0 | 0 | 1 |
-| 90 birim teslim | 100 | 0 | 90 | 10 | 1 |
+| Initial Need Creation | 100 | 0 | 0 | 100 | 0 |
+| Carrier Pledges 100 Units | 100 | 100 | 0 | 0 | 1 |
+| In-Transit Departure | 100 | 100 | 0 | 0 | 1 |
+| Actual Handover of 90 Units | 100 | 0 | 90 | 10 | 1 |
 
-Bu tabloda hiçbir birim iki kez düşülmez. Teslimat randevu kotasını açmaz. Aynı teslimat isteğinin tekrarı ikinci kez stok eklememelidir.
+*Note: No quantity is double-deducted. Completed deliveries do not recycle vehicle quota. Idempotent replay of a delivery request will never double-count stock.*
 
-## 5. Backlog → sözleşme eşleştirmesi
+---
 
-Aşağıdaki yolların tamamı `/api/v1` sunucu tabanının altındadır. YAML'de yollar ayrıca `/api/v1` ile başlamaz; taban iki kez eklenmemelidir.
+## 5. Backlog-to-Contract Traceability Mapping
 
-| Hikâye | İşlem | Başarı |
+All routes below reside under the `/api/v1` server base path. Path definitions in `openapi.yaml` do not repeat the `/api/v1` prefix.
+
+| User Story | Target Endpoint & Method | Success Status & Schema |
 |---|---|---|
-| US-01 | POST /need-requests | 201 NeedRequestReceipt |
-| US-02 | GET /dashboard/summary; GET /aid-zones; GET /aid-zones/{zoneId} | 200 |
-| US-03 | POST /aid-zones | 201 ZoneDetail |
-| US-04 | POST /aid-zones/{zoneId}/needs | 201 Need |
-| US-05 | POST /carrier-applications | 201 BookingReceipt |
-| US-06 | PATCH /shipments/{shipmentId}/status | 200 Shipment |
-| US-07 | POST /handover/verify | 200 DeliveryReceipt |
-| US-08 | POST /handover/fallback | 200 DeliveryReceipt |
-| US-09 | POST /standby-fleet | 201 Standby |
-| US-10 | GET /admin/audit-logs | 200 AuditEntryList |
+| **US-01** | `POST /need-requests` | `201 Created` (`NeedRequestReceipt`) |
+| **US-02** | `GET /dashboard/summary`<br>`GET /aid-zones`<br>`GET /aid-zones/{zoneId}` | `200 OK` (`Dashboard`)<br>`200 OK` (`ZoneList`)<br>`200 OK` (`ZoneDetail`) |
+| **US-03** | `POST /aid-zones` | `201 Created` (`ZoneDetail`) |
+| **US-04** | `POST /aid-zones/{zoneId}/needs` | `201 Created` (`Need`) |
+| **US-05** | `POST /carrier-applications` | `201 Created` (`BookingReceipt`) |
+| **US-06** | `PATCH /shipments/{shipmentId}/status` | `200 OK` (`Shipment`) |
+| **US-07** | `POST /handover/verify` | `200 OK` (`DeliveryReceipt`) |
+| **US-08** | `POST /handover/fallback` | `200 OK` (`DeliveryReceipt`) |
+| **US-09** | `POST /standby-fleet` | `201 Created` (`Standby`) |
+| **US-10** | `GET /admin/audit-logs` | `200 OK` (`AuditEntryList`) |
 
-US-04'teki `remainingQuantity` ismi, `openDeficit` ile aynı değeri taşıyan uyumluluk alanı olarak korunmuştur. İleride tek isme indirilebilir. Her iki alan istemciden alınmaz; sunucu hesaplar.
+*Compatibility Note on US-04:* The `remainingQuantity` field in schema `Need` is retained as a compatibility alias reflecting `openDeficit`. Both fields are calculated by the server and rejected if supplied by clients.
 
-### Destekleyici işlemler
+### Supporting Operations
 
-Giriş, özel başvuru listeleri/inceleme, sevkiyat listesi/detayı/kod erişimi, iptal, no-show, yönlendirme, nokta kapatma, boş araç atama ve gönüllü işlemleri ana akışı tamamlamak için taslakta yer alır. Bunlar `x-scope` ile işaretlidir; yeni kesinleşmiş kullanıcı hikâyesi gibi gösterilmez. PO bunlar için backlog maddeleri açmalıdır.
+To ensure architectural completeness, the specification defines supporting operations marked with `x-scope: Supporting contract proposal`:
+- Authentication token issuance (`POST /auth/token`) using pre-seeded classroom accounts.
+- Administrative need request triage (`POST /need-requests/{requestId}/review`).
+- Shipment query, detail, code lookup, cancellation, no-show, and emergency rerouting endpoints.
+- Zone deactivation (`POST /aid-zones/{zoneId}/deactivate`).
+- Standby fleet assignment (`POST /standby-fleet/{standbyId}/assign`).
+- Volunteer portal lifecycle (`POST /volunteer-applications`, query, and review).
 
-Yönetici hesap/rol oluşturma ve dinamik ana kategori yönetimi henüz ayrıntılı hikâyelere sahip değildir. İlk taslak enum değerleri ve önceden hazırlanmış demo hesapları kullanır. Bu yönetim ekranlarının API'leri sonraki sözleşme sürümüne bırakılmıştır; bütün vision kapsamının tamamlandığı iddia edilmez. Harita kutucukları AFLOS REST sözleşmesine kopyalanmamıştır; harita hizmeti ayrı bağımlılıktır.
+Dynamic administrative account provisioning and runtime category creation will be specified in subsequent contract iterations. Map tile services (e.g., OpenStreetMap raster/vector tiles) remain external platform dependencies and are intentionally excluded from the REST domain API.
 
-## 6. Yetki ve gizlilik yaklaşımı
+---
 
-| Kullanıcı | Erişim sınırı |
+## 6. Role-Based Access Control (RBAC) and Privacy Strategy
+
+| Role | Authorization Boundary |
 |---|---|
-| PUBLIC | Aktif noktalar, anonim göstergeler ve ihtiyaç bildirimi gönderimi |
-| REPORTER | Kendi gönüllü başvuruları; bildirimler varsayılan olarak anonim de gönderilebilir |
-| CARRIER | Kendi araçları, rezervasyonları ve kodları |
-| FIELD_STAFF | Yalnızca onaylı nokta/vardiya kapsamındaki operasyonlar; gelen sevkiyat listesi kod içermez |
-| COORDINATOR | Nokta/ihtiyaç yönetimi, özel başvuru inceleme, istisnalar ve fallback |
-| ADMIN | Audit okuma; otomatik operasyon yetkisi mirası varsayılmaz |
+| `PUBLIC` | Access to active aid zones, anonymized dashboard KPI aggregations, and public need submission. |
+| `REPORTER` | Citizen portal access; need reporting defaults to anonymous submission. |
+| `CARRIER` | Scoped strictly to carrier's registered vehicles, active bookings, and owned verification codes. |
+| `FIELD_STAFF` | Scoped strictly to assigned `zoneId` and operational shift; incoming shipment views never expose raw verification codes. |
+| `COORDINATOR` | Zone and need management, application review, exceptional rerouting, and central fallback handover. |
+| `ADMIN` | Read-only inspection of immutable governance audit logs; does not inherit operational execution permissions. |
 
-Saha yetkisi her istekte güncel görev kaydından değerlendirilir; yalnızca JWT içindeki eski zoneId yeterli sayılmaz. Üstlenilen ID'lere sahiplik kontrolü yapılır. Kamu yanıtlarında iletişim, plaka, kod veya erişim token'ı yoktur. Özel yanıtlarda `Cache-Control: no-store` tanımlıdır. Doğrulama kodu audit kayıtlarına yazılmaz.
+**Privacy and Zero-Knowledge Design:**
+- On-site field authorization is verified dynamically per request against current assignment tables; static tokens containing stale `zoneId` claims are rejected.
+- Public responses mask reporter identities, telephone numbers, driver plates, and tokens.
+- Authenticated endpoints mandate `Cache-Control: no-store` headers.
+- Secret verification codes are strictly omitted from public endpoints, field listings, and persistent audit logs.
+- Turkish Republic ID numbers (TCKN) are not collected in this baseline specification.
 
-Bunlar teknik tasarım kurallarıdır; hukuki uygunluk belgesi veya gerçek saldırı dayanıklılığı kanıtı değildir. Plaka + kod eşleştirmesi bağımsız iki faktörlü kimlik doğrulama garantisi olarak sunulmaz. Gerçek T.C. kimlik verisi bu ilk API taslağında toplanmaz; ihtiyaç ve saklama kararı ayrıca değerlendirilmelidir.
+---
 
-## 7. Açık noktalar ve açıkça işaretlenmiş taslak varsayımları
+## 7. Open Architectural Assumptions (A-01 through A-10)
 
-Bu konular incelemeyi engellemeden somut taslak üretmek için aşağıdaki şekilde ele alınmıştır. PO kararı olarak gösterilmezler.
+The following design decisions were incorporated to deliver an actionable, deterministic contract for review. They represent architectural proposals subject to PO and QA alignment:
 
-| Kimlik | Taslak tercihi | İnceleyecek kişi |
+| ID | Specification Assumption | Review Stakeholders |
 |---|---|---|
-| A-01 | `AFL-` + 6 büyük harf/rakam, örnek `AFL-7K49P2`. Kaynaklardaki `AFL-7492` ve `AFL-XXXX` altı karakter açıklamasıyla uyuşmuyor. Kod üretimi güvenli rastgelelik, aktif kapsamda çakışma kontrolü ve deneme sınırı gerektirir. | PO + Architect |
-| A-02 | Açık ihtiyaç üstü taahhüt sessizce kırpılmaz, 409 NEED_EXCEEDED ile reddedilir. Arayüz yeni miktarı gösterip kullanıcı onayı alır. Eski proposal otomatik kırpma anlatıyor. | PO |
-| A-03 | Aynı noktanın slotları çakışmaz; her slotun izin verilen araç türleri vardır. Başlangıcı geçmiş slota yeni randevu alınmaz. KG kesirli, diğer birimler tam sayıdır. | PO + Architect |
-| A-04 | Teslimatta bütün taahhüt kalemleri tam bir kez gönderilir; teslim edilmeyen kalem sıfırdır. Plan üstü teslim ilk taslakta 409 ile reddedilir; ek ürün ve fazla teslim ayrı ürün kararı gerektirir. | PO + QA |
-| A-05 | NO_SHOW yalnızca CONFIRMED sevkiyata slot bitiminden sonra uygulanır. PO'nun beş durumlu şeması IN_TRANSIT → NO_SHOW geçişi içermiyor. Yoldaki ancak gelmeyen/arızalanan araçların kapanışı açık karardır. Otomatik zamanlayıcı uygulaması bu dosyada yoktur. | PO + Architect |
-| A-06 | Reroute atomik işlemle eski kota/rezervasyonu hedefe taşır, ihtiyaç kimliklerini birebir eşler, IN_TRANSIT'i korur ve kodu yeniler. Yeni hedefi koordinatör seçer; otomatik güvenli yol bulunmaz. PO normalde yalnız iptal/no-show için kota açılmasını söylediği için bu istisnanın onayı gerekir. | PO + Architect |
-| A-07 | Gönüllü başvurusu için mevcut REPORTER/FIELD_STAFF hesabı gerekir. Onay nokta/vardiya görevlendirmesi yaratır. Demo hesabı üretimi geliştirme ortamında yapılır; public ADMIN kaydı yoktur. | PO + DevOps |
-| A-08 | İhtiyaç doğrulama mevcut noktaya bağlanır; rapor doğrulamak otomatik ihtiyaç çoğaltmaz. Koordinatör nokta ve ihtiyacı ayrı açık işlemlerle yaratır. | PO |
-| A-09 | Etki yaratan işlemler Idempotency-Key ister. Aynı çağrı tekrarı 24 saat aynı sonucu verir; farklı gövde aynı anahtar ile 409 olur. Kimlikli kullanıcıda kullanıcı/metot/yol/anahtar kapsamı; anonim bildirimde yüksek rastgelelikli anahtar ve metot/yol kapsamı kullanılır. Anahtar kişisel veri içermez. | Architect + QA |
-| A-10 | Harita pin rengi için farklı birimleri birleştiren tek yüzde tanımlanmadı. API kalem ilerlemelerini verir; renk kuralı ve eşik sınırları PO kararı sonrası eklenir. Konum sınırı backlog'daki dikdörtgendir; gerçek ülke sınırı doğrulaması değildir. | PO |
+| **A-01** | Verification codes follow the format `^AFL-[A-Z0-9]{6}$` (e.g., `AFL-7K49P2`). This resolves ambiguity between 4-character legacy strings (`AFL-7492`) and provides collision resistance. | PO + Lead Architect |
+| **A-02** | Over-pledging beyond `openDeficit` is rejected with `409 Conflict` (`NEED_EXCEEDED`) rather than silently trimmed. The client UI must display current deficit and prompt for confirmation. | PO |
+| **A-03** | Time slots within a single zone cannot overlap; each slot explicitly defines `allowedVehicleTypes`. Bookings for past intervals are rejected. Units allow decimal precision for `KG` and integers for discrete packaging (`CASE`, `PIECE`, `BOX`, `PALLET`). | PO + Lead Architect |
+| **A-04** | Delivery requests must submit all pledged items in a single atomic array; omitted items are treated as zero delivered. Surplus beyond pledged amounts is rejected with `409 Conflict` pending unrequested cargo policy. | PO + QA |
+| **A-05** | `NO_SHOW` transitions apply strictly to `CONFIRMED` shipments whose slot window has elapsed. The state machine does not support direct `IN_TRANSIT` $\rightarrow$ `NO_SHOW`. Automated timeout handling will be governed by scheduled cron jobs. | PO + Lead Architect |
+| **A-06** | Zone rerouting atomically migrates allocated quota and reservations to an alternate target zone, preserves `IN_TRANSIT` state, and regenerates verification codes. Coordinator selection is required. | PO + Lead Architect |
+| **A-07** | Field volunteer registration requires an authenticated `REPORTER` or `FIELD_STAFF` account. Administrative approval creates a scoped assignment record. Public self-registration for `ADMIN` is disallowed. | PO + DevOps |
+| **A-08** | Need report verification binds a request to an existing zone; it does not automatically duplicate need lines. Coordinators manage zone needs through explicit operations. | PO |
+| **A-09** | State-modifying operations require a mandatory `Idempotency-Key` header. Requests matching the same actor, method, path, key, and payload return cached results for 24 hours. Payload mismatches return `409 IDEMPOTENCY_CONFLICT`. | Architect + QA |
+| **A-10** | Map pin coloration thresholds (Red < 30%, Yellow 30%–80%, Green $\ge 80\%$) are evaluated at the line-item level. Bounding box coordinates validate the geographic envelope of Turkey (`lat 35.9-42.1`, `lng 25.6-44.8`). | PO |
 
-## 8. Tekrar gönderim, yarış ve audit beklentileri
+---
 
-- Son kota için iki eşzamanlı rezervasyondan en fazla biri başarıyla sonuçlanmalı; diğeri 409 SLOT_FULL almalıdır.
-- Farklı slotlarda aynı ihtiyaç için eşzamanlı rezervasyonlar da açık ihtiyacı aşmamalıdır. Yalnız slot kilitlemek yeterli değildir; ihtiyaç ve normalize araç kayıtları da tutarlı korunmalıdır.
-- Tüm atomik değişiklikler ve başarılı idempotency kaydı birlikte kalıcılaşmalıdır. Audit ve miktar güncellemesi ayrışmamalıdır.
-- İş kuralları yalnız JSON Schema ile uygulanamaz: tarih sırası, nokta/slot ilişkisi, mülkiyet, yinelenen itemId, miktar üst sınırı ve eşzamanlılık sunucuda uygulanır.
-- Append-only uygulama kaydı, veritabanı yöneticisinin değiştiremeyeceği kriptografik kayıt garantisi değildir. Gerçek değiştirilemezlik ayrıca tasarlanır.
+## 8. Concurrency, Replay Protection, and Audit Guarantees
 
-## 9. Doğrulama ve yeniden çalıştırma
+- **Slot Quota Race Protection:** When multiple carriers compete for the final vehicle slot, database row-level locking (`SELECT ... FOR UPDATE`) guarantees exactly one success (`201 Created`) while competing transactions fail with `409 Conflict` (`SLOT_FULL`).
+- **Distributed Inventory Locking:** Concurrent pledges across distinct slots targeting the same item cannot exceed total `openDeficit`.
+- **Atomic State Consistency:** All database mutations, idempotency cache entries, and audit trail records commit within a unified database transaction boundary.
+- **Application Validation Enforcement:** Business constraints (chronological timestamp order, zone ownership, non-duplicate item keys) are enforced in application service layers.
+- **Append-Only Logging:** Governance audit logs are append-only; updates and deletions are restricted at the database privilege level.
 
-[Doğrulama aracı](../../tools/validate_openapi.py) ve [bağımlılıklar](../../tools/requirements-openapi.txt) teslim paketindedir.
+---
 
-Proje kökünde, tercihen ayrı bir Python ortamında:
+## 9. Validation and Reproduction Instructions
+
+Validation scripts and dependency definitions are included directly within the delivery package:
+- Validation script: [`../../tools/validate_openapi.py`](../../tools/validate_openapi.py)
+- Dependencies: [`../../tools/requirements-openapi.txt`](../../tools/requirements-openapi.txt)
+
+To execute contract validation locally from the project root:
 
 ```bash
 python3 -m pip install -r tools/requirements-openapi.txt
 python3 tools/validate_openapi.py
 ```
 
-Araç YAML'yi, OpenAPI 3.1 yapısını, dahili referansları, örnek gövdelerini ve zaman biçimlerini, benzersiz işlem adlarını, yol parametrelerini, 401/403 yanıtlarını, on hikâyenin kapsanmasını ve kamu yanıtlarındaki özel alanları kontrol eder. Sonuç [doğrulama raporuna](./openapi-validation-report.json) yazılır.
+The script verifies YAML syntax, OpenAPI 3.1.0 structural compliance, internal `$ref` resolution, example schemas, ISO 8601 timestamps, unique operation IDs, path parameters, mandatory 401/403 responses, US-01 through US-10 requirement coverage, and privacy field masking. The verification output is recorded in [`openapi-validation-report.json`](./openapi-validation-report.json).
 
-Bu bir çalışan sunucu testi değildir. Yetki, rezervasyon yarışı, zamanlayıcı, kalıcı kayıt ve stok güncellemesi davranışları uygulama geliştirildiğinde QA ile ayrıca test edilmelidir.
+*Note: This suite represents a static contract verification. Concurrency, row locking, authorization filters, and database triggers must be verified through automated integration tests in Sprint 2 and Sprint 3.*
 
-## 10. Takıma teslim ve GitHub izlenebilirliği
+---
 
-1. `api/openapi.yaml`, bu rehber, doğrulama raporu ve `tools/` altındaki doğrulama dosyalarını kendi architect dalınıza ekleyin.
-2. Örneğin “Sprint 1: AFLOS OpenAPI draft” başlıklı issue açın; gerçek issue numarasını kullanın.
-3. Commit ve PR açıklamasında US-01..US-10 eşleştirmesini, öncelik verilen PO kararlarını ve A-01..A-10 inceleme konularını belirtin.
-4. Diğer architect, PO ve QA'dan ilgili alanları incelemelerini isteyin. Gözden geçirmeler depoda görünür olsun.
-5. İnceleme düzeltmeleri sonrası takımın dal kurallarına göre birleştirin. Sprint 1 etiketi ve teslim bağlantılarını Scrum Master/DevOps ile tamamlayın.
+## 10. Team Handoff and GitHub Traceability
 
-Yerel dosyalar oluşturulmuştur; bu çalışma GitHub'a push, PR veya release oluşturma işlemi yapmamıştır. “Closes #US-03” yerine GitHub'ın gerçek sayısal issue bağlantısını (örneğin yalnız gerçekten varsa “Closes #12”) kullanın.
+1. Add `api/openapi.yaml`, this guide, the validation report, and `tools/` validator files to your architect branch (`role/architect-mirza`).
+2. Open a GitHub Issue titled *"Sprint 1: AFLOS OpenAPI 3.1 Contract and Architecture Specification"*.
+3. In the Pull Request description, cross-reference US-01..US-10 traceability, PO alignment decisions, and assumptions A-01..A-10.
+4. Request formal peer review from the Product Owner (`@kaanklnc`), co-architect, and QA engineer to ensure cross-functional consensus.
+5. Following review approval, merge into the team integration branch in accordance with project Git-Flow conventions.
