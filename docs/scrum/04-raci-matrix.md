@@ -3,22 +3,22 @@
 **Project Title:** AFLOS — Disaster Logistics & Aid Coordination System  
 **Course:** SENG 321 (BM 321) — Software Engineering Project  
 **Sprint:** Sprint 1 — Project Foundation & Team Operating Model  
-**Role / Document Owner:** Scrum Master & Agile Process Coach — **Mustafa Çebin** (`@Noct-0`)  
+**Role / Document Owner:** Scrum Master & Agile Process Coach — **Mustafa Çebin (230201024)** (`@Noct-0`)  
 **Repository:** [https://github.com/CoskunerBerke/AFLOS](https://github.com/CoskunerBerke/AFLOS)  
 
 ---
 
 ## 1. Team Composition & Role Assignments
 
-| # | Team Member | Primary Role | GitHub Username / Handle |
-|---|---|---|---|
-| 1 | **Kaan Kılınç** | Product Owner & Requirements Engineer | `@kaanklnc` |
-| 2 | **Mustafa Çebin** | Scrum Master & Agile Process Coach | `@Noct-0` |
-| 3 | **Onur Şahin** | QA Engineer & Test Automation Engineer | `@clickOMorphism` |
-| 4 | **Hüseyin Zor** | Lead Software Architect & Technical Lead | `@role/architect-huseyin` |
-| 5 | **Berke Coşkuner** | DevOps & CI/CD Infrastructure Engineer | `@CoskunerBerke` |
-| 6 | **Mirza Akgöz** | Lead Software Architect & Technical Lead | `@agkozmirza` |
-| 7 | **Ulaş Balcı** | Implementation & Integration Engineer | `@ulasbalci0653` |
+| # | Team Member | Student Number | Primary Role | GitHub Username / Handle |
+|---|---|---|---|---|
+| 1 | **Kaan Kılınç** | 230204047 | Product Owner & Requirements Engineer | [`@kaanklnc`](https://github.com/kaanklnc) |
+| 2 | **Mustafa Çebin** | 230201024 | Scrum Master & Agile Process Coach | [`@Noct-0`](https://github.com/Noct-0) |
+| 3 | **Onur Şahin** | 230201030 | QA Engineer & Test Automation Engineer | [`@clickOMorphism`](https://github.com/clickOMorphism) |
+| 4 | **Hüseyin Zor** | 230204042 | Lead Software Architect & Technical Lead | [`@kurdoglu25`](https://github.com/kurdoglu25) |
+| 5 | **Berke Coşkuner** | 230201062 | DevOps & CI/CD Infrastructure Engineer | [`@CoskunerBerke`](https://github.com/CoskunerBerke) |
+| 6 | **Mirza Akgöz** | 230201005 | Lead Software Architect & Technical Lead | [`@akgozmirza`](https://github.com/akgozmirza) |
+| 7 | **Ulaş Balcı** | 260201301 | Implementation & Integration Engineer | [`@ulasbalci0653`](https://github.com/ulasbalci0653) |
 
 ---
 

@@ -2,16 +2,52 @@ name: AFLOS CI Pipeline
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "role/**" ]
   pull_request:
     branches: [ "main", "develop" ]
 
 jobs:
-  build:
+  validate-sprint1-deliverables:
+    name: Sprint 1 Deliverable & OpenAPI Validation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        
-      - name: System Test Check
-        run: echo "Sprint 1 CI Pipeline is running successfully! Git-Flow rules are active."
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install OpenAPI Validation Dependencies
+        run: |
+          if [ -f "tools/requirements-openapi.txt" ]; then
+            pip install -r tools/requirements-openapi.txt
+          fi
+
+      - name: Verify Sprint 1 Deliverables & Repository Structure
+        run: |
+          REQUIRED_FILES=(
+            "docs/requirements/01-project-proposal.md"
+            "docs/requirements/02-system-vision-and-boundary.md"
+            "api/openapi.yaml"
+            "docs/architecture/03-openapi-draft-guide.md"
+            "docs/scrum/04-raci-matrix.md"
+            "docs/scrum/04-meeting-minutes.md"
+            "docs/git_flow_rules.md"
+            ".github/workflows/ci.yml"
+            "docs/requirements/06-initial-product-backlog.md"
+            "CONTRIBUTIONS.md"
+            "README.md"
+          )
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Missing required Sprint 1 file: $file"
+              exit 1
+            fi
+          done
+          echo "All Sprint 1 deliverables and governance artifacts verified."
+
+      - name: Validate OpenAPI 3.1.0 Contract
+        run: |
+          python tools/validate_openapi.py
