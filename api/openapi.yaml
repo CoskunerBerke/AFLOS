@@ -1,0 +1,3032 @@
+# AFLOS Sprint 1 OpenAPI Draft — latest PO decisions take precedence.
+openapi: 3.1.0
+info:
+  title: AFLOS Disaster Logistics & Aid Coordination API
+  version: 0.1.0
+  summary: Sprint 1 reviewable API-first draft
+  description: Prepared from PO decision message (2026-11-02) and updated US-01..US-10. Latest explicit PO
+    decisions override stale prose in proposal/vision. Supporting operations and assumptions are marked for
+    team review; see docs/architecture/03-openapi-draft-guide.md. This contract describes intended behavior,
+    not an implemented server. All IDs are opaque server-issued strings. Errors use a shared envelope. Public
+    endpoints never expose report contacts or verification codes. All operations require HTTPS in deployment.
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Proposed local demo server; no running service implied.
+tags:
+- name: Authentication
+  description: Authentication operations.
+- name: Public
+  description: Public operations.
+- name: Need requests
+  description: Need requests operations.
+- name: Aid zones
+  description: Aid zones operations.
+- name: Shipments
+  description: Shipments operations.
+- name: Handover
+  description: Handover operations.
+- name: Standby fleet
+  description: Standby fleet operations.
+- name: Volunteers
+  description: Volunteers operations.
+- name: Audit
+  description: Audit operations.
+security:
+- bearerAuth: []
+paths:
+  /auth/token:
+    post:
+      operationId: createToken
+      summary: Sign in to an existing account
+      description: 'Supporting draft: seeded classroom accounts; no public role elevation. Returns short-lived
+        JWT. Invalid credentials return 401; no username existence disclosure.'
+      tags:
+      - Authentication
+      security: []
+      x-roles:
+      - PUBLIC
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInput'
+            example: &id054
+              username: demo-carrier
+              password: example-only-password
+  /need-requests:
+    post:
+      operationId: submitNeedRequest
+      summary: Submit a quarantined regional need request
+      description: 'Anonymous or proxy reporting allowed. No public report-list endpoint. Receipt omits name
+        and contact phone. Conflicts (409): IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key
+        and payload replay the original result for 24 hours without repeated effects. Different payload with
+        same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with successful writes; replay
+        rechecks current authorization.'
+      tags:
+      - Need requests
+      security: []
+      x-roles:
+      - PUBLIC
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeedRequestReceipt'
+              example: &id019
+                id: REQ-1
+                status: PENDING_VERIFICATION
+                createdAt: '2026-11-04T10:00:00+03:00'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-01
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeedRequestInput'
+            example: &id018
+              location: &id002
+                lat: 36.2
+                lng: 36.16
+              disasterType: EARTHQUAKE
+              contactPhone: '+905000000000'
+              items:
+              - category: WATER_BEVERAGE
+                itemName: Su
+                quantity: 100
+                unit: CASE
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - IDEMPOTENCY_CONFLICT
+    get:
+      operationId: listNeedRequests
+      summary: Review private need requests
+      description: Coordinator-only contact data. Never publicly cache.
+      tags:
+      - Need requests
+      security:
+      - bearerAuth: []
+      x-roles: &id001
+      - COORDINATOR
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeedRequestList'
+              example: &id056
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - PENDING_VERIFICATION
+          - VERIFIED
+          - REJECTED
+  /need-requests/{requestId}/review:
+    post:
+      operationId: reviewNeedRequest
+      summary: Verify or reject a need report
+      description: 'Verify or reject a need report Conflicts (409): INVALID_REPORT_STATE, IDEMPOTENCY_CONFLICT.
+        Idempotency-Key is mandatory; same actor/method/path/key and payload replay the original result for
+        24 hours without repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT.
+        Keys are atomically persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Need requests
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeedRequest'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewNeedRequest'
+            example: &id025
+              decision: VERIFIED
+              reason: Verified by coordinator phone call.
+              targetZoneId: Z-101
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_REPORT_STATE
+      - IDEMPOTENCY_CONFLICT
+  /dashboard/summary:
+    get:
+      operationId: getDashboard
+      summary: Read public counters and item progress
+      description: Item progress remains scoped by zoneId and itemId. No category quantity totals. Read data
+        may lag by 15 seconds; cache headers alone do not guarantee DDoS protection.
+      tags:
+      - Public
+      security: []
+      x-roles:
+      - PUBLIC
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example: &id053
+                activeZonesCount: 1
+                inTransitVehiclesCount: 0
+                deliveredShipmentsCount: 0
+                generatedAt: '2026-11-04T10:00:00+03:00'
+                itemProgress:
+                - &id003
+                  itemId: ITEM-1
+                  zoneId: Z-101
+                  category: WATER_BEVERAGE
+                  itemName: 0.5L Icme Suyu
+                  requiredQuantity: 1000
+                  unit: CASE
+                  reservedQuantity: 100
+                  deliveredQuantity: 0
+                  openDeficit: 900
+                  remainingQuantity: 900
+                  fulfillmentPercent: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: public, max-age=15
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-02
+  /aid-zones:
+    get:
+      operationId: listAidZones
+      summary: List active public aid zones
+      description: Only ACTIVE zones. category filters zones with at least one matching need. No reporter personal
+        data.
+      tags:
+      - Public
+      security: []
+      x-roles:
+      - PUBLIC
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneList'
+              example: &id055
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: public, max-age=15
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-02
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: disasterType
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/DisasterType'
+      - name: category
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/AidCategory'
+    post:
+      operationId: createAidZone
+      summary: Create an aid zone and dated time slots
+      description: 'Validate all dates and slots; create zone and slots atomically. No past or reversed intervals.
+        Conflicts (409): OVERLAPPING_ZONE_SLOTS, IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key
+        and payload replay the original result for 24 hours without repeated effects. Different payload with
+        same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with successful writes; replay
+        rechecks current authorization.'
+      tags:
+      - Aid zones
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneDetail'
+              example: &id005
+                id: Z-101
+                zoneName: Hatay Antakya Spor Salonu
+                location: *id002
+                disasterType: EARTHQUAKE
+                status: ACTIVE
+                needs:
+                - *id003
+                timeSlots:
+                - id: SLOT-1
+                  zoneId: Z-101
+                  startsAt: '2026-11-05T08:00:00+03:00'
+                  endsAt: '2026-11-05T12:00:00+03:00'
+                  maxVehicles: 5
+                  allowedVehicleTypes: &id004
+                  - TRUCK_TIR
+                  - LORRY
+                  assignedVehicles: 1
+                  availableVehicles: 4
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZoneInput'
+            example: &id030
+              zoneName: Hatay Antakya Spor Salonu
+              location: *id002
+              disasterType: EARTHQUAKE
+              timeSlots:
+              - startsAt: '2026-11-05T08:00:00+03:00'
+                endsAt: '2026-11-05T12:00:00+03:00'
+                maxVehicles: 5
+                allowedVehicleTypes: *id004
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - OVERLAPPING_ZONE_SLOTS
+      - IDEMPOTENCY_CONFLICT
+  /aid-zones/{zoneId}:
+    get:
+      operationId: getAidZone
+      summary: Read active zone, item needs and time slots
+      description: Inactive or unknown zone returns 404. Public data excludes contacts, plates and codes.
+      tags:
+      - Public
+      security: []
+      x-roles:
+      - PUBLIC
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneDetail'
+              example: *id005
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: public, max-age=15
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-02
+      parameters:
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+  /aid-zones/{zoneId}/needs:
+    post:
+      operationId: createNeed
+      summary: Add one categorized need line
+      description: 'requiredQuantity > 0; initialize reservedQuantity and deliveredQuantity to zero. remainingQuantity
+        aliases openDeficit. Conflicts (409): ZONE_INACTIVE, IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory;
+        same actor/method/path/key and payload replay the original result for 24 hours without repeated effects.
+        Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with
+        successful writes; replay rechecks current authorization.'
+      tags:
+      - Aid zones
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Need'
+              example: *id003
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-04
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NeedInput'
+            example: &id013
+              category: WATER_BEVERAGE
+              itemName: 0.5L Icme Suyu
+              requiredQuantity: 1000
+              unit: CASE
+      parameters:
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - ZONE_INACTIVE
+      - IDEMPOTENCY_CONFLICT
+  /aid-zones/{zoneId}/deactivate:
+    post:
+      operationId: deactivateZone
+      summary: Deactivate a hazardous zone
+      description: 'Blocks new reservations; does not delete records or automatically reroute vehicles. Existing
+        shipments remain visible to authorized users. Conflicts (409): IDEMPOTENCY_CONFLICT. Idempotency-Key
+        is mandatory; same actor/method/path/key and payload replay the original result for 24 hours without
+        repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically
+        persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Aid zones
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Zone'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelInput'
+            example: &id010
+              reason: Vehicle unavailable before departure.
+      parameters:
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - IDEMPOTENCY_CONFLICT
+  /carrier-applications:
+    post:
+      operationId: bookShipment
+      summary: Book a confirmed appointment directly
+      description: 'Historical path retained from backlog; this operation is an immediate booking, NOT an approval
+        application. Atomically create/reuse own vehicle, check active zone, future slot, compatible type,
+        plate overlap and every item deficit; consume one appointment and reserve every item, create CONFIRMED
+        shipment and generate code. All-or-nothing, including concurrent calls. Active overlap uses CONFIRMED/IN_TRANSIT
+        and half-open intervals. Do not accept client-supplied carrierId, status or code. Conflicts (409):
+        SLOT_FULL, VEHICLE_OVERLAPPING_BOOKING, NEED_EXCEEDED, VEHICLE_TYPE_NOT_ALLOWED, VEHICLE_OWNERSHIP_CONFLICT,
+        ZONE_INACTIVE, SLOT_CLOSED, IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key
+        and payload replay the original result for 24 hours without repeated effects. Different payload with
+        same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with successful writes; replay
+        rechecks current authorization.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles: &id009
+      - CARRIER
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingReceipt'
+              example: &id008
+                shipment: &id007
+                  id: SHP-101
+                  carrierId: USR-10
+                  vehicleId: VEH-1
+                  licensePlate: 34ABC123
+                  targetZoneId: Z-101
+                  slotId: SLOT-1
+                  status: CONFIRMED
+                  items: &id006
+                  - itemId: ITEM-1
+                    quantity: 100
+                  createdAt: '2026-11-04T10:00:00+03:00'
+                  updatedAt: '2026-11-04T10:00:00+03:00'
+                verificationCode: AFL-7K49P2
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-05
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingInput'
+            example: &id039
+              vehicle: &id012
+                licensePlate: 34 ABC 123
+                vehicleType: TRUCK_TIR
+                capacityKg: 12000
+              targetZoneId: Z-101
+              slotId: SLOT-1
+              items: *id006
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - SLOT_FULL
+      - VEHICLE_OVERLAPPING_BOOKING
+      - NEED_EXCEEDED
+      - VEHICLE_TYPE_NOT_ALLOWED
+      - VEHICLE_OWNERSHIP_CONFLICT
+      - ZONE_INACTIVE
+      - SLOT_CLOSED
+      - IDEMPOTENCY_CONFLICT
+  /shipments:
+    get:
+      operationId: listShipments
+      summary: List authorized operational shipments
+      description: Carrier sees own shipments; FIELD_STAFF only assigned zone and active shift; coordinator
+        sees all. Forbidden explicit zone scope yields 403. Verification codes never included.
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles:
+      - CARRIER
+      - COORDINATOR
+      - FIELD_STAFF
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentList'
+              example: &id057
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: zoneId
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ShipmentStatus'
+  /shipments/{shipmentId}:
+    get:
+      operationId: getShipment
+      summary: Read an authorized shipment
+      description: Enforce ownership or zone/shift assignment on every request, not only token claims. No verification
+        code.
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles:
+      - CARRIER
+      - COORDINATOR
+      - FIELD_STAFF
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+              example: *id007
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+  /shipments/{shipmentId}/verification-code:
+    get:
+      operationId: getVerificationCode
+      summary: Retrieve the current shipment handover code
+      description: 'Carrier owner or coordinator only; active shipment only (otherwise 409). Never log code
+        or cache response. Conflicts (409): INVALID_SHIPMENT_STATE.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles:
+      - CARRIER
+      - COORDINATOR
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingReceipt'
+              example: *id008
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+  /shipments/{shipmentId}/status:
+    patch:
+      operationId: departShipment
+      summary: Mark an owned confirmed shipment as in transit
+      description: 'Only CONFIRMED -> IN_TRANSIT. Other transitions rejected. Does not reserve quantities again.
+        Conflicts (409): INVALID_SHIPMENT_STATE, IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key
+        and payload replay the original result for 24 hours without repeated effects. Different payload with
+        same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with successful writes; replay
+        rechecks current authorization.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles: *id009
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+              example: *id007
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-06
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepartureInput'
+            example: &id040
+              status: IN_TRANSIT
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+      - IDEMPOTENCY_CONFLICT
+  /shipments/{shipmentId}/cancel:
+    post:
+      operationId: cancelShipment
+      summary: Cancel a confirmed appointment
+      description: 'CONFIRMED only. Carrier must own shipment and act no later than two hours before startsAt.
+        Coordinator may cancel later with reason. Release all reserved items and one appointment exactly once.
+        Conflicts (409): INVALID_SHIPMENT_STATE, CANCELLATION_WINDOW_CLOSED, IDEMPOTENCY_CONFLICT. Idempotency-Key
+        is mandatory; same actor/method/path/key and payload replay the original result for 24 hours without
+        repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically
+        persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles:
+      - CARRIER
+      - COORDINATOR
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+              example: *id007
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelInput'
+            example: *id010
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+      - CANCELLATION_WINDOW_CLOSED
+      - IDEMPOTENCY_CONFLICT
+  /shipments/{shipmentId}/no-show:
+    post:
+      operationId: markNoShow
+      summary: Record no-show after the slot has ended
+      description: 'Draft A-05: CONFIRMED only, now >= endsAt. Release reserved needs and appointment exactly
+        once; expired slots remain unbookable. IN_TRANSIT late-arrival policy requires PO decision; never silently
+        expire an en-route vehicle. Conflicts (409): INVALID_SHIPMENT_STATE, SLOT_NOT_ENDED, IDEMPOTENCY_CONFLICT.
+        Idempotency-Key is mandatory; same actor/method/path/key and payload replay the original result for
+        24 hours without repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT.
+        Keys are atomically persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+              example: *id007
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelInput'
+            example: *id010
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+      - SLOT_NOT_ENDED
+      - IDEMPOTENCY_CONFLICT
+  /shipments/{shipmentId}/reroute:
+    post:
+      operationId: rerouteShipment
+      summary: Transfer an in-transit shipment to another zone
+      description: 'Supporting A-06: IN_TRANSIT remains unchanged. Validate target slot, mapped needs, vehicle
+        compatibility and overlaps excluding this shipment. Atomically transfer reservation/appointment and
+        rotate secret code. No partial transfer. Conflicts (409): SLOT_FULL, VEHICLE_OVERLAPPING_BOOKING, NEED_EXCEEDED,
+        VEHICLE_TYPE_NOT_ALLOWED, VEHICLE_OWNERSHIP_CONFLICT, ZONE_INACTIVE, SLOT_CLOSED, IDEMPOTENCY_CONFLICT,
+        INVALID_SHIPMENT_STATE, INVALID_ITEM_MAPPING. Idempotency-Key is mandatory; same actor/method/path/key
+        and payload replay the original result for 24 hours without repeated effects. Different payload with
+        same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with successful writes; replay
+        rechecks current authorization.'
+      tags:
+      - Shipments
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingReceipt'
+              example: *id008
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RerouteInput'
+            example: &id046
+              targetZoneId: Z-202
+              slotId: SLOT-2
+              reason: Original zone deactivated.
+              itemMappings:
+              - sourceItemId: ITEM-1
+                targetItemId: ITEM-2
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - SLOT_FULL
+      - VEHICLE_OVERLAPPING_BOOKING
+      - NEED_EXCEEDED
+      - VEHICLE_TYPE_NOT_ALLOWED
+      - VEHICLE_OWNERSHIP_CONFLICT
+      - ZONE_INACTIVE
+      - SLOT_CLOSED
+      - IDEMPOTENCY_CONFLICT
+      - INVALID_SHIPMENT_STATE
+      - INVALID_ITEM_MAPPING
+  /handover/verify:
+    post:
+      operationId: verifyHandover
+      summary: Confirm field handover with plate and code
+      description: 'Only IN_TRANSIT -> DELIVERED. Require exactly all pledged item IDs once. Atomically subtract
+        each FULL pledged reservation, add actual delivered quantity, recompute openDeficit and audit actor/source.
+        Appointment remains consumed. Consume code once. Repeated request cannot increase stock twice; same
+        idempotency key replays receipt, different key after completion yields 409 ALREADY_DELIVERED. Require
+        active zone/shift assignment at the time of confirmation. Invalid plate/code returns generic 400 HANDOVER_VERIFICATION_FAILED;
+        throttle failed attempts. Conflicts (409): INVALID_SHIPMENT_STATE, ALREADY_DELIVERED, ACTUAL_QUANTITY_EXCEEDED,
+        IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key and payload replay the
+        original result for 24 hours without repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT.
+        Keys are atomically persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Handover
+      security:
+      - bearerAuth: []
+      x-roles:
+      - FIELD_STAFF
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryReceipt'
+              example: &id011
+                id: DEL-1
+                shipmentId: SHP-101
+                status: DELIVERED
+                items:
+                - itemId: ITEM-1
+                  actualDeliveredQuantity: 90
+                confirmedBy: USR-20
+                source: FIELD
+                deliveredAt: '2026-11-05T10:00:00+03:00'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-07
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoverInput'
+            example: &id041
+              shipmentId: SHP-101
+              licensePlate: 34 ABC 123
+              verificationCode: AFL-7K49P2
+              items:
+              - itemId: ITEM-1
+                actualDeliveredQuantity: 90
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+      - ALREADY_DELIVERED
+      - ACTUAL_QUANTITY_EXCEEDED
+      - IDEMPOTENCY_CONFLICT
+  /handover/fallback:
+    post:
+      operationId: confirmFallbackHandover
+      summary: Record coordinator fallback handover
+      description: 'Only IN_TRANSIT -> DELIVERED. Require exactly all pledged item IDs once. Atomically subtract
+        each FULL pledged reservation, add actual delivered quantity, recompute openDeficit and audit actor/source.
+        Appointment remains consumed. Consume code once. Repeated request cannot increase stock twice; same
+        idempotency key replays receipt, different key after completion yields 409 ALREADY_DELIVERED. Coordinator
+        must supply actual quantities and fallbackReason; source=COORDINATOR_FALLBACK. No code required. This
+        endpoint still needs Internet at the coordinator; it is not offline synchronization. Conflicts (409):
+        INVALID_SHIPMENT_STATE, ALREADY_DELIVERED, ACTUAL_QUANTITY_EXCEEDED, IDEMPOTENCY_CONFLICT. Idempotency-Key
+        is mandatory; same actor/method/path/key and payload replay the original result for 24 hours without
+        repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically
+        persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Handover
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryReceipt'
+              example: *id011
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-08
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FallbackInput'
+            example: &id042
+              shipmentId: SHP-101
+              items:
+              - itemId: ITEM-1
+                actualDeliveredQuantity: 90
+              fallbackReason: Field telecom blackout confirmed by radio.
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_SHIPMENT_STATE
+      - ALREADY_DELIVERED
+      - ACTUAL_QUANTITY_EXCEEDED
+      - IDEMPOTENCY_CONFLICT
+  /standby-fleet:
+    post:
+      operationId: registerStandby
+      summary: Register an empty vehicle in standby pool
+      description: 'Register an empty vehicle in standby pool Conflicts (409): VEHICLE_OWNERSHIP_CONFLICT,
+        VEHICLE_OVERLAPPING_BOOKING, STANDBY_OVERLAP, IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same
+        actor/method/path/key and payload replay the original result for 24 hours without repeated effects.
+        Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with
+        successful writes; replay rechecks current authorization.'
+      tags:
+      - Standby fleet
+      security:
+      - bearerAuth: []
+      x-roles: *id009
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Standby'
+              example: &id044
+                id: STB-1
+                vehicleId: VEH-1
+                carrierId: USR-10
+                currentCity: Ankara
+                availableFrom: '2026-11-05T00:00:00+03:00'
+                availableUntil: '2026-11-07T00:00:00+03:00'
+                status: STANDBY_AVAILABLE
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-09
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandbyInput'
+            example: &id043
+              vehicle: *id012
+              currentCity: Ankara
+              availableFrom: '2026-11-05T00:00:00+03:00'
+              availableUntil: '2026-11-07T00:00:00+03:00'
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - VEHICLE_OWNERSHIP_CONFLICT
+      - VEHICLE_OVERLAPPING_BOOKING
+      - STANDBY_OVERLAP
+      - IDEMPOTENCY_CONFLICT
+    get:
+      operationId: listStandby
+      summary: List authorized standby vehicles
+      description: Carrier sees own entries; coordinator sees all. No public fleet list.
+      tags:
+      - Standby fleet
+      security:
+      - bearerAuth: []
+      x-roles:
+      - CARRIER
+      - COORDINATOR
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandbyList'
+              example: &id058
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: currentCity
+        in: query
+        required: false
+        schema:
+          type: string
+  /standby-fleet/{standbyId}/assign:
+    post:
+      operationId: assignStandby
+      summary: Dispatch a standby vehicle with cargo
+      description: 'Create CONFIRMED shipment owned by the standby vehicle carrier, mark standby ASSIGNED and
+        reserve atomically. Same accounting rules as direct booking. Code retrievable by carrier owner. Conflicts
+        (409): SLOT_FULL, VEHICLE_OVERLAPPING_BOOKING, NEED_EXCEEDED, VEHICLE_TYPE_NOT_ALLOWED, VEHICLE_OWNERSHIP_CONFLICT,
+        ZONE_INACTIVE, SLOT_CLOSED, IDEMPOTENCY_CONFLICT, STANDBY_UNAVAILABLE. Idempotency-Key is mandatory;
+        same actor/method/path/key and payload replay the original result for 24 hours without repeated effects.
+        Different payload with same key yields 409 IDEMPOTENCY_CONFLICT. Keys are atomically persisted with
+        successful writes; replay rechecks current authorization.'
+      tags:
+      - Standby fleet
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingReceipt'
+              example: *id008
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandbyAssignment'
+            example: &id045
+              targetZoneId: Z-101
+              slotId: SLOT-1
+              items: *id006
+              pickupAddress: Demo loading point, Ankara
+      parameters:
+      - name: standbyId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - SLOT_FULL
+      - VEHICLE_OVERLAPPING_BOOKING
+      - NEED_EXCEEDED
+      - VEHICLE_TYPE_NOT_ALLOWED
+      - VEHICLE_OWNERSHIP_CONFLICT
+      - ZONE_INACTIVE
+      - SLOT_CLOSED
+      - IDEMPOTENCY_CONFLICT
+      - STANDBY_UNAVAILABLE
+  /volunteer-applications:
+    post:
+      operationId: applyVolunteer
+      summary: Apply for a zone-specific field shift
+      description: 'Apply for a zone-specific field shift Conflicts (409): ZONE_INACTIVE, DUPLICATE_APPLICATION,
+        IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key and payload replay the
+        original result for 24 hours without repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT.
+        Keys are atomically persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Volunteers
+      security:
+      - bearerAuth: []
+      x-roles:
+      - REPORTER
+      - FIELD_STAFF
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolunteerApplication'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolunteerInput'
+            example: &id047
+              zoneId: Z-101
+              shiftStartsAt: '2026-11-05T08:00:00+03:00'
+              shiftEndsAt: '2026-11-05T16:00:00+03:00'
+              contactPhone: '+905000000000'
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - ZONE_INACTIVE
+      - DUPLICATE_APPLICATION
+      - IDEMPOTENCY_CONFLICT
+    get:
+      operationId: listVolunteerApplications
+      summary: List volunteer applications
+      description: Reporter/field staff sees own; coordinator sees all.
+      tags:
+      - Volunteers
+      security:
+      - bearerAuth: []
+      x-roles:
+      - REPORTER
+      - FIELD_STAFF
+      - COORDINATOR
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolunteerApplicationList'
+              example: &id059
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+  /volunteer-applications/{applicationId}/review:
+    post:
+      operationId: reviewVolunteer
+      summary: Approve or reject a field application
+      description: 'Approval creates user-zone-shift assignment; effective FIELD_STAFF privilege is scoped
+        and expires at shift end. Do not accept client role assignment. Draft A-07. Conflicts (409): INVALID_APPLICATION_STATE,
+        IDEMPOTENCY_CONFLICT. Idempotency-Key is mandatory; same actor/method/path/key and payload replay the
+        original result for 24 hours without repeated effects. Different payload with same key yields 409 IDEMPOTENCY_CONFLICT.
+        Keys are atomically persisted with successful writes; replay rechecks current authorization.'
+      tags:
+      - Volunteers
+      security:
+      - bearerAuth: []
+      x-roles: *id001
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolunteerApplication'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-scope: Supporting contract proposal; see review notes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolunteerDecision'
+            example: &id052
+              decision: APPROVED
+              reason: Availability confirmed.
+      parameters:
+      - name: applicationId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - $ref: '#/components/parameters/IdempotencyKey'
+      x-conflict-codes:
+      - INVALID_APPLICATION_STATE
+      - IDEMPOTENCY_CONFLICT
+  /admin/audit-logs:
+    get:
+      operationId: listAuditLogs
+      summary: Read the append-only application audit trail
+      description: Chronological timestamp,id ordering; from <= to. No update/delete API. Mask secret values;
+        operational fallback reasons may be included subject to authorized access.
+      tags:
+      - Audit
+      security:
+      - bearerAuth: []
+      x-roles:
+      - ADMIN
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditEntryList'
+              example: &id060
+                items: []
+                page: 1
+                pageSize: 20
+                total: 0
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: no-store
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-user-stories:
+      - US-10
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: action
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 100
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Signature, expiry and account status validated by server; x-roles describes application
+        authorization, not OAuth scopes. Object ownership and live zone/shift grants checked independently.
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: 'Draft A-09: unique operation key, scoped by caller (or anonymous session), HTTP method
+        and path. Persist atomic successful result 24h. Same key/different payload ->409. Never put personal
+        data into the key. Anonymous reporting uses a server-issued session cookie for scope.'
+      schema:
+        type: string
+        minLength: 16
+        maxLength: 128
+        pattern: ^[A-Za-z0-9_-]+$
+      example: aflos-demo-operation-0001
+  schemas:
+    DisasterType:
+      type: string
+      enum:
+      - EARTHQUAKE
+      - FLOOD
+      - WILDFIRE
+      - CONFLICT_HUMANITARIAN
+      - LANDSLIDE_AVALANCHE
+    AidCategory:
+      type: string
+      enum:
+      - WATER_BEVERAGE
+      - FOOD_NUTRITION
+      - SHELTER_WARMING
+      - CLOTHING
+      - MEDICAL_FIRST_AID
+      - HYGIENE
+      - EQUIPMENT_TOOLS
+    Unit:
+      type: string
+      enum:
+      - CASE
+      - PIECE
+      - BOX
+      - PALLET
+      - KG
+    VehicleType:
+      type: string
+      enum:
+      - TRUCK_TIR
+      - LORRY
+      - VAN
+      - CAR
+    ShipmentStatus:
+      type: string
+      enum:
+      - CONFIRMED
+      - IN_TRANSIT
+      - DELIVERED
+      - CANCELLED
+      - NO_SHOW
+    Role:
+      type: string
+      enum:
+      - REPORTER
+      - CARRIER
+      - FIELD_STAFF
+      - COORDINATOR
+      - ADMIN
+    VerificationCode:
+      type: string
+      pattern: ^AFL-[A-Z0-9]{6}$
+      description: 'Draft assumption A-01: AFL- prefix plus six uppercase alphanumeric characters. Secret,
+        shipment-bound, single-use; never include in public, field listing or audit responses. Not an independent
+        authentication factor.'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 1
+        message:
+          type: string
+          minLength: 1
+        requestId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        details:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              field:
+                type: string
+                minLength: 1
+                maxLength: 500
+              message:
+                type: string
+                minLength: 1
+                maxLength: 500
+            required:
+            - field
+            - message
+      required:
+      - code
+      - message
+      - requestId
+    Location:
+      type: object
+      additionalProperties: false
+      properties:
+        lat:
+          type: number
+          minimum: 35.9
+          maximum: 42.1
+        lng:
+          type: number
+          minimum: 25.6
+          maximum: 44.8
+      required:
+      - lat
+      - lng
+      description: MVP bounding rectangle from US-01; not a legal or exact national border polygon.
+    NeedInput:
+      type: object
+      additionalProperties: false
+      properties:
+        category: &id014
+          $ref: '#/components/schemas/AidCategory'
+        itemName: &id015
+          type: string
+          minLength: 1
+          maxLength: 120
+        requiredQuantity: &id016
+          type: number
+          exclusiveMinimum: 0
+          description: Positive finite quantity. KG may be fractional; all other MVP units require whole numbers
+            (server validation).
+        unit: &id017
+          $ref: '#/components/schemas/Unit'
+      required:
+      - category
+      - itemName
+      - requiredQuantity
+      - unit
+      examples:
+      - *id013
+    Need:
+      type: object
+      additionalProperties: false
+      properties:
+        itemId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        zoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        category: *id014
+        itemName: *id015
+        requiredQuantity: *id016
+        unit: *id017
+        reservedQuantity:
+          type: number
+          minimum: 0
+        deliveredQuantity:
+          type: number
+          minimum: 0
+        openDeficit:
+          type: number
+          minimum: 0
+        remainingQuantity:
+          type: number
+          minimum: 0
+          description: Compatibility alias of openDeficit; retained for US-04. Never requiredQuantity minus
+            delivered alone.
+        fulfillmentPercent:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: min(100,100*deliveredQuantity/requiredQuantity); never sum different items or units.
+      required:
+      - itemId
+      - zoneId
+      - category
+      - itemName
+      - requiredQuantity
+      - unit
+      - reservedQuantity
+      - deliveredQuantity
+      - openDeficit
+      - remainingQuantity
+      - fulfillmentPercent
+      examples:
+      - *id003
+    ReportItem:
+      type: object
+      additionalProperties: false
+      properties:
+        category:
+          $ref: '#/components/schemas/AidCategory'
+        itemName:
+          type: string
+          minLength: 1
+          maxLength: 120
+        quantity:
+          type: number
+          exclusiveMinimum: 0
+          description: Positive finite quantity. KG may be fractional; all other MVP units require whole numbers
+            (server validation).
+        unit:
+          $ref: '#/components/schemas/Unit'
+      required:
+      - category
+      - itemName
+      - quantity
+      - unit
+    NeedRequestInput:
+      type: object
+      additionalProperties: false
+      properties:
+        location: &id020
+          $ref: '#/components/schemas/Location'
+        disasterType: &id021
+          $ref: '#/components/schemas/DisasterType'
+        contactName: &id022
+          type: string
+          minLength: 1
+          maxLength: 100
+        contactPhone: &id023
+          type: string
+          pattern: ^\+[1-9][0-9]{7,14}$
+          description: International phone format; collected only for coordinator verification.
+        items: &id024
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportItem'
+          minItems: 1
+          maxItems: 50
+      required:
+      - location
+      - disasterType
+      - contactPhone
+      - items
+      examples:
+      - *id018
+    NeedRequestReceipt:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        status:
+          type: string
+          enum:
+          - PENDING_VERIFICATION
+        createdAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+      required:
+      - id
+      - status
+      - createdAt
+      examples:
+      - *id019
+    NeedRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        status:
+          type: string
+          enum:
+          - PENDING_VERIFICATION
+          - VERIFIED
+          - REJECTED
+        createdAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        location: *id020
+        disasterType: *id021
+        contactName: *id022
+        contactPhone: *id023
+        items: *id024
+      required:
+      - id
+      - status
+      - createdAt
+      - location
+      - disasterType
+      - contactPhone
+      - items
+    ReviewNeedRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        decision:
+          type: string
+          enum:
+          - VERIFIED
+          - REJECTED
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 500
+        targetZoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+      - decision
+      - reason
+      description: 'Draft A-08: VERIFIED links to an existing zone; targetZoneId then mandatory. Verification
+        alone does not publish the report or copy needs; use explicit zone/need creation. REJECTED cannot set
+        targetZoneId.'
+      examples:
+      - *id025
+    SlotInput:
+      type: object
+      additionalProperties: false
+      properties:
+        startsAt: &id026
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        endsAt: &id027
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        maxVehicles: &id028
+          type: integer
+          minimum: 1
+        allowedVehicleTypes: &id029
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleType'
+          minItems: 1
+          uniqueItems: true
+      required:
+      - startsAt
+      - endsAt
+      - maxVehicles
+      - allowedVehicleTypes
+      description: startsAt < endsAt; future slot, half-open interval [start,end). No overlapping slots within
+        one zone in draft A-03.
+    Slot:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        zoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        startsAt: *id026
+        endsAt: *id027
+        maxVehicles: *id028
+        allowedVehicleTypes: *id029
+        assignedVehicles:
+          type: integer
+          minimum: 0
+          description: Counts CONFIRMED, IN_TRANSIT and DELIVERED appointments. Delivery does not release this
+            count.
+        availableVehicles:
+          type: integer
+          minimum: 0
+          description: maxVehicles-assignedVehicles. Availability is advisory until atomic booking commits.
+      required:
+      - id
+      - zoneId
+      - startsAt
+      - endsAt
+      - maxVehicles
+      - allowedVehicleTypes
+      - assignedVehicles
+      - availableVehicles
+    ZoneInput:
+      type: object
+      additionalProperties: false
+      properties:
+        zoneName:
+          type: string
+          minLength: 1
+          maxLength: 150
+        location:
+          $ref: '#/components/schemas/Location'
+        disasterType:
+          $ref: '#/components/schemas/DisasterType'
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotInput'
+          minItems: 1
+          maxItems: 30
+      required:
+      - zoneName
+      - location
+      - disasterType
+      - timeSlots
+      examples:
+      - *id030
+    Zone:
+      type: object
+      additionalProperties: false
+      properties:
+        id: &id031
+          type: string
+          minLength: 1
+          maxLength: 100
+        zoneName: &id032
+          type: string
+        location: &id033
+          $ref: '#/components/schemas/Location'
+        disasterType: &id034
+          $ref: '#/components/schemas/DisasterType'
+        status: &id035
+          type: string
+          enum:
+          - ACTIVE
+          - DEACTIVATED
+      required:
+      - id
+      - zoneName
+      - location
+      - disasterType
+      - status
+    ZoneDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id031
+        zoneName: *id032
+        location: *id033
+        disasterType: *id034
+        status: *id035
+        needs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Need'
+        timeSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slot'
+      required:
+      - id
+      - zoneName
+      - location
+      - disasterType
+      - status
+      - needs
+      - timeSlots
+      examples:
+      - *id005
+    VehicleInput:
+      type: object
+      additionalProperties: false
+      properties:
+        licensePlate: &id036
+          type: string
+          minLength: 5
+          maxLength: 15
+          description: Server normalizes ASCII spaces and case before uniqueness/overlap checks; e.g. 34 ABC
+            123 -> 34ABC123. Existing plate belongs to one carrier; conflicting owner yields 409.
+        vehicleType: &id037
+          $ref: '#/components/schemas/VehicleType'
+        capacityKg: &id038
+          type: number
+          exclusiveMinimum: 0
+          description: Positive finite quantity. KG may be fractional; all other MVP units require whole numbers
+            (server validation).
+      required:
+      - licensePlate
+      - vehicleType
+      - capacityKg
+    Vehicle:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        carrierId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        licensePlate: *id036
+        vehicleType: *id037
+        capacityKg: *id038
+      required:
+      - id
+      - carrierId
+      - licensePlate
+      - vehicleType
+      - capacityKg
+    PledgeItem:
+      type: object
+      additionalProperties: false
+      properties:
+        itemId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        quantity:
+          type: number
+          exclusiveMinimum: 0
+          description: Positive finite quantity. KG may be fractional; all other MVP units require whole numbers
+            (server validation).
+      required:
+      - itemId
+      - quantity
+      description: itemId references a Need in targetZoneId. Units come from that Need; do not match by free
+        text.
+    BookingInput:
+      type: object
+      additionalProperties: false
+      properties:
+        vehicle:
+          $ref: '#/components/schemas/VehicleInput'
+        targetZoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        slotId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PledgeItem'
+          minItems: 1
+          maxItems: 50
+      required:
+      - vehicle
+      - targetZoneId
+      - slotId
+      - items
+      description: Upsert own vehicle by normalized plate and reserve atomically. Duplicate itemId invalid.
+        Slot must belong to targetZoneId. Each pledge <= current openDeficit. No silent truncation; return
+        409 NEED_EXCEEDED (A-02). capacityKg is metadata, not an automatic weight conversion for mixed units.
+      examples:
+      - *id039
+    Shipment:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        carrierId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        vehicleId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        licensePlate:
+          type: string
+        targetZoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        slotId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        status:
+          $ref: '#/components/schemas/ShipmentStatus'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PledgeItem'
+          minItems: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        updatedAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+      required:
+      - id
+      - carrierId
+      - vehicleId
+      - licensePlate
+      - targetZoneId
+      - slotId
+      - status
+      - items
+      - createdAt
+      - updatedAt
+      examples:
+      - *id007
+    BookingReceipt:
+      type: object
+      additionalProperties: false
+      properties:
+        shipment:
+          $ref: '#/components/schemas/Shipment'
+        verificationCode:
+          $ref: '#/components/schemas/VerificationCode'
+      required:
+      - shipment
+      - verificationCode
+      examples:
+      - *id008
+    DepartureInput:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - IN_TRANSIT
+      required:
+      - status
+      examples:
+      - *id040
+    DeliveryItem:
+      type: object
+      additionalProperties: false
+      properties:
+        itemId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        actualDeliveredQuantity:
+          type: number
+          minimum: 0
+      required:
+      - itemId
+      - actualDeliveredQuantity
+      description: Every pledged item exactly once, including zero deliveries. No new items. Draft A-04 rejects
+        actual > pledged; do not silently accept overdelivery.
+    HandoverInput:
+      type: object
+      additionalProperties: false
+      properties:
+        shipmentId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        licensePlate:
+          type: string
+          minLength: 5
+          maxLength: 15
+        verificationCode:
+          $ref: '#/components/schemas/VerificationCode'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryItem'
+          minItems: 1
+          maxItems: 50
+      required:
+      - shipmentId
+      - licensePlate
+      - verificationCode
+      - items
+      examples:
+      - *id041
+    FallbackInput:
+      type: object
+      additionalProperties: false
+      properties:
+        shipmentId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryItem'
+          minItems: 1
+          maxItems: 50
+        fallbackReason:
+          type: string
+          minLength: 10
+          maxLength: 1000
+      required:
+      - shipmentId
+      - items
+      - fallbackReason
+      examples:
+      - *id042
+    DeliveryReceipt:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        shipmentId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        status:
+          type: string
+          enum:
+          - DELIVERED
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryItem'
+          minItems: 1
+        confirmedBy:
+          type: string
+          minLength: 1
+          maxLength: 100
+        source:
+          type: string
+          enum:
+          - FIELD
+          - COORDINATOR_FALLBACK
+        deliveredAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+      required:
+      - id
+      - shipmentId
+      - status
+      - items
+      - confirmedBy
+      - source
+      - deliveredAt
+      examples:
+      - *id011
+    StandbyInput:
+      type: object
+      additionalProperties: false
+      properties:
+        vehicle:
+          $ref: '#/components/schemas/VehicleInput'
+        currentCity:
+          type: string
+          minLength: 1
+          maxLength: 100
+        availableFrom:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        availableUntil:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+      required:
+      - vehicle
+      - currentCity
+      - availableFrom
+      - availableUntil
+      description: availableFrom < availableUntil. Existing own vehicle reused; conflicting owner or overlapping
+        standby/booking yields 409.
+      examples:
+      - *id043
+    Standby:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        vehicleId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        carrierId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        currentCity:
+          type: string
+        availableFrom:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        availableUntil:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        status:
+          type: string
+          enum:
+          - STANDBY_AVAILABLE
+          - ASSIGNED
+      required:
+      - id
+      - vehicleId
+      - carrierId
+      - currentCity
+      - availableFrom
+      - availableUntil
+      - status
+      examples:
+      - *id044
+    StandbyAssignment:
+      type: object
+      additionalProperties: false
+      properties:
+        targetZoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        slotId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PledgeItem'
+          minItems: 1
+          maxItems: 50
+        pickupAddress:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - targetZoneId
+      - slotId
+      - items
+      - pickupAddress
+      description: Coordinator supplies real cargo/pickup information; no warehouse stock inferred. Slot must
+        fit availability. Same atomic quota/need/overlap rules as carrier booking.
+      examples:
+      - *id045
+    CancelInput:
+      type: object
+      additionalProperties: false
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - reason
+      examples:
+      - *id010
+    RerouteInput:
+      type: object
+      additionalProperties: false
+      properties:
+        targetZoneId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        slotId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 500
+        itemMappings:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              sourceItemId:
+                type: string
+                minLength: 1
+                maxLength: 100
+              targetItemId:
+                type: string
+                minLength: 1
+                maxLength: 100
+            required:
+            - sourceItemId
+            - targetItemId
+          minItems: 1
+          maxItems: 50
+      required:
+      - targetZoneId
+      - slotId
+      - reason
+      - itemMappings
+      description: IN_TRANSIT only. Exactly one mapping per pledged item. Target must have matching item semantics
+        AND unit, enough deficit and compatible capacity. Reject same destination and duplicate mappings. One
+        transaction transfers old reservations and appointment to new slot, preserves quantities/status, rotates
+        verification code. No automatic nearest-safe-route guarantee. A-06 requires PO review.
+      examples:
+      - *id046
+    VolunteerInput:
+      type: object
+      additionalProperties: false
+      properties:
+        zoneId: &id048
+          type: string
+          minLength: 1
+          maxLength: 100
+        shiftStartsAt: &id049
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        shiftEndsAt: &id050
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        contactPhone: &id051
+          type: string
+          pattern: ^\+[1-9][0-9]{7,14}$
+      required:
+      - zoneId
+      - shiftStartsAt
+      - shiftEndsAt
+      - contactPhone
+      description: Authenticated REPORTER or FIELD_STAFF applies for own account. Start < end; server validates
+        active zone and future shift.
+      examples:
+      - *id047
+    VolunteerApplication:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        userId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        zoneId: *id048
+        shiftStartsAt: *id049
+        shiftEndsAt: *id050
+        contactPhone: *id051
+        status:
+          type: string
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+      required:
+      - id
+      - userId
+      - zoneId
+      - shiftStartsAt
+      - shiftEndsAt
+      - contactPhone
+      - status
+    VolunteerDecision:
+      type: object
+      additionalProperties: false
+      properties:
+        decision:
+          type: string
+          enum:
+          - APPROVED
+          - REJECTED
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - decision
+      - reason
+      examples:
+      - *id052
+    AuditEntry:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        actorId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        actorRole:
+          $ref: '#/components/schemas/Role'
+        entityId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        action:
+          type: string
+        before:
+          type: object
+          additionalProperties: true
+        after:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        ipAddress:
+          type: string
+      required:
+      - id
+      - actorId
+      - actorRole
+      - entityId
+      - action
+      - before
+      - after
+      - timestamp
+      - ipAddress
+      description: Append-only via application; no update/delete API. Redact credentials, verification codes
+        and private report contacts. This does not by itself guarantee storage-level immutability.
+    Dashboard:
+      type: object
+      additionalProperties: false
+      properties:
+        activeZonesCount:
+          type: integer
+          minimum: 0
+        inTransitVehiclesCount:
+          type: integer
+          minimum: 0
+          description: Distinct vehicle IDs with IN_TRANSIT shipments.
+        deliveredShipmentsCount:
+          type: integer
+          minimum: 0
+        generatedAt:
+          type: string
+          format: date-time
+          description: RFC 3339 date-time including Z or explicit UTC offset. Compare instants after timezone
+            normalization.
+        itemProgress:
+          type: array
+          items:
+            $ref: '#/components/schemas/Need'
+      required:
+      - activeZonesCount
+      - inTransitVehiclesCount
+      - deliveredShipmentsCount
+      - generatedAt
+      - itemProgress
+      description: Per-zone/item progress only, no national sum by free-text name or incompatible units. Public
+        response excludes reporter identity, plates, contacts and codes.
+      examples:
+      - *id053
+    LoginInput:
+      type: object
+      additionalProperties: false
+      properties:
+        username:
+          type: string
+          minLength: 1
+          maxLength: 100
+        password:
+          type: string
+          minLength: 1
+          maxLength: 200
+          writeOnly: true
+      required:
+      - username
+      - password
+      examples:
+      - *id054
+    Token:
+      type: object
+      additionalProperties: false
+      properties:
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+          enum:
+          - Bearer
+        expiresIn:
+          type: integer
+          minimum: 1
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+      - accessToken
+      - tokenType
+      - expiresIn
+      - role
+    ZoneList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Zone'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id055
+    NeedRequestList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NeedRequest'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id056
+    ShipmentList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id057
+    StandbyList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Standby'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id058
+    VolunteerApplicationList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolunteerApplication'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id059
+    AuditEntryList:
+      type: object
+      additionalProperties: false
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEntry'
+        page:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      - page
+      - pageSize
+      - total
+      examples:
+      - *id060
+  responses:
+    BadRequest:
+      description: One or more fields are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: VALIDATION_ERROR
+            message: One or more fields are invalid.
+            requestId: req-example-001
+    Unauthorized:
+      description: Missing, invalid or expired bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: UNAUTHENTICATED
+            message: Missing, invalid or expired bearer token.
+            requestId: req-example-001
+      headers:
+        WWW-Authenticate:
+          schema:
+            type: string
+          example: Bearer
+    Forbidden:
+      description: Role, ownership or zone/shift scope does not allow this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: FORBIDDEN
+            message: Role, ownership or zone/shift scope does not allow this action.
+            requestId: req-example-001
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: NOT_FOUND
+            message: The requested resource was not found.
+            requestId: req-example-001
+    Conflict:
+      description: No appointment capacity remains in this slot.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: SLOT_FULL
+            message: No appointment capacity remains in this slot.
+            requestId: req-example-001
+    TooManyRequests:
+      description: Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: RATE_LIMITED
+            message: Retry after the indicated delay.
+            requestId: req-example-001
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+            minimum: 1
+          example: 60
