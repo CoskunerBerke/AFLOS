@@ -1,0 +1,34 @@
+{
+  "result": "PASS",
+  "openapi": "3.1.0",
+  "paths": 23,
+  "operations": 27,
+  "schemas": 50,
+  "resolvedInternalReferences": 251,
+  "validatedExamples": 102,
+  "coveredUserStories": [
+    "US-01",
+    "US-02",
+    "US-03",
+    "US-04",
+    "US-05",
+    "US-06",
+    "US-07",
+    "US-08",
+    "US-09",
+    "US-10"
+  ],
+  "checks": [
+    "YAML parse",
+    "OpenAPI 3.1 structure",
+    "internal references",
+    "JSON Schema examples with date-time formats",
+    "unique operation IDs",
+    "path parameters",
+    "protected 401/403 responses",
+    "US-01..US-10 coverage",
+    "five shipment states",
+    "public response privacy fields"
+  ],
+  "limitation": "Static contract checks only. No backend, database, concurrency, authorization or runtime behavior was tested."
+}
