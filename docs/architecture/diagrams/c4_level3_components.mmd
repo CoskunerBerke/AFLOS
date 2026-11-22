@@ -1,44 +1,26 @@
 flowchart TB
-    HTTP["NGINX / Browser<br/>(Calls REST API)"]
-
-    subgraph Backend["Backend REST API — proposed logical components"]
-        Router["HTTP Controller / API Adapter<br/>OpenAPI route & payload validation"]
-        Auth["Authentication & Authorization<br/>JWT / ownership / active zone-shift RBAC"]
-        Need["Need Request & Zone Management<br/>verification, zones, slots"]
-        Dispatch["Dispatch / Booking Engine<br/>capacity, plate overlap, standby, reroute"]
-        Inventory["Inventory & Quota Service<br/>required, reserved, delivered, open deficit"]
-        Handover["Handover Verification<br/>plate + single-use code + actual quantities"]
-        State["Shipment Lifecycle Service<br/>CONFIRMED / IN_TRANSIT / DELIVERED / CANCELLED / NO_SHOW"]
-        Read["Public Dashboard / Read Model<br/>anonymous zones and KPIs"]
-        Audit["Audit & Idempotency Service<br/>append-only events; replay keys"]
-        Txn["Transactional Persistence Layer<br/>atomic commits / row locks"]
-    end
-    DB[("PostgreSQL<br/>SQL data store")]
-
-    HTTP -->|"HTTPS JSON /api/v1"| Router
-    Router --> Auth
-    Router --> Need
-    Router --> Dispatch
-    Router --> Handover
-    Router --> State
-    Router --> Read
-    Router --> Audit
-    Need --> Inventory
-    Dispatch --> Inventory
-    Dispatch --> State
-    Handover --> Inventory
-    Handover --> State
-    Need --> Txn
-    Dispatch --> Txn
-    Inventory --> Txn
-    Handover --> Txn
-    State --> Txn
-    Read --> Txn
-    Auth --> Txn
-    Audit --> Txn
-    Txn -->|"SQL transaction / row locks"| DB
-
-    classDef component fill:#1168bd,color:#fff,stroke:#084b8a
-    classDef database fill:#34774e,color:#fff,stroke:#215c35
-    class Router,Auth,Need,Dispatch,Inventory,Handover,State,Read,Audit,Txn component
-    class DB database
+  Client["Browser / Reverse Proxy"] -->|HTTPS JSON| Router["API Adapter (Component)"]
+  Router --> Auth["RBAC / Ownership (Component)"]
+  Router --> Needs["Need / Zone Management (Component)"]
+  Router --> Booking["Booking / Dispatch (Component)"]
+  Router --> Handover["Handover Verification (Component)"]
+  Router --> Audit["Audit + Idempotency (Component)"]
+  Booking --> Quota["Need Quota Accounting (Component)"]
+  Handover --> Lifecycle["Shipment Lifecycle (Component)"]
+  Booking --> Persist["Transactional Persistence (Component)"]
+  Handover --> Persist
+  Persist -->|SQL| DB["PostgreSQL (External container)"]
+  Needs -.-> Triage["Priority / Duplicate Triage (SRS goal)"]
+  Needs -.-> SMS["SMS Adapter (SRS goal)"]
+  Booking -.-> Routing["Routing / Telemetry (SRS goal)"]
+  Quota -.-> Warehouse["Warehouse Physical Stock (SRS goal)"]
+  Handover -.-> QR["Offline QR Verification (SRS goal)"]
+  Router -.-> Sync["Offline Replay API (SRS goal)"]
+  classDef baseline fill:#1168bd,color:#fff,stroke:#084b8a
+  classDef data fill:#34774e,color:#fff,stroke:#205632
+  classDef external fill:#777,color:#fff,stroke:#555
+  classDef proposal fill:#fff1cf,color:#493f28,stroke:#b78e24,stroke-dasharray:5 4
+  class Router,Auth,Needs,Booking,Handover,Audit,Quota,Lifecycle baseline
+  class Persist,DB data
+  class Client external
+  class Triage,SMS,Routing,Warehouse,QR,Sync proposal

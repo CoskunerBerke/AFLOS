@@ -1,32 +1,40 @@
 digraph G {
-  graph [bgcolor="white", pad="0.28", nodesep="0.34", ranksep="0.9", fontname="Arial", fontsize=19, fontcolor="#172d44", splines=polyline, outputorder=edgesfirst];
-  node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.3, fontname="Arial", fontsize=12, fontcolor="white", margin="0.22,0.16"];
-  edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#44586a", arrowsize=0.67, penwidth=1.25];
-
-  graph [rankdir=TB, label="AFLOS | Level 3 - Backend REST API Components", labelloc=t, nodesep="0.3", ranksep="0.65"];
-  client [label="NGINX / Web frontend\n[External to API container]", fillcolor="#767d87"];
-  subgraph cluster_api {
-    label="Backend REST API - Proposed logical components"; style="rounded"; color="#7498b7"; penwidth=1.5; bgcolor="#f7faff";
-    router [label="API Controller / Adapter\nRoutes & payload validation", fillcolor="#1168bd"];
-    auth [label="Authentication / RBAC\nJWT, ownership, zone-shift", fillcolor="#1168bd"];
-    zone [label="Need & Zone Management\nReports, zones, time slots", fillcolor="#1168bd"];
-    booking [label="Dispatch / Booking Engine\nSlot quota & plate overlap", fillcolor="#1168bd"];
-    handover [label="Handover Verification\nPlate + one-time code", fillcolor="#1168bd"];
-    lifecycle [label="Shipment Lifecycle\nFive valid shipment states", fillcolor="#1168bd"];
-    read [label="Public Dashboard\nSanitized KPIs / zones", fillcolor="#1168bd"];
-    audit [label="Audit & Idempotency\nAppend-only / replay safe", fillcolor="#1168bd"];
-    inventory [label="Inventory / Quota Service\nRequired, reserved, delivered", fillcolor="#1168bd"];
-    persistence [label="Transactional Persistence\nAtomic writes / row locks", fillcolor="#34774e"];
-    {rank=same; auth; zone; booking; handover; lifecycle; read; audit}
-    {rank=same; inventory; persistence}
-    router -> auth; router -> zone; router -> booking; router -> handover; router -> lifecycle; router -> read; router -> audit;
-    zone -> inventory; booking -> inventory; handover -> inventory;
-    booking -> lifecycle [style=dashed, label="Create CONFIRMED", constraint=false];
-    handover -> lifecycle [style=dashed, label="Set DELIVERED", constraint=false];
-    auth -> persistence; zone -> persistence; booking -> persistence; handover -> persistence;
-    lifecycle -> persistence; read -> persistence; audit -> persistence; inventory -> persistence;
-  }
-  db [shape=cylinder, style=filled, label="PostgreSQL\n[Database container]", fillcolor="#34774e"];
-  client -> router [label="HTTPS JSON /api/v1"];
-  persistence -> db [label="SQL / ACID"];
+graph [bgcolor="white", pad="0.22", nodesep="0.37", ranksep="0.88", fontname="Arial", fontsize=20, fontcolor="#132638", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.2, fontname="Arial", fontsize=11, fontcolor="white", margin="0.22,0.16"];
+edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#344b61", arrowsize=0.65, penwidth=1.12];
+graph [rankdir=TB, nodesep="0.26", ranksep="0.63", label="AFLOS | C4 Level 3 - Backend API (blue: baseline / yellow dashed: SRS goal)", labelloc=t];
+client [label="Web / Reverse Proxy\n[External to API]", fillcolor="#767d87"];
+subgraph cluster_api { label="Backend API application: logical components (not separate deployed microservices)"; style="rounded"; color="#7498b7"; bgcolor="#f6faff";
+ router [label="API Adapter\nRouting / payload checks", fillcolor="#1168bd"];
+ auth [label="Auth + RBAC\nOwnership / zone scope", fillcolor="#1168bd"];
+ need [label="Need / Zone Service\nReports + slots", fillcolor="#1168bd"];
+ booking [label="Booking / Dispatch\nQuota / reservations", fillcolor="#1168bd"];
+ inventory [label="Item Quota Accounting\nRequired / reserved / delivered", fillcolor="#1168bd"];
+ handover [label="Handover Service\nPlate + one-use code", fillcolor="#1168bd"];
+ lifecycle [label="Shipment State Machine\n5 contract states", fillcolor="#1168bd"];
+ board [label="Public KPIs / Map Read Model\nPrivacy-masked outputs", fillcolor="#1168bd"];
+ audit [label="Audit + Idempotency\nAtomic event journal", fillcolor="#1168bd"];
+ persist [label="Transactional Persistence\nRow locks / SQL", fillcolor="#34774e"];
+ triage [label="Priority / Duplicate Triage\n[SRS goal: FR-103/104]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ warehouse [label="Warehouse / Barcode Ledger\n[SRS goal: FR-201/203/205]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ route [label="Route / Telemetry / Bottlenecks\n[SRS goal: FR-303/305/402]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ sms [label="SMS Intake Adapter\n[SRS goal: FR-105]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ sync [label="Offline Replay API / Conflict Rules\n[SRS goal: FR-405]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ qr [label="Offline QR Verification Design\n[SRS goal: FR-304]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ {rank=same; auth; need; booking; inventory; handover; lifecycle; board; audit;}
+ {rank=same; triage; warehouse; route; sms; sync; qr;}
+ router -> auth;router -> need;router -> booking;router -> handover;router -> board;router -> audit;
+ booking -> inventory; handover -> inventory; booking -> lifecycle; handover -> lifecycle;
+ need -> triage [style=dashed, color="#b78e24", label="Proposed scoring"];
+ inventory -> warehouse [style=dashed, color="#b78e24", label="Physical stock extension"];
+ booking -> route [style=dashed, color="#b78e24", label="Routing extension"];
+ need -> sms [style=dashed, color="#b78e24"];
+ handover -> qr [style=dashed, color="#b78e24"];
+ router -> sync [style=dashed, color="#b78e24"];
+ booking -> persist; handover -> persist; audit -> persist;
+ need -> persist; inventory -> persist;
+ }
+db [label="PostgreSQL\n[Outside API container]", shape=cylinder, style=filled, fillcolor="#34774e"];
+client -> router [label="JSON over HTTPS"];
+persist -> db [label="SQL / ACID", color="#60758b"];
 }

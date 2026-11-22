@@ -1,27 +1,33 @@
 digraph G {
-  graph [bgcolor="white", pad="0.28", nodesep="0.34", ranksep="0.9", fontname="Arial", fontsize=19, fontcolor="#172d44", splines=polyline, outputorder=edgesfirst];
-  node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.3, fontname="Arial", fontsize=12, fontcolor="white", margin="0.22,0.16"];
-  edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#44586a", arrowsize=0.67, penwidth=1.25];
-
-  graph [rankdir=LR, label="AFLOS | Level 2 - Container View", labelloc=t, ranksep="1.0"];
-  people [label="Users on desktop / mobile\n[People]", fillcolor="#08427b"];
-  osm [label="OpenStreetMap tile server\n[External System]", fillcolor="#767d87"];
-  subgraph cluster_app {
-    label="AFLOS - Proposed application boundary"; style="rounded"; color="#7498b7"; penwidth=1.5; bgcolor="#f7faff";
-    proxy [label="NGINX reverse proxy\n[Edge container]\nHTTPS routing / limits", fillcolor="#1168bd"];
-    web [label="Responsive web frontend\n[Browser application]\nMaps / dashboard / forms", fillcolor="#1168bd"];
-    api [label="Backend REST API\n[Application container]\n/api/v1; JWT / RBAC", fillcolor="#1168bd"];
-    db [shape=cylinder, style=filled, label="PostgreSQL\n[Database container]\nRecords / audit / quotas", fillcolor="#34774e"];
-    cache [label="Public read cache\n[Proposed optional]\n15-second anonymous GET", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
-    sync [label="Offline sync worker\n[Future proposal only]\nNo current API contract", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
-  }
-  people -> proxy [label="HTTPS"];
-  proxy -> web [label="Serve frontend"];
-  web -> proxy [label="/api/v1 JSON", constraint=false, color="#7d91a1"];
-  proxy -> api [label="Forward API calls"];
-  api -> db [label="SQL / atomic transactions"];
-  web -> osm [label="HTTPS tiles"];
-  proxy -> cache [style=dashed, color="#b78e24", label="Optional public cache"];
-  cache -> api [style=dashed, color="#b78e24", label="Refresh; TBD"];
-  sync -> api [style=dashed, color="#b78e24", label="Future protocol; undefined", constraint=false];
+graph [bgcolor="white", pad="0.22", nodesep="0.37", ranksep="0.88", fontname="Arial", fontsize=20, fontcolor="#132638", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.2, fontname="Arial", fontsize=11, fontcolor="white", margin="0.22,0.16"];
+edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#344b61", arrowsize=0.65, penwidth=1.12];
+graph [rankdir=LR, label="AFLOS | C4 Level 2 - Container View (blue: baseline / yellow dashed: SRS extension)", labelloc=t];
+user [label="People on Web / Mobile\n[Users]", fillcolor="#08427b"];
+osm [label="OpenStreetMap Tiles\n[External]", fillcolor="#767d87"];
+smsgw [label="SMS Gateway\n[External: SRS only]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+subgraph cluster_aflos { label="AFLOS system boundary - proposed deployments"; style="rounded"; color="#7498b7"; bgcolor="#f6faff";
+ edgegw [label="NGINX Reverse Proxy\n[Edge container]\nHTTPS / rate limiting", fillcolor="#1168bd"];
+ web [label="Responsive Web Frontend\n[Browser container]\nForms, maps, dashboard", fillcolor="#1168bd"];
+ pwa [label="PWA Service Worker + IndexedDB\n[Client-side SRS extension]\nOffline queue and replay", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ api [label="Backend REST API\n[Application container]\nCurrent OpenAPI v0.1.0", fillcolor="#1168bd"];
+ db [label="PostgreSQL\n[Database container]\nSlots / needs / shipments / audit", shape=cylinder, style=filled, fillcolor="#34774e"];
+ edgecache [label="Public HTTP Cache\n[Optional]\n15s contract baseline", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ newservices [label="SRS Services / Adapters\n[Proposed application container(s)]\nTriage, warehouse, SMS, routing", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ spatial [label="Redis / Spatial Cache\n[Proposed data store from SRS]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ }
+user -> edgegw [label="HTTPS"];
+edgegw -> web [label="Serve app"];
+web -> edgegw [label="REST /api/v1", constraint=false];
+edgegw -> api [label="API requests"];
+api -> db [label="SQL / ACID"];
+web -> osm [label="HTTPS tiles"];
+web -> pwa [style=dashed, color="#b78e24", label="Offline capture"];
+pwa -> api [style=dashed, color="#b78e24", label="Replay protocol TBD"];
+edgegw -> edgecache [style=dashed, color="#b78e24", label="Optional public GET caching"];
+edgecache -> api [style=dashed, color="#b78e24"];
+newservices -> api [style=dashed, color="#b78e24", label="SRS interface reconciliation"];
+newservices -> db [style=dashed, color="#b78e24"];
+newservices -> spatial [style=dashed, color="#b78e24"];
+newservices -> smsgw [style=dashed, color="#b78e24", label="SMS transport"];
 }

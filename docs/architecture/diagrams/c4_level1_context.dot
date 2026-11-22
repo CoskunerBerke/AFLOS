@@ -1,23 +1,25 @@
 digraph G {
-  graph [bgcolor="white", pad="0.28", nodesep="0.34", ranksep="0.9", fontname="Arial", fontsize=19, fontcolor="#172d44", splines=polyline, outputorder=edgesfirst];
-  node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.3, fontname="Arial", fontsize=12, fontcolor="white", margin="0.22,0.16"];
-  edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#44586a", arrowsize=0.67, penwidth=1.25];
-
-  graph [rankdir=LR, label="AFLOS | Level 1 - System Context", labelloc=t];
-  subgraph cluster_people {
-    label="People"; style="rounded,dashed"; color="#becbd6"; bgcolor="#f6f8fb";
-    citizen [label="Citizen / Reporter\n[Person]\nView maps, report needs", fillcolor="#08427b"];
-    carrier [label="Carrier / Vehicle Owner\n[Person]\nBook aid shipments", fillcolor="#08427b"];
-    field [label="Field Staff\n[Person]\nConfirm deliveries", fillcolor="#08427b"];
-    coord [label="Disaster Coordinator\n[Person]\nManage zones & operations", fillcolor="#08427b"];
-    admin [label="System Administrator\n[Person]\nInspect audit logs", fillcolor="#08427b"];
-  }
-  aflos [label="AFLOS\n[Software System]\nDisaster logistics & aid coordination", fillcolor="#1168bd", fontsize=15, margin="0.34,0.25"];
-  tiles [label="OpenStreetMap / Tile Provider\n[External Software System]\nMap tiles via HTTPS", fillcolor="#767d87"];
-  citizen -> aflos [label="View KPIs / report needs"];
-  carrier -> aflos [label="Book shipments / depart"];
-  field -> aflos [label="Verify handover"];
-  coord -> aflos [label="Manage zones / fleet"];
-  admin -> aflos [label="Review audit entries"];
-  aflos -> tiles [label="Retrieve tiles"];
+graph [bgcolor="white", pad="0.22", nodesep="0.37", ranksep="0.88", fontname="Arial", fontsize=20, fontcolor="#132638", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.2, fontname="Arial", fontsize=11, fontcolor="white", margin="0.22,0.16"];
+edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#344b61", arrowsize=0.65, penwidth=1.12];
+graph [rankdir=LR, label="AFLOS | C4 Level 1 - System Context (Sprint 2 SRS review)", labelloc=t];
+subgraph cluster_people { label="People"; style="rounded,dashed"; color="#bfccd8"; bgcolor="#f4f7fa";
+ citizen [label="Citizen / Need Reporter\n[Person]", fillcolor="#08427b"];
+ carrier [label="Carrier / Driver\n[Person]", fillcolor="#08427b"];
+ staff [label="Field / Warehouse Staff\n[Person]", fillcolor="#08427b"];
+ coord [label="Crisis Coordinator\n[Person]", fillcolor="#08427b"];
+ admin [label="System Admin\n[Person]", fillcolor="#08427b"];
+}
+aflos [label="AFLOS\n[Software System]\nAid requests, warehouse stock, dispatch, handover and crisis dashboard", fillcolor="#1168bd", fontsize=14, margin="0.33,0.23"];
+map [label="OpenStreetMap / Map Tiles\n[External Software System]", fillcolor="#767d87"];
+sms [label="Cellular SMS Gateway\n[External System: SRS target]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+roads [label="Road Status / Alert Feeds\n[External: SRS target, integration TBD]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+citizen -> aflos [label="Report needs / view map"];
+carrier -> aflos [label="Book / carry shipments"];
+staff -> aflos [label="Receive stock / verify handover"];
+coord -> aflos [label="Operate zones / manage dispatch"];
+admin -> aflos [label="Roles / audit oversight"];
+aflos -> map [label="Render maps / tiles"];
+aflos -> sms [style=dashed, color="#b78e24", label="SMS intake/alerts (SRS only)"];
+aflos -> roads [style=dashed, color="#b78e24", label="Route hazards (SRS only)"];
 }

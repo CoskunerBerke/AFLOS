@@ -1,338 +1,173 @@
-# AFLOS — C4 Architecture Model & Architectural Decision Records
+# AFLOS — Sprint 2 C4 Architecture and ADRs (SRS-Aware Review Draft)
 
-**Course:** SENG 321 / BM 321 — Sprint 2  
 **Issue:** [#30 — C4 Architectural Modeling](https://github.com/CoskunerBerke/AFLOS/issues/30)  
-**Document owners:** `@kurdoglu25` and `@akgozmirza` (Lead Architects)  
-**Status:** **Review-ready architecture proposal**, not proof of an implemented system  
-**Contract baseline:** `api/openapi.yaml` (OpenAPI 3.1.0, API v0.1.0)
+**Architects:** `@kurdoglu25`, `@akgozmirza`  
+**Baseline A:** `api/openapi.yaml` — OpenAPI 3.1.0, API v0.1.0 (existing executable-interface *design contract*, not a deployed service).  
+**Baseline B:** `docs/requirements/07-software-requirements-specification.md` — Sprint 2 SRS v1.0.0 in [Product Owner PR #29](https://github.com/CoskunerBerke/AFLOS/pull/29) (not necessarily merged into `develop`).  
+**Status:** **Architecture design for review, not proof of implementation or full contract compatibility.**
 
-## 1. Purpose, sources, and modeling conventions
+## 1. Architectural scope and discrepancy handling
 
-AFLOS is an API-first disaster logistics and aid coordination platform. This document addresses C4 Level 1 (System Context), Level 2 (Containers), Level 3 (Components), and Architecture Decision Records (ADRs). It describes a **proposed implementation architecture** grounded in the current API contract; the OpenAPI file is a **design contract, not an operating backend**.
+AFLOS is a disaster logistics and aid coordination system. This document models its people, application containers, logical backend components, and architecture decisions at C4 Levels 1–3. **The SRS and current OpenAPI describe materially different MVP scopes.** We therefore distinguish:
 
-**Sources:**
+- **Baseline (blue):** behavior or interfaces directly supported by the existing OpenAPI draft, or architecture assumed for that implementation.
+- **SRS extension (yellow, dashed):** behavior required in the Sprint 2 SRS but not yet supported by the existing API contract. This is **proposed architecture**, not implemented software.
+- **Pending alignment:** SRS-to-API endpoint and workflow differences that must be reconciled before claiming Issue #30's full SRS **and** OpenAPI alignment criterion is satisfied.
 
-1. `api/openapi.yaml` — route, role, request, response, and domain-behavior contract (23 paths; multiple operations per path).
-2. `docs/architecture/03-openapi-draft-guide.md` — updated Product Owner decisions, transaction, privacy, and offline limitations.
-3. `docs/requirements/02-system-vision-and-boundary.md` — actors, boundaries, external mapping service and deployment constraints; some older prose is superseded by the newer contract.
-4. Issue #30 — explicit request for context, container and component views plus architectural decisions.
+The intended order of authority is an explicitly approved Product Owner scope decision followed by an updated, versioned OpenAPI contract and the matching C4 architecture. A new SRS file by itself does **not** silently rewrite `api/openapi.yaml`.
 
-**Precedence:** Latest explicit Product Owner decision > active backlog > older vision/proposal wording, as described in the architecture guide. Check the current Sprint 2 SRS before final PR approval.
+### 1.1 Important discrepancies (observed in submitted source documents)
 
-**Diagram notation:** Pre-rendered SVG previews based on C4 vocabulary, with the original Mermaid `flowchart` source and reproducible Graphviz DOT source under `docs/architecture/diagrams/`. This avoids reliance on GitHub’s Mermaid rich-display service. Every box indicates a **person**, **software system**, **container**, or **component**; arrows state purpose/protocol. These diagrams follow the C4 *abstraction levels* but are not the dedicated C4-PlantUML/Structurizr shape library. Dashed and labeled boxes are **proposed, unconfirmed capabilities**; solid boxes likewise represent architectural design, **not evidence of deployed software**.
-
-### 1.1 Contract reconciliation — do not model stale requirements as current behavior
-
-| Topic | Current contract position | Modeling consequence |
-|---|---|---|
-| Booking | `POST /carrier-applications` immediately books a slot and creates a `CONFIRMED` shipment, subject to atomic validation | **No normal manual carrier approval queue** |
-| Shipment states | `CONFIRMED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED`, `NO_SHOW` | Avoid `APPROVED`, `EXPIRED`, and `REROUTED` as shipment states |
-| Handover | License plate + secret single-use code + actual delivered quantities | Dynamic QR is beyond MVP |
-| Offline operations | Coordinator fallback at `/handover/fallback` still needs connectivity **at the coordinator** | Do not claim an implemented offline sync protocol |
-| Personal data | Public responses mask reporter contacts, plates and codes; TCKN not collected in current API baseline | Do not add TCKN service or public PII flows |
-| Maps | External map tiles are outside the AFLOS domain API | Show OpenStreetMap as an external system |
+| Concern | Current OpenAPI / architecture guide | Sprint 2 SRS v1.0.0 | Architectural treatment |
+|---|---|---|---|
+| Need intake | `POST /need-requests`, zone needs and coordinator review | `POST /needs`, scoring, duplicate detection, tracking token/PIN | Existing API as baseline; SRS triage, tracking as proposed |
+| Booking and vehicle dispatch | Immediate atomic `POST /carrier-applications` creates `CONFIRMED` shipment | Dynamic vehicle/mission matching and coordinator-approved inventory reservations | Keep atomic booking contract; model matching as SRS extension until workflow is reconciled |
+| Physical inventory | Need-level required/reserved/delivered quantity | Multi-tier warehouses, stock intake, barcode scans, alert thresholds | Add proposed warehouse-ledger component; do not conflate with need quota accounting |
+| Handover | Field staff submit plate, one-use code and actual quantities via `POST /handover/verify` | Offline signed QR handover via `POST /shipments/{id}/deliver` | Retain current online handover; show QR as SRS extension |
+| Offline | Coordinator fallback remains **online at command center** | PWA IndexedDB queue, offline sync, optional SMS ingestion | Add browser-side queue and proposed sync adapter; no false claims about working sync |
+| Maps and routing | Public map/summary API, 15-second anonymous GET cache; map tile provider external | Heatmaps refreshed in <= 5 seconds, telemetry and damaged-road routing | Add SRS route/telemetry/heatmap proposals; **5-second target versus 15-second cache needs design decision** |
+| Security roles | `FIELD_STAFF` and `COORDINATOR` scoped by assignment; `ADMIN` audits | `WAREHOUSE_STAFF` and broader admin/warehouse operations | Role names and access policy require explicit harmonization |
 
 ## 2. C4 Level 1 — System Context
 
-### 2.1 System context diagram
+![C4 Level 1 — SRS-aware context](diagrams/c4_level1_context.svg)
 
-![C4 Level 1: System Context](diagrams/c4_level1_context.svg)
+This diagram intentionally draws **AFLOS as one system**. Citizens, carriers, field/warehouse staff, coordinators, and administrators are people who interact with it. OpenStreetMap is an existing external dependency. SMS and road/alert feeds are shown dashed because the Sprint 2 SRS requests them but current domain endpoints do not define these integrations.
 
-*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level1_context.mmd) · [Graphviz DOT](diagrams/c4_level1_context.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
-
-**Explanation:** At Level 1, AFLOS is **one box**. Its API, browser frontend, database and cache are internal implementation concerns and appear only at Level 2. Map-tile access may be initiated by browser-side map code; this contextual arrow expresses the overall dependency, not an assertion that the backend must proxy tiles.
-
-### 2.2 Actors and API evidence
-
-| Person/system | Responsibilities | Relevant current contract |
-|---|---|---|
-| Citizen (`PUBLIC` / `REPORTER`) | View anonymous KPIs/zone map; submit need report | `GET /dashboard/summary`, `GET /aid-zones`, `POST /need-requests` |
-| Carrier (`CARRIER`) | Book a time slot; manage owned shipments; register standby vehicle | `POST /carrier-applications`, `PATCH /shipments/{shipmentId}/status`, `POST /standby-fleet` |
-| Field staff (`FIELD_STAFF`) | Confirm physical handovers for assigned zone/shift | `POST /handover/verify` |
-| Coordinator (`COORDINATOR`) | Create zones and needs; assign standby vehicles; run emergency fallback | `POST /aid-zones`, `POST /aid-zones/{zoneId}/needs`, `POST /standby-fleet/{standbyId}/assign`, `POST /handover/fallback` |
-| Administrator (`ADMIN`) | Inspect immutable governance audit records | `GET /admin/audit-logs` |
-| Map-tile provider | Serve map imagery/layers | External HTTPS tile dependency; **not** an AFLOS API path |
+Editable sources: [Graphviz DOT](diagrams/c4_level1_context.dot) and [Mermaid](diagrams/c4_level1_context.mmd). External dependencies are not claimed to be connected or deployed.
 
 ## 3. C4 Level 2 — Container Diagram
 
-A C4 *container* is a separately running application or data store (not necessarily a Docker container). The following shows a candidate deployable breakdown. Names **do not imply** those services are already implemented.
+![C4 Level 2 — SRS-aware containers](diagrams/c4_level2_containers.svg)
 
-![C4 Level 2: Container Diagram](diagrams/c4_level2_containers.svg)
+Editable sources: [Graphviz DOT](diagrams/c4_level2_containers.dot) and [Mermaid](diagrams/c4_level2_containers.mmd).
 
-*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level2_containers.mmd) · [Graphviz DOT](diagrams/c4_level2_containers.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
+A C4 **container** means an independently running application or data store, **not** necessarily a Docker container.
 
-### 3.1 Container responsibilities and protocols
-
-| Container | Function | Primary communication | Evidence / status |
-|---|---|---|---|
-| Responsive Web Frontend | Accessible web/mobile-browser UI, public dashboard, role-specific forms and map | HTTPS/JSON to API; HTTPS to map tiles | Responsive web mandated by vision; UI framework not selected |
-| NGINX Reverse Proxy | Edge routing, security headers, proposed rate limits, public caching integration | HTTPS client requests to web/API | Listed in Sprint 1 single-command deployment target |
-| Backend REST API | Expose OpenAPI 3.1 operations; enforce role/zone authorization, quotas, reservations, handover and audits | REST `/api/v1`, JSON, SQL to PostgreSQL | Defined as contract; implementation not yet proven |
-| PostgreSQL | Store zones, slots, needs, vehicles, shipments, codes (securely), assignments, audit and idempotency data | SQL in atomic transactions | Named in Sprint 1 deployment constraints; schema not finalized |
-| Public Read Cache | Cache only approved anonymous GET responses for up to 15 seconds; protected/authenticated responses must be `no-store` | HTTP edge cache or separate cache facility | **Proposed placement**, not proof of Redis or a deployed standalone cache |
-| Offline Sync Engine | Potential future queue/reconciliation engine for intermittent connectivity | **Protocol and endpoints TBD** | Requested by Issue #30 but **not defined by current OpenAPI**; dashed placeholder only |
-
-**Current offline fallback is not an Offline Sync Engine.** `POST /handover/fallback` lets a coordinator with network access complete field-reported deliveries; the contract explicitly says the coordinator still requires internet access. Designing a genuine offline queue requires an agreed client storage policy, authentication/expiry rules, conflict resolution, sync endpoints and replay semantics. Those are **not approved by the current contract**.
-
-**Cache clarification:** The OpenAPI contract already specifies `Cache-Control: public, max-age=15` on public GETs and `no-store` on authenticated responses. A dedicated cache application is **optional**; the box above represents a proposed capacity/edge concern to satisfy the Issue's requested architecture discussion, not a commitment to Redis.
-
-**Deployment caveat:** Only the baseline target of NGINX, frontend, REST API and PostgreSQL is specified. Additional cache/worker services must not be presented as already deployed under Docker Compose.
-
-## 4. C4 Level 3 — Backend API Component Diagram
-
-This view zooms into the **Backend REST API** container from Level 2. Components are logical responsibilities within the application, not microservices or deployed processes.
-
-![C4 Level 3: Backend Components](diagrams/c4_level3_components.svg)
-
-*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level3_components.mmd) · [Graphviz DOT](diagrams/c4_level3_components.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
-
-### 4.1 Component-to-endpoint traceability
-
-| Logical component | Representative contract paths | Key responsibility |
+| Container | Responsibility | Evidence and status |
 |---|---|---|
-| HTTP adapter + RBAC | All operations; `POST /auth/token` (supporting) | Validate payloads, bearer tokens, role/ownership and dynamic zone-shift access |
-| Need & Zone Management | `POST /need-requests`, `POST /need-requests/{requestId}/review` (supporting), `POST /aid-zones`, `POST /aid-zones/{zoneId}/needs` | Need intake, trusted zone creation and time slots |
-| Dispatch / Booking Engine | `POST /carrier-applications`, `POST /standby-fleet`, `POST /standby-fleet/{standbyId}/assign` (supporting), `POST /shipments/{shipmentId}/reroute` (supporting) | Atomically check slot and vehicle restrictions and create bookings |
-| Inventory & Quota Service | Shared by booking/zone/handover operations | `openDeficit = max(0, requiredQuantity - reservedQuantity - deliveredQuantity)` |
-| Shipment Lifecycle | `PATCH /shipments/{shipmentId}/status`, cancellation/no-show supporting operations | Enforce state transitions, no duplicate reservations |
-| Handover Verification | `POST /handover/verify`, `POST /handover/fallback` | Validate plate/code or coordinator fallback; reconcile actual quantities |
-| Public Read Model | `GET /dashboard/summary`, `GET /aid-zones`, `GET /aid-zones/{zoneId}` | Anonymous/public data only; 15-second freshness allowance |
-| Audit & Idempotency | `GET /admin/audit-logs`; all state-changing operations | Append-only audit, replay-safe idempotency keys |
+| NGINX edge | HTTPS routing and proposed rate controls | Sprint 1 deployment target |
+| Responsive web frontend | Forms, map UI and role-specific dashboard | Required by project vision; exact framework not finally approved |
+| REST API | JWT/RBAC, aid zone and need endpoints, atomic booking, online handover | OpenAPI v0.1.0 design contract |
+| PostgreSQL | Slot/quota, need, shipment, idempotency and audit transactions | Sprint 1 architectural target |
+| Public read cache | 15-second public GET responses, never private responses | Optional delivery mechanism for existing HTTP contract |
+| **PWA offline queue (SRS)** | IndexedDB and service worker buffering; idempotent replay | **Required by SRS FR-405, not defined by current API** |
+| **Warehouse / triage / SMS / routing extensions (SRS)** | New application logic and/or adapters; deployment boundaries TBD | **Required by SRS FR-103–105, 201–205, 303/305, 402** |
+| **Redis spatial index (SRS)** | Potential spatial lookups/caching for duplicate requests | **Proposed by SRS diagram, not current approved API infrastructure** |
 
-**Critical invariants anchored in the contract:**
+**Critical offline distinction:** The current `POST /handover/fallback` lets a **connected coordinator** confirm delivery during a remote field outage; it is **not** an offline synchronization engine. To satisfy SRS FR-405, define queue schema, persistence/expiry, identity checks, retry/order, idempotency and conflict reconciliation, plus versioned replay API operations before claiming fully specified offline sync.
 
-1. Booking creates `CONFIRMED` in one database transaction; full slot, overlap, invalid vehicle type or exceeded item need results in `409 Conflict`, not partial reservations.
-2. `assignedVehicles` includes `CONFIRMED`, `IN_TRANSIT` and `DELIVERED` bookings; delivery does **not** reopen time-slot capacity. `CANCELLED` and `NO_SHOW` release quota according to contract rules.
-3. On physical delivery, subtract the **entire pledged reservation** and add **actual delivered quantity** per item; do not sum incompatible units or double-count on repeated calls.
-4. Only `CONFIRMED` can transition to `IN_TRANSIT` via the carrier departure operation; handover requires `IN_TRANSIT` and produces `DELIVERED`.
-5. Field authorization must check current assignment and shift, not trust stale JWT zone claims alone; `ADMIN` does not automatically inherit coordinator operations.
-6. State-changing operations carry `Idempotency-Key`; audit events and idempotency results should commit atomically with domain changes. Never log secret verification codes.
+## 4. C4 Level 3 — Backend API Components
 
-### 4.2 Offline concern (no invented contract component)
+![C4 Level 3 — SRS-aware components](diagrams/c4_level3_components.svg)
 
-A true *Offline Sync Service* does **not** appear as an existing API feature in `api/openapi.yaml`. Consequently it is **not shown as a functioning backend component** here. The Level 2 dashed worker is an explicit extension placeholder for discussion with the Product Owner and co-architect. The supported current emergency strategy is coordinator fallback while the coordinator is connected.
+Editable sources: [Graphviz DOT](diagrams/c4_level3_components.dot) and [Mermaid](diagrams/c4_level3_components.mmd).
+
+The blue components are **logical parts of the proposed backend REST API** supported by the existing interface. The yellow dashed components are **additional SRS target responsibilities**. They are **not asserted to be working services or existing endpoints**. Offline IndexedDB storage is located in the Level 2 client, not inside this backend.
+
+| Backend component | Representative interface or requirement |
+|---|---|
+| API adapter / authorization | Existing REST routes and `POST /auth/token`; RBAC and ownership boundaries |
+| Need/zone service | `POST /need-requests`, `POST /aid-zones`, zone needs |
+| Booking/dispatch engine | `POST /carrier-applications`, standby fleet assignment |
+| Item quota accounting | `requiredQuantity`, `reservedQuantity`, `deliveredQuantity`, `openDeficit` |
+| Handover and lifecycle | `POST /handover/verify`, `POST /handover/fallback`, shipment status operations |
+| Public dashboard | `GET /dashboard/summary`, `GET /aid-zones` |
+| Audit and idempotency | `GET /admin/audit-logs`, replay-safe mutations |
+| **Priority scoring + duplicate triage** | **SRS FR-103, FR-104; API additions TBD** |
+| **Physical warehouse + barcode ledger** | **SRS FR-201–205; warehouse/inventory endpoints TBD** |
+| **Routing, GPS telemetry and bottleneck detection** | **SRS FR-303, FR-305, FR-402; endpoints TBD** |
+| **SMS intake adapter** | **SRS FR-105; SMS gateway ingress endpoint TBD** |
+| **Offline QR proof + replay API** | **SRS FR-304, FR-405; payload, auth and conflict API TBD** |
+
+### 4.1 Rules that must not be lost during reconciliation
+
+1. Baseline booking uses an **atomic transaction**: quota capacity, overlapping plate schedule, reserved need lines, shipment creation, idempotency and audit must commit or roll back together.
+2. Valid baseline shipment states are `CONFIRMED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED`, `NO_SHOW`. Rerouting is an **operation**, not a `REROUTED` state.
+3. `openDeficit = max(0, requiredQuantity - reservedQuantity - deliveredQuantity)` measures **pledged need coverage**, not physical warehouse quantity.
+4. Public outputs must mask PII and delivery secret codes. Authenticated reads use `Cache-Control: no-store`.
+5. The SRS's offline QR design cannot silently replace the baseline plate/code flow; this requires an updated handover API and security model.
 
 ## 5. Architectural Decision Records (ADRs)
 
-ADRs below separate **documented requirements** from **proposed architecture decisions**. The team should explicitly approve the proposed items; statuses are not claims of team consensus.
+Each decision has a recorded **status**; none of these statements claims deployed implementation or unanimous team approval.
 
-### ADR-001 — API-first contract and role-scoped services
+### ADR-001 — API first with reconciled SRS scope
 
-- **Status:** Required by existing course/project contract; proposed component decomposition.
-- **Context:** Multiple user roles and operational workflows must share consistent semantics.
-- **Decision:** Treat `api/openapi.yaml` (OpenAPI 3.1.0) as the REST interface contract under `/api/v1`. Organize internal components around zones/needs, booking/dispatch, handover, identity and audit. Apply roles and ownership checks per request.
-- **Consequences:** Frontend/backend can evolve against one contract; breaking interface changes require OpenAPI and architecture updates. OpenAPI `x-roles` documentation alone is not an authorization enforcement mechanism.
-- **Evidence:** `openapi.yaml` plus architecture guide §§1–3, 6.
+- **Status:** Proposed, contract reconciliation required.
+- **Decision:** Retain OpenAPI v0.1.0 as the *current interface baseline*. Use SRS v1.0.0 to model target extensions, without inventing the missing endpoints as existing API operations.
+- **Consequence:** Back-end and C4 can be finalized together only after the Product Owner's intended MVP scope is reflected in a versioned OpenAPI revision.
 
-### ADR-002 — PostgreSQL transactional consistency for booking and inventory
+### ADR-002 — PostgreSQL transactions for booking, quota and physical stock
 
-- **Status:** PostgreSQL is specified in Sprint 1 deployment constraints; transaction design is required by current guide, not implemented/proven.
-- **Context:** Simultaneous carriers can attempt to take the last slot or pledge the same remaining inventory.
-- **Decision:** Use PostgreSQL ACID transactions and row-level locking for relevant slot, need, vehicle, shipment, idempotency and audit updates. Roll back the entire booking if any rule fails.
-- **Consequences:** Predictable 201/409 outcomes and no over-allocation; lock ordering and concurrency tests are necessary. The exact schema/indexes are to be designed with Issue #31.
-- **Evidence:** system vision §5.1; architecture guide §§3, 8.
+- **Status:** Baseline design; extension design pending.
+- **Decision:** Keep row-level locking for capacity and reserved needs. If warehouse stock is added, create a **separate physical stock ledger** with explicit consistency, warehouse ownership, and movement records rather than reusing `reservedQuantity` as warehouse inventory.
+- **Consequence:** Prevents overbooking while avoiding incorrect mapping between pledged cargo and warehouse assets.
 
-### ADR-003 — Responsive web frontend behind NGINX
+### ADR-003 — Responsive web and SRS PWA offline capability
 
-- **Status:** Deployment/web constraints documented; exact frontend/backend frameworks **undecided**.
-- **Context:** Citizens, drivers, staff and coordinators need access without installing a native app.
-- **Decision:** Design a responsive browser application exposed through an NGINX edge, with a REST API and PostgreSQL as the baseline Docker Compose deployment group. The browser obtains map tiles from an external map provider.
-- **Consequences:** Mobile-browser access and simpler release; connectivity is normally required for API operations. Do not claim a native app or preselect a JavaScript framework without team approval.
-- **Evidence:** system vision §§3, 5.1; architecture guide §5.
+- **Status:** Responsive web baseline; PWA extension requested by SRS.
+- **Decision:** Design the responsive browser client behind the NGINX edge. For FR-405, add service-worker-controlled offline submissions in IndexedDB and secure replay-on-reconnection, **subject to API protocol and threat-model design**.
+- **Consequence:** Requires retention, credentials/expiry, device encryption, synchronization ordering and duplicate prevention review. No claim of implemented offline support.
 
-### ADR-004 — Public 15-second caching; confidential data never shared-cached
+### ADR-004 — Public caching and updated dashboard freshness
 
-- **Status:** Contractual HTTP caching policy; cache technology/location **proposed**.
-- **Context:** Public map/KPI reads may spike dramatically during a disaster; personalized data must not leak.
-- **Decision:** Set public GETs to `Cache-Control: public, max-age=15` where the contract allows; protected endpoints and verification-code responses use `Cache-Control: no-store`. Apply rate limiting at the edge. Evaluate NGINX HTTP cache first; choose a separate cache service only if justified.
-- **Consequences:** Public KPI values can be briefly stale; avoid caching private responses. A Redis deployment is **not** established by the source documents.
-- **Evidence:** architecture guide §§4, 6; `openapi.yaml` response headers.
+- **Status:** Conflict pending.
+- **Decision:** Honor current OpenAPI public cache headers (`max-age=15`) and `no-store` for private views **until the API/NFR contract changes**. SRS FR-401's <= 5-second refresh target needs explicit cache/streaming design and verification; a 15-second freshness guarantee does not establish a 5-second freshness guarantee.
+- **Consequence:** API response TTL, monitoring, push/poll methods and any Redis choice must be agreed together.
 
-### ADR-005 — Offline emergency fallback versus future sync engine
+### ADR-005 — Two different offline and delivery models
 
-- **Status:** Coordinator fallback **defined**; offline sync engine **unresolved future proposal**.
-- **Context:** A disaster-site device may be offline even while a central coordinator retains communication access (e.g., field radio reports).
-- **Decision:** For the current contract, model `POST /handover/fallback` as a **connected coordinator operation** with a mandatory justification. Keep the Offline Sync Engine as a **dashed Level 2 future placeholder**, with no claimed API or automatic reconciliation behavior.
-- **Alternatives needing PO agreement:** Browser-local queued events + replay protocol; dedicated background worker; no automatic offline sync in MVP.
-- **Consequences:** The baseline contract does not support field-device offline synchronization. To approve a true sync solution, specify endpoints, idempotency, token expiry, event ordering, conflict handling, retention, and privacy/security protections, and update OpenAPI/SRS first.
-- **Evidence:** `openapi.yaml` `POST /handover/fallback` explicitly says coordinator internet is still needed; architecture guide §4.
+- **Status:** Baseline behavior + SRS extension, unresolved.
+- **Decision:** Preserve online carrier/field plate + one-use-code verification and the **connected** coordinator fallback as baseline. Model SRS FR-304 offline signed QR proof as a distinct candidate verification protocol, together with FR-405 offline queue/replay. **Do not claim both are already contractually compatible.**
+- **Consequence:** A signed QR record must be authenticated, expiry-bound, replay-safe, and mapped to a new agreed delivery confirmation API; double-delivery and delayed sync require tests.
 
-### ADR-006 — Auditable state transitions and idempotent writes
+### ADR-006 — Immutable audit and idempotency
 
-- **Status:** Contract requirements; proposed implementation architecture.
-- **Context:** Replayed submissions or retries during poor connectivity must not duplicate inventory adjustments or handovers.
-- **Decision:** Require `Idempotency-Key` for state-changing operations; bind the key to actor/method/path/payload and preserve results for the contractual 24-hour replay period. Write append-only audit events within the same transaction as successful state changes. Protect one-use verification codes and do not expose or log them.
-- **Consequences:** Safer retries, better post-incident accountability and testable invariants; requires carefully designed persistence and cleanup policy.
-- **Evidence:** architecture guide §§3, 6, 7–8; contract path descriptions.
+- **Status:** Baseline contract; scope extension proposed.
+- **Decision:** Keep append-only audit and mandatory `Idempotency-Key` for state mutations. Extend the same standards to SMS ingestion, physical stock, offline sync and QR handover if the new SRS features are accepted.
+- **Consequence:** Avoids duplicated inventory/handover effects during retries and disconnections; API and retention/security policies need revision.
 
-## 6. Requirements and deliverable traceability
+### ADR-007 — Warehouse, triage, SMS and dispatch extension boundaries
 
-| User story | Representative API contract | Primary C4 component |
-|---|---|---|
-| US-01 | `POST /need-requests` | Need Request & Zone Management |
-| US-02 | `GET /dashboard/summary`, `GET /aid-zones`, `GET /aid-zones/{zoneId}` | Public Read Model |
-| US-03 | `POST /aid-zones` | Need Request & Zone Management |
-| US-04 | `POST /aid-zones/{zoneId}/needs` | Inventory & Quota / Zone Management |
-| US-05 | `POST /carrier-applications` | Dispatch / Booking Engine |
-| US-06 | `PATCH /shipments/{shipmentId}/status` | Shipment Lifecycle |
-| US-07 | `POST /handover/verify` | Handover Verification |
-| US-08 | `POST /handover/fallback` | Handover Verification |
-| US-09 | `POST /standby-fleet` | Dispatch / Booking Engine |
-| US-10 | `GET /admin/audit-logs` | Audit & Idempotency |
+- **Status:** Proposed from SRS, not in OpenAPI v0.1.0.
+- **Decision:** Model need-priority/deduplication, physical warehouse ledger, routing/telemetry, and SMS gateway as distinct **logical responsibilities**. Decide whether each is an API module or independently deployed service only after acceptance criteria, scaling constraints and endpoints are reconciled.
+- **Consequence:** Avoids falsely declaring microservices and operational infrastructure based solely on a requirements document.
 
-### Definition of Done — pre-PR validation
+## 6. SRS functional-requirement traceability (Sprint 2)
 
-- [x] Level 1: actors, AFLOS boundary, external map provider
-- [x] Level 2: web, edge, REST API, PostgreSQL; **proposed** cache/offline worker clearly distinguished
-- [x] Level 3: core API components with operation-level mapping and transaction invariants
-- [x] ADRs: contract, PostgreSQL, deployment, caching, offline scope, audit/idempotency
-- [x] Cross-references to API contract and US-01…US-10 provided
-- [ ] Co-architect reviews the proposed decomposition and technology assumptions
-- [ ] Product Owner confirms alignment with the **active Sprint 2 SRS** and whether genuine offline sync is required for MVP
-- [ ] GitHub SVG previews checked in Pull Request; standalone Mermaid source may need separate renderer validation
-- [ ] PR reviewed and approved; Issue #30 closed only after required approvals
+This is a **design coverage map**, not a claim that the current OpenAPI implements every SRS endpoint. Requirement identifiers below come from Sprint 2 SRS v1.0.0.
 
-**Review questions for `@akgozmirza` / Product Owner:**
+| SRS IDs | Required responsibility | C4 model placement | Current OpenAPI alignment |
+|---|---|---|---|
+| FR-101/102 | Rapid anonymous need submission, coordinate capture / reverse geocoding | Web + Need/Zone service | **Partial:** need submission endpoint exists under a different path and schema; reverse geocoding not specified |
+| FR-103/104/105/106 | Priority and duplicate scoring, SMS fallback, tracking token/PIN | Triage, SMS adapter, need service | **Gap:** new endpoints/fields/workflows needed |
+| FR-201/202/203 | Warehouses, taxonomy, barcode inventory intake | Warehouse ledger, database | **Gap:** need-quota records are not the same as warehouse stock |
+| FR-204 | Reservation and soft-lock | Booking + quota accounting + PostgreSQL | **Partial:** atomic need pledge exists, warehouse allocation is different |
+| FR-205 | Critical stock alerts | Warehouse / alerts | **Gap:** threshold API/workflow absent |
+| FR-301/302 | Payload limits, manifests, dynamic fleet matching | Dispatch/booking + carrier UI | **Partial:** vehicle capacity and standby assignment exist; manifest/algorithm absent |
+| FR-303/304/305 | Damaged-road routing, offline QR, GPS telemetry | Routing, QR, client/PWA | **Gap:** new external data, cryptography and interfaces needed |
+| FR-401 | Heatmap / <= 5 second view | Web dashboard, public read model | **Partial/conflict:** GET summary/aid zones and 15s HTTP cache; no streaming/heatmap API |
+| FR-402 | Bottleneck detection | Routing/telemetry analytical component | **Gap:** no matching API endpoint |
+| FR-403/404 | RBAC and immutable audit | Auth + audit component | **Mostly covered:** zone/role access and audit endpoint; exact SRS role naming needs mapping |
+| FR-405 | IndexedDB offline queue and replay | PWA client + replay API | **Gap:** coordinator fallback is not offline sync |
 
-1. Do we keep the current coordinator-connected fallback as the Sprint 2 deliverable, with offline sync as a documented future extension, or expand the API/SRS to support local queue + secure synchronization?
-2. Is a separate public read cache required, or are NGINX/HTTP cache headers enough for the MVP?
-3. Have the latest Sprint 2 SRS and backlog replaced all outdated manual carrier approval and dynamic QR wording?
-4. Which technology choices (frontend/backend language/framework, cache implementation) have actually been approved? Record approvals before changing ADR status.
+**Required follow-up for full Issue #30 alignment:** An approved scope decision and updated `api/openapi.yaml` with consistent endpoint names, request/response schemas, roles, flows and nonfunctional constraints. The C4 architecture cannot honestly be certified as compatible with two contradictory contracts until that happens.
 
----
+## 7. Issue #30 review checklist
 
-*This document models a proposed architecture for classroom review. It does not assert that the frontend, API, database, cache, or offline worker have already been built or deployed.*
+- [x] C4 Level 1, 2, 3 diagrams supplied and rendered as SVG for GitHub
+- [x] SRS-mandated capabilities explicitly mapped to the C4 levels
+- [x] Existing OpenAPI operations identified without falsely renaming them
+- [x] ADRs expanded to cover scope differences, warehouse data and offline security
+- [x] Source definitions provided as Graphviz DOT and native C4 Structurizr DSL
+- [ ] Confirm the MVP scope and reconcile the current OpenAPI with Sprint 2 SRS (or amend SRS)
+- [ ] Validate the Structurizr DSL in a compatible renderer (official C4 notation check)
+- [ ] Co-architect review of architectural assumptions; PR reviewed and approved
+- [ ] Close Issue #30 **only after** acceptance criteria are met
 
 ## Appendix A — Native C4 notation source (Structurizr DSL)
 
-The SVG diagrams above are GitHub-readable previews of C4 concepts, and the Mermaid source files remain available under `diagrams/`. For review against the Issue's **official C4 notation** criterion, the same high-level architecture is also described below in **Structurizr DSL**, which supports native System Context / Container / Component C4 views. This is an *additional modeling source*, not a deployed system. Copy this DSL into a `.dsl` workspace and render using a compatible Structurizr tool if formal C4 shapes are required. The DSL has not been executed in a renderer in this document.
+The diagrams above use C4 abstraction levels, with visually explicit **baseline versus SRS extension** elements. Native C4 modeling source is provided at [diagrams/aflos_c4_workspace.dsl](diagrams/aflos_c4_workspace.dsl). The `.dsl` file is intentionally displayed as source code by GitHub; it is **not** automatically converted into a diagram there. It must be rendered/validated with a Structurizr-compatible tool before declaring formal notation validation complete. The SVGs were generated from the DOT sources, not from this DSL.
 
-```text
-workspace "AFLOS" "Sprint 2 C4 architecture proposal" {
-    model {
-        citizen = person "Citizen / Reporter" "Views aid zones and submits need reports"
-        carrier = person "Carrier" "Books a delivery and tracks shipments"
-        field = person "Field Staff" "Verifies deliveries in assigned zones"
-        coordinator = person "Coordinator" "Manages zones, fleet and exceptions"
-        admin = person "Administrator" "Inspects governance audit records"
-
-        tiles = softwareSystem "Map Tile Provider" "OpenStreetMap tile service" {
-            tags "External"
-        }
-
-        aflos = softwareSystem "AFLOS" "Disaster logistics and aid coordination" {
-            proxy = container "NGINX Edge" "Routes browser and API requests" "NGINX"
-            web = container "Responsive Web Frontend" "Maps, forms and role-scoped UI" "Browser application"
-            api = container "Backend REST API" "Enforces OpenAPI contract and domain invariants" "HTTP / JSON" {
-                router = component "API Controller" "Routes and validates HTTP operations"
-                auth = component "Auth and RBAC" "Checks identity, ownership, zone and shift"
-                zones = component "Zone and Need Service" "Manages zone, slot and need records"
-                booking = component "Dispatch and Booking Engine" "Reserves slots and items atomically"
-                inventory = component "Inventory Accounting" "Tracks required, reserved and delivered quantities"
-                lifecycle = component "Shipment Lifecycle" "Enforces valid shipment status transitions"
-                handover = component "Handover Verification" "Validates delivery and actual quantities"
-                dashboard = component "Public Read Model" "Exposes sanitized public data"
-                audit = component "Audit and Idempotency" "Prevents replays and records append-only audits"
-                persistence = component "Transactional Persistence" "Coordinates SQL transactions and row locks"
-            }
-            db = container "PostgreSQL" "Durable business and audit records" "PostgreSQL" {
-                tags "Database"
-            }
-            cache = container "Public Read Cache (proposed)" "Optional 15-second public read cache" "TBD" {
-                tags "Proposed"
-            }
-            sync = container "Offline Sync Engine (proposed)" "Future extension; no current sync contract" "TBD" {
-                tags "Proposed"
-            }
-        }
-
-        citizen -> aflos "Views KPIs and reports needs"
-        carrier -> aflos "Books deliveries and manages shipments"
-        field -> aflos "Verifies physical handovers"
-        coordinator -> aflos "Operates aid logistics and fallback"
-        admin -> aflos "Reviews audit records"
-        aflos -> tiles "Uses external map tiles"
-
-        citizen -> proxy "Uses" "HTTPS"
-        carrier -> proxy "Uses" "HTTPS"
-        field -> proxy "Uses" "HTTPS"
-        coordinator -> proxy "Uses" "HTTPS"
-        admin -> proxy "Uses" "HTTPS"
-        proxy -> web "Delivers browser application" "HTTPS"
-        web -> proxy "Calls REST endpoints" "HTTPS /api/v1"
-        proxy -> api "Reverse proxies requests" "HTTP / JSON"
-        web -> tiles "Downloads map tiles" "HTTPS"
-        api -> db "Reads and writes records" "SQL / ACID"
-        cache -> api "Potential cache refresh" "HTTP (TBD)"
-        sync -> api "Future authenticated synchronization" "Protocol TBD"
-
-        router -> auth "Authorizes protected operations"
-        router -> zones "Delegates zone and needs calls"
-        router -> booking "Delegates carrier and standby calls"
-        router -> lifecycle "Delegates status changes"
-        router -> handover "Delegates handover calls"
-        router -> dashboard "Delegates public reads"
-        router -> audit "Delegates audit requests"
-        booking -> inventory "Checks inventory deficit"
-        booking -> lifecycle "Creates confirmed shipment"
-        handover -> inventory "Reconciles actual quantities"
-        handover -> lifecycle "Marks shipment delivered"
-        zones -> persistence "Persists zone and need changes"
-        booking -> persistence "Runs atomic booking"
-        inventory -> persistence "Locks and changes item quantities"
-        lifecycle -> persistence "Stores state transitions"
-        handover -> persistence "Commits handover"
-        dashboard -> persistence "Reads sanitized records"
-        auth -> persistence "Checks current zone/shift membership"
-        audit -> persistence "Persists audit and idempotency"
-        persistence -> db "Executes transactions" "SQL"
-    }
-
-    views {
-        systemContext aflos "SystemContext" {
-            include *
-            autoLayout lr
-        }
-        container aflos "Containers" {
-            include *
-            autoLayout tb
-        }
-        component api "APIComponents" {
-            include *
-            autoLayout tb
-        }
-        styles {
-            element "Person" {
-                shape person
-                background #08427b
-                color #ffffff
-            }
-            element "Software System" {
-                background #1168bd
-                color #ffffff
-            }
-            element "Container" {
-                background #438dd5
-                color #ffffff
-            }
-            element "Component" {
-                background #85bbf0
-                color #000000
-            }
-            element "Database" {
-                shape cylinder
-            }
-            element "External" {
-                background #777777
-                color #ffffff
-            }
-            element "Proposed" {
-                background #fff1cf
-                color #5b4500
-            }
-        }
-    }
-}
-```
-
-**Native C4 review note:** The proposed cache and sync worker are rendered as `Proposed` elements to prevent confusing planned options with functionality currently defined in `api/openapi.yaml`. An architect should render and confirm the DSL before marking the official-notation criterion complete.
+This document and these diagrams describe **architecture design**, not already deployed services. Architecture descriptions must be reconciled with versioned product/API contracts before implementation claims or final review approval.
