@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="white", pad="0.28", nodesep="0.34", ranksep="0.9", fontname="Arial", fontsize=19, fontcolor="#172d44", splines=polyline, outputorder=edgesfirst];
+  node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.3, fontname="Arial", fontsize=12, fontcolor="white", margin="0.22,0.16"];
+  edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#44586a", arrowsize=0.67, penwidth=1.25];
+
+  graph [rankdir=LR, label="AFLOS | Level 2 - Container View", labelloc=t, ranksep="1.0"];
+  people [label="Users on desktop / mobile\n[People]", fillcolor="#08427b"];
+  osm [label="OpenStreetMap tile server\n[External System]", fillcolor="#767d87"];
+  subgraph cluster_app {
+    label="AFLOS - Proposed application boundary"; style="rounded"; color="#7498b7"; penwidth=1.5; bgcolor="#f7faff";
+    proxy [label="NGINX reverse proxy\n[Edge container]\nHTTPS routing / limits", fillcolor="#1168bd"];
+    web [label="Responsive web frontend\n[Browser application]\nMaps / dashboard / forms", fillcolor="#1168bd"];
+    api [label="Backend REST API\n[Application container]\n/api/v1; JWT / RBAC", fillcolor="#1168bd"];
+    db [shape=cylinder, style=filled, label="PostgreSQL\n[Database container]\nRecords / audit / quotas", fillcolor="#34774e"];
+    cache [label="Public read cache\n[Proposed optional]\n15-second anonymous GET", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+    sync [label="Offline sync worker\n[Future proposal only]\nNo current API contract", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+  }
+  people -> proxy [label="HTTPS"];
+  proxy -> web [label="Serve frontend"];
+  web -> proxy [label="/api/v1 JSON", constraint=false, color="#7d91a1"];
+  proxy -> api [label="Forward API calls"];
+  api -> db [label="SQL / atomic transactions"];
+  web -> osm [label="HTTPS tiles"];
+  proxy -> cache [style=dashed, color="#b78e24", label="Optional public cache"];
+  cache -> api [style=dashed, color="#b78e24", label="Refresh; TBD"];
+  sync -> api [style=dashed, color="#b78e24", label="Future protocol; undefined", constraint=false];
+}

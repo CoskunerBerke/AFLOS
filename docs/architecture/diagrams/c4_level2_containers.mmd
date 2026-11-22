@@ -1,0 +1,32 @@
+flowchart TB
+    Users["Users via desktop/mobile browsers<br/>(People)"]
+    Map["OpenStreetMap / Tile Server<br/>(External system)"]
+
+    subgraph AFLOS["AFLOS — proposed application boundary"]
+        Proxy["NGINX Reverse Proxy<br/>(Container: edge)<br/>HTTPS routing / rate limits"]
+        Web["Responsive Web Frontend<br/>(Container: browser app)<br/>UI, dashboard, maps, forms"]
+        API["Backend REST API<br/>(Container: application)<br/>/api/v1; JWT/RBAC; domain rules"]
+        DB[("PostgreSQL<br/>(Container: database)<br/>Transactional records and audit")]
+        Cache["Public Read Cache<br/>(Proposed container / edge facility)<br/>15s public response caching"]
+        Sync["Offline Sync Engine<br/>(Proposed future worker container)<br/>Protocol NOT yet defined"]
+    end
+
+    Users -->|"HTTPS"| Proxy
+    Proxy -->|"Serves web application"| Web
+    Web -->|"HTTPS /api/v1 JSON"| Proxy
+    Proxy -->|"Proxy API requests"| API
+    Web -->|"HTTPS map tiles"| Map
+    API -->|"SQL / ACID transactions"| DB
+    Proxy -.->|"Optional cache for public GETs only"| Cache
+    Cache -.->|"Origin fetch / refresh (design TBD)"| API
+    Sync -.->|"Future authenticated reconciliation API (undefined)"| API
+    Sync -.->|"Future idempotent sync processing (design TBD)"| DB
+
+    classDef current fill:#1168bd,color:#fff,stroke:#084b8a
+    classDef data fill:#34774e,color:#fff,stroke:#215c35
+    classDef proposed fill:#fff4d6,color:#5b4500,stroke:#c58b19,stroke-dasharray:5 4
+    classDef external fill:#757575,color:#fff,stroke:#555
+    class Proxy,Web,API current
+    class DB data
+    class Cache,Sync proposed
+    class Users,Map external

@@ -1,0 +1,44 @@
+flowchart TB
+    HTTP["NGINX / Browser<br/>(Calls REST API)"]
+
+    subgraph Backend["Backend REST API — proposed logical components"]
+        Router["HTTP Controller / API Adapter<br/>OpenAPI route & payload validation"]
+        Auth["Authentication & Authorization<br/>JWT / ownership / active zone-shift RBAC"]
+        Need["Need Request & Zone Management<br/>verification, zones, slots"]
+        Dispatch["Dispatch / Booking Engine<br/>capacity, plate overlap, standby, reroute"]
+        Inventory["Inventory & Quota Service<br/>required, reserved, delivered, open deficit"]
+        Handover["Handover Verification<br/>plate + single-use code + actual quantities"]
+        State["Shipment Lifecycle Service<br/>CONFIRMED / IN_TRANSIT / DELIVERED / CANCELLED / NO_SHOW"]
+        Read["Public Dashboard / Read Model<br/>anonymous zones and KPIs"]
+        Audit["Audit & Idempotency Service<br/>append-only events; replay keys"]
+        Txn["Transactional Persistence Layer<br/>atomic commits / row locks"]
+    end
+    DB[("PostgreSQL<br/>SQL data store")]
+
+    HTTP -->|"HTTPS JSON /api/v1"| Router
+    Router --> Auth
+    Router --> Need
+    Router --> Dispatch
+    Router --> Handover
+    Router --> State
+    Router --> Read
+    Router --> Audit
+    Need --> Inventory
+    Dispatch --> Inventory
+    Dispatch --> State
+    Handover --> Inventory
+    Handover --> State
+    Need --> Txn
+    Dispatch --> Txn
+    Inventory --> Txn
+    Handover --> Txn
+    State --> Txn
+    Read --> Txn
+    Auth --> Txn
+    Audit --> Txn
+    Txn -->|"SQL transaction / row locks"| DB
+
+    classDef component fill:#1168bd,color:#fff,stroke:#084b8a
+    classDef database fill:#34774e,color:#fff,stroke:#215c35
+    class Router,Auth,Need,Dispatch,Inventory,Handover,State,Read,Audit,Txn component
+    class DB database

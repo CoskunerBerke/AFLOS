@@ -1,0 +1,32 @@
+digraph G {
+  graph [bgcolor="white", pad="0.28", nodesep="0.34", ranksep="0.9", fontname="Arial", fontsize=19, fontcolor="#172d44", splines=polyline, outputorder=edgesfirst];
+  node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.3, fontname="Arial", fontsize=12, fontcolor="white", margin="0.22,0.16"];
+  edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#44586a", arrowsize=0.67, penwidth=1.25];
+
+  graph [rankdir=TB, label="AFLOS | Level 3 - Backend REST API Components", labelloc=t, nodesep="0.3", ranksep="0.65"];
+  client [label="NGINX / Web frontend\n[External to API container]", fillcolor="#767d87"];
+  subgraph cluster_api {
+    label="Backend REST API - Proposed logical components"; style="rounded"; color="#7498b7"; penwidth=1.5; bgcolor="#f7faff";
+    router [label="API Controller / Adapter\nRoutes & payload validation", fillcolor="#1168bd"];
+    auth [label="Authentication / RBAC\nJWT, ownership, zone-shift", fillcolor="#1168bd"];
+    zone [label="Need & Zone Management\nReports, zones, time slots", fillcolor="#1168bd"];
+    booking [label="Dispatch / Booking Engine\nSlot quota & plate overlap", fillcolor="#1168bd"];
+    handover [label="Handover Verification\nPlate + one-time code", fillcolor="#1168bd"];
+    lifecycle [label="Shipment Lifecycle\nFive valid shipment states", fillcolor="#1168bd"];
+    read [label="Public Dashboard\nSanitized KPIs / zones", fillcolor="#1168bd"];
+    audit [label="Audit & Idempotency\nAppend-only / replay safe", fillcolor="#1168bd"];
+    inventory [label="Inventory / Quota Service\nRequired, reserved, delivered", fillcolor="#1168bd"];
+    persistence [label="Transactional Persistence\nAtomic writes / row locks", fillcolor="#34774e"];
+    {rank=same; auth; zone; booking; handover; lifecycle; read; audit}
+    {rank=same; inventory; persistence}
+    router -> auth; router -> zone; router -> booking; router -> handover; router -> lifecycle; router -> read; router -> audit;
+    zone -> inventory; booking -> inventory; handover -> inventory;
+    booking -> lifecycle [style=dashed, label="Create CONFIRMED", constraint=false];
+    handover -> lifecycle [style=dashed, label="Set DELIVERED", constraint=false];
+    auth -> persistence; zone -> persistence; booking -> persistence; handover -> persistence;
+    lifecycle -> persistence; read -> persistence; audit -> persistence; inventory -> persistence;
+  }
+  db [shape=cylinder, style=filled, label="PostgreSQL\n[Database container]", fillcolor="#34774e"];
+  client -> router [label="HTTPS JSON /api/v1"];
+  persistence -> db [label="SQL / ACID"];
+}

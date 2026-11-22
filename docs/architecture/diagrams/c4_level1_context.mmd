@@ -1,0 +1,23 @@
+flowchart LR
+    Citizen["Citizen / Need Reporter<br/>(Person)"]
+    Carrier["Carrier / Vehicle Owner<br/>(Person)"]
+    Field["Field Staff / Volunteer<br/>(Person)"]
+    Coord["Disaster Coordinator<br/>(Person)"]
+    Admin["System Administrator<br/>(Person)"]
+
+    AFLOS["AFLOS<br/>(Software System)<br/>Aid zones, need tracking, dispatch and handover"]
+    Map["OpenStreetMap / Tile Provider<br/>(External Software System)"]
+
+    Citizen -->|"Browse map/KPIs and report needs"| AFLOS
+    Carrier -->|"Book shipments and report departure"| AFLOS
+    Field -->|"View assigned-zone arrivals and confirm handover"| AFLOS
+    Coord -->|"Manage zones, quotas, fleet and exceptions"| AFLOS
+    Admin -->|"Inspect audit records"| AFLOS
+    AFLOS -->|"Render geographical maps using HTTPS tiles"| Map
+
+    classDef person fill:#545d69,color:#fff,stroke:#343c47
+    classDef system fill:#1168bd,color:#fff,stroke:#084b8a,stroke-width:2px
+    classDef external fill:#777,color:#fff,stroke:#555
+    class Citizen,Carrier,Field,Coord,Admin person
+    class AFLOS system
+    class Map external

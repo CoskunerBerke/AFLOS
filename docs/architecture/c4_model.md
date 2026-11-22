@@ -19,7 +19,7 @@ AFLOS is an API-first disaster logistics and aid coordination platform. This doc
 
 **Precedence:** Latest explicit Product Owner decision > active backlog > older vision/proposal wording, as described in the architecture guide. Check the current Sprint 2 SRS before final PR approval.
 
-**Diagram notation:** GitHub-compatible Mermaid `flowchart` diagrams using C4 vocabulary. Every box indicates a **person**, **software system**, **container**, or **component**; arrows state purpose/protocol. These diagrams follow the C4 *abstraction levels* but are not the dedicated C4-PlantUML/Structurizr shape library. Dashed and labeled boxes are **proposed, unconfirmed capabilities**; solid boxes likewise represent architectural design, **not evidence of deployed software**.
+**Diagram notation:** Pre-rendered SVG previews based on C4 vocabulary, with the original Mermaid `flowchart` source and reproducible Graphviz DOT source under `docs/architecture/diagrams/`. This avoids reliance on GitHub’s Mermaid rich-display service. Every box indicates a **person**, **software system**, **container**, or **component**; arrows state purpose/protocol. These diagrams follow the C4 *abstraction levels* but are not the dedicated C4-PlantUML/Structurizr shape library. Dashed and labeled boxes are **proposed, unconfirmed capabilities**; solid boxes likewise represent architectural design, **not evidence of deployed software**.
 
 ### 1.1 Contract reconciliation — do not model stale requirements as current behavior
 
@@ -36,31 +36,9 @@ AFLOS is an API-first disaster logistics and aid coordination platform. This doc
 
 ### 2.1 System context diagram
 
-```mermaid
-flowchart LR
-    Citizen["Citizen / Need Reporter<br/>(Person)"]
-    Carrier["Carrier / Vehicle Owner<br/>(Person)"]
-    Field["Field Staff / Volunteer<br/>(Person)"]
-    Coord["Disaster Coordinator<br/>(Person)"]
-    Admin["System Administrator<br/>(Person)"]
+![C4 Level 1: System Context](diagrams/c4_level1_context.svg)
 
-    AFLOS["AFLOS<br/>(Software System)<br/>Aid zones, need tracking, dispatch and handover"]
-    Map["OpenStreetMap / Tile Provider<br/>(External Software System)"]
-
-    Citizen -->|"Browse map/KPIs and report needs"| AFLOS
-    Carrier -->|"Book shipments and report departure"| AFLOS
-    Field -->|"View assigned-zone arrivals and confirm handover"| AFLOS
-    Coord -->|"Manage zones, quotas, fleet and exceptions"| AFLOS
-    Admin -->|"Inspect audit records"| AFLOS
-    AFLOS -->|"Render geographical maps using HTTPS tiles"| Map
-
-    classDef person fill:#545d69,color:#fff,stroke:#343c47
-    classDef system fill:#1168bd,color:#fff,stroke:#084b8a,stroke-width:2px
-    classDef external fill:#777,color:#fff,stroke:#555
-    class Citizen,Carrier,Field,Coord,Admin person
-    class AFLOS system
-    class Map external
-```
+*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level1_context.mmd) · [Graphviz DOT](diagrams/c4_level1_context.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
 
 **Explanation:** At Level 1, AFLOS is **one box**. Its API, browser frontend, database and cache are internal implementation concerns and appear only at Level 2. Map-tile access may be initiated by browser-side map code; this contextual arrow expresses the overall dependency, not an assertion that the backend must proxy tiles.
 
@@ -79,40 +57,9 @@ flowchart LR
 
 A C4 *container* is a separately running application or data store (not necessarily a Docker container). The following shows a candidate deployable breakdown. Names **do not imply** those services are already implemented.
 
-```mermaid
-flowchart TB
-    Users["Users via desktop/mobile browsers<br/>(People)"]
-    Map["OpenStreetMap / Tile Server<br/>(External system)"]
+![C4 Level 2: Container Diagram](diagrams/c4_level2_containers.svg)
 
-    subgraph AFLOS["AFLOS — proposed application boundary"]
-        Proxy["NGINX Reverse Proxy<br/>(Container: edge)<br/>HTTPS routing / rate limits"]
-        Web["Responsive Web Frontend<br/>(Container: browser app)<br/>UI, dashboard, maps, forms"]
-        API["Backend REST API<br/>(Container: application)<br/>/api/v1; JWT/RBAC; domain rules"]
-        DB[("PostgreSQL<br/>(Container: database)<br/>Transactional records and audit")]
-        Cache["Public Read Cache<br/>(Proposed container / edge facility)<br/>15s public response caching"]
-        Sync["Offline Sync Engine<br/>(Proposed future worker container)<br/>Protocol NOT yet defined"]
-    end
-
-    Users -->|"HTTPS"| Proxy
-    Proxy -->|"Serves web application"| Web
-    Web -->|"HTTPS /api/v1 JSON"| Proxy
-    Proxy -->|"Proxy API requests"| API
-    Web -->|"HTTPS map tiles"| Map
-    API -->|"SQL / ACID transactions"| DB
-    Proxy -.->|"Optional cache for public GETs only"| Cache
-    Cache -.->|"Origin fetch / refresh (design TBD)"| API
-    Sync -.->|"Future authenticated reconciliation API (undefined)"| API
-    Sync -.->|"Future idempotent sync processing (design TBD)"| DB
-
-    classDef current fill:#1168bd,color:#fff,stroke:#084b8a
-    classDef data fill:#34774e,color:#fff,stroke:#215c35
-    classDef proposed fill:#fff4d6,color:#5b4500,stroke:#c58b19,stroke-dasharray:5 4
-    classDef external fill:#757575,color:#fff,stroke:#555
-    class Proxy,Web,API current
-    class DB data
-    class Cache,Sync proposed
-    class Users,Map external
-```
+*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level2_containers.mmd) · [Graphviz DOT](diagrams/c4_level2_containers.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
 
 ### 3.1 Container responsibilities and protocols
 
@@ -135,52 +82,9 @@ flowchart TB
 
 This view zooms into the **Backend REST API** container from Level 2. Components are logical responsibilities within the application, not microservices or deployed processes.
 
-```mermaid
-flowchart TB
-    HTTP["NGINX / Browser<br/>(Calls REST API)"]
+![C4 Level 3: Backend Components](diagrams/c4_level3_components.svg)
 
-    subgraph Backend["Backend REST API — proposed logical components"]
-        Router["HTTP Controller / API Adapter<br/>OpenAPI route & payload validation"]
-        Auth["Authentication & Authorization<br/>JWT / ownership / active zone-shift RBAC"]
-        Need["Need Request & Zone Management<br/>verification, zones, slots"]
-        Dispatch["Dispatch / Booking Engine<br/>capacity, plate overlap, standby, reroute"]
-        Inventory["Inventory & Quota Service<br/>required, reserved, delivered, open deficit"]
-        Handover["Handover Verification<br/>plate + single-use code + actual quantities"]
-        State["Shipment Lifecycle Service<br/>CONFIRMED / IN_TRANSIT / DELIVERED / CANCELLED / NO_SHOW"]
-        Read["Public Dashboard / Read Model<br/>anonymous zones and KPIs"]
-        Audit["Audit & Idempotency Service<br/>append-only events; replay keys"]
-        Txn["Transactional Persistence Layer<br/>atomic commits / row locks"]
-    end
-    DB[("PostgreSQL<br/>SQL data store")]
-
-    HTTP -->|"HTTPS JSON /api/v1"| Router
-    Router --> Auth
-    Router --> Need
-    Router --> Dispatch
-    Router --> Handover
-    Router --> State
-    Router --> Read
-    Router --> Audit
-    Need --> Inventory
-    Dispatch --> Inventory
-    Dispatch --> State
-    Handover --> Inventory
-    Handover --> State
-    Need --> Txn
-    Dispatch --> Txn
-    Inventory --> Txn
-    Handover --> Txn
-    State --> Txn
-    Read --> Txn
-    Auth --> Txn
-    Audit --> Txn
-    Txn -->|"SQL transaction / row locks"| DB
-
-    classDef component fill:#1168bd,color:#fff,stroke:#084b8a
-    classDef database fill:#34774e,color:#fff,stroke:#215c35
-    class Router,Auth,Need,Dispatch,Inventory,Handover,State,Read,Audit,Txn component
-    class DB database
-```
+*Diagram preview: SVG (GitHub-compatible). Editable sources: [Mermaid](diagrams/c4_level3_components.mmd) · [Graphviz DOT](diagrams/c4_level3_components.dot). The Mermaid source is retained separately because GitHub’s rich diagram renderer may fail independently of valid code.*
 
 ### 4.1 Component-to-endpoint traceability
 
@@ -285,7 +189,7 @@ ADRs below separate **documented requirements** from **proposed architecture dec
 - [x] Cross-references to API contract and US-01…US-10 provided
 - [ ] Co-architect reviews the proposed decomposition and technology assumptions
 - [ ] Product Owner confirms alignment with the **active Sprint 2 SRS** and whether genuine offline sync is required for MVP
-- [ ] GitHub Mermaid previews checked in Pull Request
+- [ ] GitHub SVG previews checked in Pull Request; standalone Mermaid source may need separate renderer validation
 - [ ] PR reviewed and approved; Issue #30 closed only after required approvals
 
 **Review questions for `@akgozmirza` / Product Owner:**
@@ -301,7 +205,7 @@ ADRs below separate **documented requirements** from **proposed architecture dec
 
 ## Appendix A — Native C4 notation source (Structurizr DSL)
 
-The Mermaid diagrams above are GitHub-readable previews of C4 concepts. For review against the Issue's **official C4 notation** criterion, the same high-level architecture is also described below in **Structurizr DSL**, which supports native System Context / Container / Component C4 views. This is an *additional modeling source*, not a deployed system. Copy this DSL into a `.dsl` workspace and render using a compatible Structurizr tool if formal C4 shapes are required. The DSL has not been executed in a renderer in this document.
+The SVG diagrams above are GitHub-readable previews of C4 concepts, and the Mermaid source files remain available under `diagrams/`. For review against the Issue's **official C4 notation** criterion, the same high-level architecture is also described below in **Structurizr DSL**, which supports native System Context / Container / Component C4 views. This is an *additional modeling source*, not a deployed system. Copy this DSL into a `.dsl` workspace and render using a compatible Structurizr tool if formal C4 shapes are required. The DSL has not been executed in a renderer in this document.
 
 ```text
 workspace "AFLOS" "Sprint 2 C4 architecture proposal" {
