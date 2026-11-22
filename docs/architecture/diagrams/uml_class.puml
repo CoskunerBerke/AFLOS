@@ -1,0 +1,168 @@
+@startuml
+left to right direction
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+title AFLOS Domain Class Diagram (design proposal)
+class UserAccount {
+  - id: UUID <<PK>>
+  - role: TEXT
+  - created_at: TIMESTAMPTZ
+  + canPerform(action: String): Boolean
+}
+class AidZone {
+  - id: UUID <<PK>>
+  - name: TEXT
+  - latitude: NUMERIC(9,6)
+  - longitude: NUMERIC(9,6)
+  - disaster_type: TEXT
+  - status: TEXT
+  + deactivate(reason: String): void
+}
+class AidRequest {
+  - id: UUID <<PK>>
+  - reporter_id: UUID <<FK>>
+  - zone_id: UUID <<FK>>
+  - review_status: TEXT
+  - lifecycle_state: TEXT
+  - latitude: NUMERIC(9,6)
+  - longitude: NUMERIC(9,6)
+  - contact_phone_encrypted: BYTEA
+  - urgency_score: NUMERIC(3,1)
+  - tracking_token_hash: TEXT
+  - submitted_at: TIMESTAMPTZ
+  + verify(): void
+  + archive(): void
+}
+class AidRequestLine {
+  - id: UUID <<PK>>
+  - request_id: UUID <<FK>>
+  - category: TEXT
+  - item_name: TEXT
+  - quantity: NUMERIC(14,2)
+  - unit: TEXT
+}
+class AidNeed {
+  - id: UUID <<PK>>
+  - zone_id: UUID <<FK>>
+  - category: TEXT
+  - item_name: TEXT
+  - unit: TEXT
+  - required_quantity: NUMERIC(14,2)
+  - reserved_quantity: NUMERIC(14,2)
+  - delivered_quantity: NUMERIC(14,2)
+  + openDeficit(): Decimal
+}
+class TimeSlot {
+  - id: UUID <<PK>>
+  - zone_id: UUID <<FK>>
+  - starts_at: TIMESTAMPTZ
+  - ends_at: TIMESTAMPTZ
+  - max_vehicles: INTEGER
+  - assigned_vehicles: INTEGER
+  + hasCapacity(): Boolean
+}
+class Vehicle {
+  - id: UUID <<PK>>
+  - carrier_id: UUID <<FK>>
+  - license_plate: TEXT
+  - vehicle_type: TEXT
+  - capacity_kg: NUMERIC(14,2)
+  + isEligible(slot: TimeSlot): Boolean
+}
+class Shipment {
+  - id: UUID <<PK>>
+  - carrier_id: UUID <<FK>>
+  - vehicle_id: UUID <<FK>>
+  - target_zone_id: UUID <<FK>>
+  - time_slot_id: UUID <<FK>>
+  - status: TEXT
+  - created_at: TIMESTAMPTZ
+  - updated_at: TIMESTAMPTZ
+  + depart(): void
+  + confirmHandover(): void
+}
+class ShipmentItem {
+  - id: UUID <<PK>>
+  - shipment_id: UUID <<FK>>
+  - aid_need_id: UUID <<FK>>
+  - pledged_quantity: NUMERIC(14,2)
+  - actual_delivered_quantity: NUMERIC(14,2)
+  + reconcile(actual: Decimal): void
+}
+class Warehouse {
+  - id: UUID <<PK>>
+  - zone_id: UUID <<FK>>
+  - name: TEXT
+  - latitude: NUMERIC(9,6)
+  - longitude: NUMERIC(9,6)
+}
+class StockItem {
+  - id: UUID <<PK>>
+  - warehouse_id: UUID <<FK>>
+  - category: TEXT
+  - item_name: TEXT
+  - unit: TEXT
+  - on_hand_quantity: NUMERIC(14,2)
+  - reserved_quantity: NUMERIC(14,2)
+  - barcode: TEXT
+  - lot_number: TEXT
+  + availableQuantity(): Decimal
+}
+class StockReservation {
+  - id: UUID <<PK>>
+  - stock_item_id: UUID <<FK>>
+  - shipment_item_id: UUID <<FK>>
+  - quantity: NUMERIC(14,2)
+  - status: TEXT
+  + release(): void
+}
+class HandoverProof {
+  - id: UUID <<PK>>
+  - shipment_id: UUID <<FK>>
+  - verifier_user_id: UUID <<FK>>
+  - proof_method: TEXT
+  - proof_hash: TEXT
+  - confirmed_at: TIMESTAMPTZ
+  - server_verified: BOOLEAN
+  + validateProof(): Boolean
+}
+class AuditEntry {
+  - id: UUID <<PK>>
+  - actor_id: UUID <<FK>>
+  - entity_type: TEXT
+  - entity_id: UUID
+  - action: TEXT
+  - occurred_at: TIMESTAMPTZ
+  - payload: JSONB
+}
+class IdempotencyRecord {
+  - id: UUID <<PK>>
+  - actor_scope: TEXT
+  - http_method: TEXT
+  - path: TEXT
+  - idempotency_key: TEXT
+  - payload_hash: TEXT
+  - result: JSONB
+  - expires_at: TIMESTAMPTZ
+}
+UserAccount "0..1" -- "0..*" AidRequest : reporter_id
+AidZone "0..1" -- "0..*" AidRequest : zone_id
+AidRequest "1" -- "0..*" AidRequestLine : request_id
+AidZone "1" -- "0..*" AidNeed : zone_id
+AidZone "1" -- "0..*" TimeSlot : zone_id
+UserAccount "1" -- "0..*" Vehicle : carrier_id
+UserAccount "1" -- "0..*" Shipment : carrier_id
+Vehicle "1" -- "0..*" Shipment : vehicle_id
+AidZone "1" -- "0..*" Shipment : target_zone_id
+TimeSlot "1" -- "0..*" Shipment : time_slot_id
+Shipment "1" -- "0..*" ShipmentItem : shipment_id
+AidNeed "1" -- "0..*" ShipmentItem : aid_need_id
+AidZone "0..1" -- "0..*" Warehouse : zone_id
+Warehouse "1" -- "0..*" StockItem : warehouse_id
+StockItem "1" -- "0..*" StockReservation : stock_item_id
+ShipmentItem "1" -- "0..*" StockReservation : shipment_item_id
+Shipment "1" -- "0..*" HandoverProof : shipment_id
+UserAccount "1" -- "0..*" HandoverProof : verifier_user_id
+UserAccount "0..1" -- "0..*" AuditEntry : actor_id
+@enduml

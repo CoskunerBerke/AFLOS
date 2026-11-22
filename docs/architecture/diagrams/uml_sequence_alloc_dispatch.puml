@@ -1,0 +1,27 @@
+@startuml
+title Dispatch - atomic booking vs proposed physical warehouse stock
+actor Coordinator
+actor Carrier
+participant "Web UI" as UI
+participant "Booking API" as API
+participant "Dispatch Service" as Dispatch
+database PostgreSQL as DB
+participant "Warehouse Ledger (SRS proposed)" as WH
+Coordinator -> UI: Select standby vehicle, zone and time slot
+UI -> API: POST /standby-fleet/{standbyId}/assign (COORDINATOR)
+API -> Dispatch: Validate role, quota, plate, need deficit
+Dispatch -> DB: SELECT FOR UPDATE slot and need lines
+Dispatch -> DB: Create CONFIRMED shipment + reservations atomically
+DB --> Dispatch: Commit / rollback all on 409
+opt SRS physical warehouse extension
+Dispatch -> WH: Reserve physical stock by batch
+WH --> Dispatch: Reservation recorded, on_hand unchanged
+end
+Dispatch --> API: 201 BookingReceipt
+API --> UI: CONFIRMED shipment
+Coordinator -> WH: Authorize physical pick and loading
+WH -> DB: Atomically decrement on_hand and consume stock reserve
+Carrier -> UI: Confirm loaded vehicle departure
+UI -> API: PATCH /shipments/{shipmentId}/status (CARRIER)
+API -> DB: Transition CONFIRMED -> IN_TRANSIT + audit
+@enduml
