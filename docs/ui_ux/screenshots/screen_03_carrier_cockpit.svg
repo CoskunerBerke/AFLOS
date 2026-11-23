@@ -1,63 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812">
   <defs>
-    <filter id="sh" x="-10%" y="-5%" width="120%" height="115%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
-    </filter>
+    <style>
+      .t { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
   </defs>
-  <rect width="375" height="812" fill="#F8FAFC"/>
-  
-  <!-- Status Bar -->
+
+  <rect width="375" height="812" fill="#0F172A"/>
+
+  <!-- Status Bar (Dark Mode) -->
   <rect width="375" height="44" fill="#1E293B"/>
-  <text x="32" y="28" font-family="sans-serif" font-size="14" font-weight="600" fill="#FFF">11:15</text>
+  <text x="32" y="30" class="t" font-size="14" font-weight="600" fill="#F8FAFC">11:15</text>
+  <path d="M 315 28 L 315 22 M 319 28 L 319 19 M 323 28 L 323 16 M 327 28 L 327 13" stroke="#F8FAFC" stroke-width="1.8" stroke-linecap="round"/>
+  <rect x="336" y="18" width="22" height="12" rx="3.5" fill="none" stroke="#F8FAFC" stroke-width="1.2"/>
+  <rect x="338" y="20" width="14" height="8" rx="2" fill="#F8FAFC"/>
+
+  <!-- Carrier Top Bar -->
+  <rect y="44" width="375" height="56" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="20" y="77" class="t" font-size="16" font-weight="700" fill="#F8FAFC">Taşıyıcı Görev Konsolu</text>
+  <rect x="254" y="58" width="105" height="28" rx="4" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+  <text x="306" y="76" class="mono" font-size="12" font-weight="700" fill="#38BDF8" text-anchor="middle">31-K-4920</text>
+
+  <!-- Mission Overview Card -->
+  <rect x="16" y="112" width="343" height="128" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <rect x="28" y="124" width="76" height="20" rx="4" fill="#0F172A"/>
+  <text x="66" y="138" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">GÖREV #104</text>
+  <circle cx="316" cy="134" r="4" fill="#10B981"/>
+  <text x="326" y="138" class="t" font-size="11" font-weight="600" fill="#10B981">Aktif Sefer</text>
+
+  <text x="28" y="166" class="t" font-size="15" font-weight="700" fill="#F8FAFC">Mersin Hub &#8594; Antakya Depo-2</text>
+  <text x="28" y="184" class="t" font-size="12" fill="#94A3B8">Kargo: 12 Palet Su, 50 Çadır (7.8 Ton)</text>
+
+  <line x1="28" y1="198" x2="330" y2="198" stroke="#334155" stroke-width="1"/>
+  <text x="28" y="222" class="t" font-size="12" fill="#94A3B8">Kalan: <tspan font-weight="700" fill="#F8FAFC">48 km (42 dk)</tspan></text>
+  <text x="220" y="222" class="t" font-size="12" fill="#94A3B8">Kapasite: <tspan font-weight="700" fill="#38BDF8">%78 (Uygun)</tspan></text>
+
+  <!-- Vector Map Canvas -->
+  <rect x="16" y="252" width="343" height="260" rx="8" fill="#0B132B" stroke="#1E293B" stroke-width="1"/>
   
-  <!-- Header -->
-  <rect y="44" width="375" height="56" fill="#1E293B"/>
-  <text x="20" y="78" font-family="sans-serif" font-size="16" font-weight="800" fill="#FFF">Tasiyici Kokpiti</text>
-  <rect x="250" y="58" width="105" height="28" rx="14" fill="#0F172A"/>
-  <text x="302" y="76" font-family="monospace" font-size="12" font-weight="700" fill="#38BDF8" text-anchor="middle">31-K-4920</text>
-
-  <!-- Active Mission Card -->
-  <rect x="16" y="112" width="343" height="156" rx="14" fill="#FFFFFF" filter="url(#sh)"/>
-  <rect x="28" y="126" width="76" height="22" rx="6" fill="#EFF6FF"/>
-  <text x="66" y="141" font-family="sans-serif" font-size="10" font-weight="800" fill="#2563EB" text-anchor="middle">GÖREV #104</text>
-  <text x="330" y="142" font-family="sans-serif" font-size="12" font-weight="700" fill="#16A34A" text-anchor="end">&#9679; AKTIF SEVK</text>
-
-  <text x="28" y="172" font-family="sans-serif" font-size="15" font-weight="800" fill="#0F172A">Mersin Hub &#8594; Antakya Sahra 2</text>
-  <text x="28" y="192" font-family="sans-serif" font-size="12" fill="#64748B">Yük: 12 Palet Su, 50 Kışlık Çadır (7.800 kg)</text>
-
-  <line x1="28" y1="206" x2="330" y2="206" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="28" y="226" font-family="sans-serif" font-size="11" fill="#64748B">Hedefe Mesafe</text>
-  <text x="28" y="246" font-family="sans-serif" font-size="16" font-weight="800" fill="#0F172A">48 km (42 dk)</text>
-  <text x="180" y="226" font-family="sans-serif" font-size="11" fill="#64748B">Kapasite Doluluk</text>
-  <text x="180" y="246" font-family="sans-serif" font-size="16" font-weight="800" fill="#2563EB">%78 (Uygun)</text>
-
-  <!-- Simulated Map Card -->
-  <rect x="16" y="280" width="343" height="240" rx="14" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
-  <!-- Map Graphic lines -->
-  <path d="M 40 460 Q 120 380 200 360 T 320 310" fill="none" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="40" cy="460" r="8" fill="#16A34A"/>
-  <circle cx="320" cy="310" r="10" fill="#DC2626"/>
-  <circle cx="200" cy="360" r="12" fill="#2563EB"/>
-  <text x="200" y="365" font-size="14" text-anchor="middle" fill="#FFF">&#128666;</text>
+  <!-- Road Network Vector Paths -->
+  <path d="M 30 460 Q 90 380 160 380 T 320 290" fill="none" stroke="#1E293B" stroke-width="10"/>
+  <!-- Safe Green Corridor Overlay -->
+  <path d="M 30 460 Q 90 380 160 380 T 320 290" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
   
-  <!-- Road Hazard Warning Overlay on Map -->
-  <rect x="36" y="294" width="220" height="42" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="1"/>
-  <text x="46" y="312" font-family="sans-serif" font-size="11" font-weight="800" fill="#991B1B">&#9888; D-825 Heyelan Kapanmasi!</text>
-  <text x="46" y="326" font-family="sans-serif" font-size="10" fill="#B91C1C">Kirikhan Baypas Rota Aktif (Yesil Hat)</text>
+  <!-- Origin and Destination Markers -->
+  <circle cx="40" cy="455" r="6" fill="#38BDF8"/>
+  <circle cx="315" cy="295" r="7" fill="#DC2626"/>
+  <!-- Current Vehicle Position -->
+  <circle cx="160" cy="380" r="10" fill="#2563EB"/>
+  <circle cx="160" cy="380" r="16" fill="none" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <polygon points="160,373 165,385 160,382 155,385" fill="#FFFFFF"/>
 
-  <!-- Offline Status Badge -->
-  <rect x="230" y="482" width="118" height="26" rx="13" fill="#0F172A" opacity="0.9"/>
-  <circle cx="242" cy="495" r="4" fill="#38BDF8"/>
-  <text x="282" y="499" font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">OFFLINE HAZIR</text>
+  <!-- Road Hazard Warning Overlay Box -->
+  <rect x="28" y="264" width="230" height="44" rx="6" fill="#1E293B" stroke="#DC2626" stroke-width="1"/>
+  <text x="40" y="282" class="t" font-size="11" font-weight="700" fill="#F87171">&#9888; D-825 Heyelan Kapanması</text>
+  <text x="40" y="296" class="t" font-size="10" fill="#94A3B8">Kırıkhan baypası devrede (Yeşil Hat)</text>
 
-  <!-- Action Buttons -->
-  <rect x="16" y="534" width="343" height="54" rx="14" fill="#2563EB" filter="url(#sh)"/>
-  <text x="187" y="567" font-family="sans-serif" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">&#128248; TESLIMAT NOKTASINDA QR OKUT</text>
+  <!-- Connection Status Badge -->
+  <rect x="238" y="474" width="109" height="26" rx="4" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+  <circle cx="248" cy="487" r="3.5" fill="#38BDF8"/>
+  <text x="288" y="491" class="t" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">OFFLINE MOD</text>
 
-  <!-- Secondary Buttons -->
-  <rect x="16" y="600" width="164" height="48" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="98" y="630" font-family="sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle">&#128203; Irsaliye Detayi</text>
+  <!-- Action Controls -->
+  <rect x="16" y="524" width="343" height="48" rx="8" fill="#2563EB"/>
+  <text x="187" y="554" class="t" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Varış Noktasında QR Doğrula</text>
 
-  <rect x="195" y="600" width="164" height="48" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
-  <text x="277" y="630" font-family="sans-serif" font-size="13" font-weight="700" fill="#DC2626" text-anchor="middle">&#9888; Ariza / SOS</text>
+  <rect x="16" y="582" width="166" height="44" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="99" y="609" class="t" font-size="13" font-weight="600" fill="#F8FAFC" text-anchor="middle">Yol Tarifi Aç</text>
+
+  <rect x="193" y="582" width="166" height="44" rx="8" fill="#1E293B" stroke="#EF4444" stroke-width="1"/>
+  <text x="276" y="609" class="t" font-size="13" font-weight="600" fill="#F87171" text-anchor="middle">Arıza / SOS Bildir</text>
 </svg>

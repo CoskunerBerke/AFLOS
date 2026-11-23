@@ -1,74 +1,90 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812">
   <defs>
-    <filter id="sh" x="-10%" y="-5%" width="120%" height="115%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
+    <style>
+      .t { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+    <filter id="subtle" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0F172A" flood-opacity="0.04"/>
     </filter>
   </defs>
+
   <rect width="375" height="812" fill="#F8FAFC"/>
-  
+
   <!-- Status Bar -->
-  <rect width="375" height="44" fill="#0F172A"/>
-  <text x="32" y="28" font-family="sans-serif" font-size="14" font-weight="600" fill="#FFF">09:44</text>
-  
-  <!-- Header -->
-  <rect y="44" width="375" height="56" fill="#0F172A"/>
-  <text x="24" y="78" font-size="18" fill="#FFF">&#8592;</text>
-  <text x="56" y="78" font-family="sans-serif" font-size="17" font-weight="700" fill="#FFF">Talep Takip Paneli</text>
+  <rect width="375" height="44" fill="#FFFFFF"/>
+  <text x="32" y="30" class="t" font-size="14" font-weight="600" fill="#0F172A">09:44</text>
+  <path d="M 315 28 L 315 22 M 319 28 L 319 19 M 323 28 L 323 16 M 327 28 L 327 13" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+  <rect x="336" y="18" width="22" height="12" rx="3.5" fill="none" stroke="#0F172A" stroke-width="1.2"/>
+  <rect x="338" y="20" width="14" height="8" rx="2" fill="#0F172A"/>
 
-  <!-- Big Code Card -->
-  <rect x="16" y="116" width="343" height="112" rx="14" fill="#FFFFFF" filter="url(#sh)"/>
-  <text x="32" y="142" font-family="sans-serif" font-size="12" font-weight="600" fill="#64748B">TAKIP KODUNUZ</text>
-  <text x="32" y="178" font-family="monospace" font-size="32" font-weight="900" fill="#0F172A" letter-spacing="2">TRK-8492X</text>
-  <rect x="236" y="130" width="107" height="28" rx="14" fill="#FEF3C7"/>
-  <circle cx="248" cy="144" r="4" fill="#D97706"/>
-  <text x="296" y="148" font-family="sans-serif" font-size="11" font-weight="700" fill="#92400E" text-anchor="middle">YOLDA / SEVK</text>
-  <text x="32" y="212" font-family="sans-serif" font-size="11" fill="#64748B">Talebiniz Antakya Sahra Depo 2 birimince sevk edildi.</text>
+  <!-- Top App Navigation -->
+  <rect y="44" width="375" height="56" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <!-- Back Chevron -->
+  <path d="M 28 72 L 20 64 L 28 56" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="69" class="t" font-size="16" font-weight="700" fill="#0F172A">Talep Detayı &amp; Takip</text>
+  <rect x="290" y="58" width="69" height="28" rx="14" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+  <circle cx="300" cy="72" r="3.5" fill="#D97706"/>
+  <text x="328" y="76" class="t" font-size="11" font-weight="700" fill="#92400E" text-anchor="middle">YOLDA</text>
 
-  <!-- Stepper Card -->
-  <rect x="16" y="240" width="343" height="236" rx="14" fill="#FFFFFF" filter="url(#sh)"/>
-  <text x="32" y="268" font-family="sans-serif" font-size="14" font-weight="800" fill="#0F172A">Canli Sevk Asamalari</text>
+  <!-- Tracking Code Box -->
+  <rect x="16" y="112" width="343" height="84" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" filter="url(#subtle)"/>
+  <text x="32" y="136" class="t" font-size="11" font-weight="600" fill="#64748B" letter-spacing="0.5">RESMİ TAKİP NUMARASI</text>
+  <text x="32" y="168" class="mono" font-size="24" font-weight="700" fill="#0F172A" letter-spacing="1.5">TRK-8492X</text>
+  <rect x="272" y="136" width="71" height="32" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="307" y="157" class="t" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">Kopyala</text>
 
-  <!-- Step 1 -->
-  <circle cx="44" cy="300" r="10" fill="#16A34A"/>
-  <text x="44" y="304" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFF" text-anchor="middle">&#10003;</text>
-  <line x1="44" y1="310" x2="44" y2="340" stroke="#16A34A" stroke-width="2"/>
-  <text x="68" y="299" font-family="sans-serif" font-size="13" font-weight="700" fill="#0F172A">Talep Alindi</text>
-  <text x="68" y="313" font-family="sans-serif" font-size="11" fill="#64748B">09:41 - GPS Koordinatlari dogrulandi</text>
+  <!-- Clean Timeline Card -->
+  <rect x="16" y="208" width="343" height="252" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" filter="url(#subtle)"/>
+  <text x="32" y="234" class="t" font-size="14" font-weight="700" fill="#0F172A">Canlı Sevkiyat Süreci</text>
 
-  <!-- Step 2 -->
-  <circle cx="44" cy="350" r="10" fill="#16A34A"/>
-  <text x="44" y="354" font-family="sans-serif" font-size="11" font-weight="bold" fill="#FFF" text-anchor="middle">&#10003;</text>
-  <line x1="44" y1="360" x2="44" y2="390" stroke="#16A34A" stroke-width="2"/>
-  <text x="68" y="349" font-family="sans-serif" font-size="13" font-weight="700" fill="#0F172A">Triyaj Onayi Verildi</text>
-  <text x="68" y="363" font-family="sans-serif" font-size="11" fill="#16A34A">Oncelik Skoru: 8.7/10 (Yuksek Aciliyet)</text>
+  <!-- Timeline Step 1 (Done) -->
+  <circle cx="40" cy="268" r="9" fill="#10B981"/>
+  <path d="M 37 268 L 39 270 L 44 265" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="277" x2="40" y2="313" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="60" y="266" class="t" font-size="13" font-weight="600" fill="#0F172A">Talep Kaydedildi</text>
+  <text x="60" y="280" class="t" font-size="11" fill="#64748B">09:41 · Koordinatlar doğrulandı</text>
+  <text x="343" y="266" class="mono" font-size="11" fill="#64748B" text-anchor="end">09:41</text>
 
-  <!-- Step 3 (Active) -->
-  <circle cx="44" cy="400" r="10" fill="#2563EB"/>
-  <circle cx="44" cy="400" r="14" fill="#2563EB" opacity="0.2"/>
-  <line x1="44" y1="410" x2="44" y2="440" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="3,3"/>
-  <text x="68" y="399" font-family="sans-serif" font-size="13" font-weight="700" fill="#2563EB">Araca Yuklendi ve Sevk Edildi</text>
-  <text x="68" y="413" font-family="sans-serif" font-size="11" fill="#64748B">Tir Plaka: 31-K-4920 (Tahmini: 25 dk)</text>
+  <!-- Timeline Step 2 (Done) -->
+  <circle cx="40" cy="322" r="9" fill="#10B981"/>
+  <path d="M 37 322 L 39 324 L 44 319" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="331" x2="40" y2="367" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="60" y="320" class="t" font-size="13" font-weight="600" fill="#0F172A">Triyaj ve Öncelik Onayı</text>
+  <text x="60" y="334" class="t" font-size="11" fill="#059669">Aciliyet Skoru: 8.7 / 10.0 (Yüksek)</text>
+  <text x="343" y="320" class="mono" font-size="11" fill="#64748B" text-anchor="end">09:43</text>
 
-  <!-- Step 4 -->
-  <circle cx="44" cy="450" r="10" fill="#E2E8F0"/>
-  <text x="68" y="449" font-family="sans-serif" font-size="13" font-weight="600" fill="#94A3B8">Teslimat ve QR Onayi</text>
-  <text x="68" y="463" font-family="sans-serif" font-size="11" fill="#94A3B8">Noktada temassiz QR okutulacak</text>
+  <!-- Timeline Step 3 (Active) -->
+  <circle cx="40" cy="376" r="9" fill="#2563EB"/>
+  <circle cx="40" cy="376" r="13" fill="none" stroke="#BFDBFE" stroke-width="2"/>
+  <line x1="40" y1="389" x2="40" y2="421" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="60" y="374" class="t" font-size="13" font-weight="700" fill="#1D4ED8">Araca Yüklendi ve Yola Çıktı</text>
+  <text x="60" y="388" class="t" font-size="11" fill="#2563EB">Tahmini varış: 22 dakika (Antakya Hub-2)</text>
+  <text x="343" y="374" class="mono" font-size="11" font-weight="700" fill="#2563EB" text-anchor="end">10:05</text>
 
-  <!-- Courier Card -->
-  <rect x="16" y="490" width="343" height="96" rx="14" fill="#FFFFFF" filter="url(#sh)"/>
-  <circle cx="52" cy="538" r="22" fill="#E2E8F0"/>
-  <text x="52" y="544" font-size="20" text-anchor="middle">&#128666;</text>
-  <text x="86" y="528" font-family="sans-serif" font-size="14" font-weight="800" fill="#0F172A">Mehmet Y. (Gönüllü Nakliye)</text>
-  <text x="86" y="546" font-family="sans-serif" font-size="12" fill="#64748B">Arac: Isuzu Kamyonet | 31-K-4920</text>
-  <text x="86" y="564" font-family="sans-serif" font-size="12" font-weight="600" fill="#2563EB">Yuk: 40 Koli Su, 2 Kislik Cadir</text>
+  <!-- Timeline Step 4 (Pending) -->
+  <circle cx="40" cy="430" r="9" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="60" y="428" class="t" font-size="13" font-weight="500" fill="#64748B">Saha Teslimatı ve QR Teyidi</text>
+  <text x="60" y="442" class="t" font-size="11" fill="#94A3B8">Noktada temassız QR doğrulama yapılacak</text>
 
-  <!-- SMS Fallback Card -->
-  <rect x="16" y="598" width="343" height="74" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="32" y="622" font-family="sans-serif" font-size="12" font-weight="700" fill="#0F172A">&#128246; Sebeke Kesintisi Durumunda:</text>
-  <text x="32" y="640" font-family="sans-serif" font-size="11" fill="#475569">Internetiniz kesilirse <tspan font-weight="bold">DURUM TRK-8492X</tspan> yazip</text>
-  <text x="32" y="656" font-family="sans-serif" font-size="11" fill="#475569"><tspan font-weight="bold">3820</tspan> ucretsiz SMS numarasina iletebilirsiniz.</text>
+  <!-- Assigned Carrier Info Card -->
+  <rect x="16" y="472" width="343" height="96" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" filter="url(#subtle)"/>
+  <!-- Avatar with Initials -->
+  <circle cx="44" cy="520" r="18" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="44" y="525" class="t" font-size="13" font-weight="700" fill="#334155" text-anchor="middle">MY</text>
+  <text x="72" y="512" class="t" font-size="14" font-weight="700" fill="#0F172A">Mehmet Yılmaz</text>
+  <text x="72" y="528" class="t" font-size="12" fill="#64748B">Gönüllü Lojistik Şoförü · 31 K 4920</text>
+  <text x="72" y="546" class="t" font-size="12" font-weight="600" fill="#2563EB">Taşınan: 40 Koli Su, 2 Çadır</text>
+  <!-- Call Button -->
+  <rect x="295" y="504" width="48" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="319" y="524" class="t" font-size="12" font-weight="600" fill="#0F172A" text-anchor="middle">Ara</text>
+
+  <!-- Offline SMS Fallback Notice -->
+  <rect x="16" y="580" width="343" height="64" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="32" y="602" class="t" font-size="12" font-weight="700" fill="#334155">İnternet Kesintisi Durumunda:</text>
+  <text x="32" y="620" class="t" font-size="11" fill="#64748B"><tspan class="mono" font-weight="700" fill="#0F172A">DURUM TRK-8492X</tspan> yazıp <tspan font-weight="700" fill="#0F172A">3820</tspan> numarasına ücretsiz SMS atabilirsiniz.</text>
 
   <!-- Cancel Request Button -->
-  <rect x="16" y="688" width="343" height="46" rx="12" fill="#FFFFFF" stroke="#EF4444" stroke-width="1.5"/>
-  <text x="187" y="717" font-family="sans-serif" font-size="13" font-weight="700" fill="#DC2626" text-anchor="middle">Yardima Ihtiyacim Kalmadi (Iptal Et)</text>
+  <rect x="16" y="660" width="343" height="44" rx="8" fill="#FFFFFF" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="187" y="687" class="t" font-size="13" font-weight="600" fill="#DC2626" text-anchor="middle">İhtiyacım Kalmadı (Talebi İptal Et)</text>
 </svg>
