@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812">
+  <defs>
+    <filter id="sh" x="-10%" y="-5%" width="120%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+  <rect width="375" height="812" fill="#0F172A"/>
+  
+  <!-- Status Bar -->
+  <text x="32" y="28" font-family="sans-serif" font-size="14" font-weight="600" fill="#FFF">11:58</text>
+  
+  <!-- Header -->
+  <text x="24" y="78" font-size="18" fill="#FFF">&#8592;</text>
+  <text x="56" y="78" font-family="sans-serif" font-size="17" font-weight="700" fill="#FFF">Teslimat Dogrulama &amp; Devir</text>
+
+  <!-- Scanner Frame -->
+  <rect x="36" y="116" width="303" height="303" rx="20" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Corner Brackets (Scanner HUD) -->
+  <path d="M 56 156 L 56 136 L 76 136" fill="none" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 319 156 L 319 136 L 299 136" fill="none" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 56 379 L 56 399 L 76 399" fill="none" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 319 379 L 319 399 L 299 399" fill="none" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Simulated QR Pattern in center -->
+  <rect x="96" y="176" width="183" height="183" rx="8" fill="#FFFFFF"/>
+  <rect x="112" y="192" width="46" height="46" fill="#000"/>
+  <rect x="120" y="200" width="30" height="30" fill="#FFF"/>
+  <rect x="127" y="207" width="16" height="16" fill="#000"/>
+  
+  <rect x="217" y="192" width="46" height="46" fill="#000"/>
+  <rect x="225" y="200" width="30" height="30" fill="#FFF"/>
+  <rect x="232" y="207" width="16" height="16" fill="#000"/>
+
+  <rect x="112" y="297" width="46" height="46" fill="#000"/>
+  <rect x="120" y="305" width="30" height="30" fill="#FFF"/>
+  <rect x="127" y="312" width="16" height="16" fill="#000"/>
+
+  <!-- Scanline Laser Effect -->
+  <line x1="60" y1="268" x2="315" y2="268" stroke="#38BDF8" stroke-width="3" opacity="0.9"/>
+
+  <!-- Instructions text -->
+  <text x="187" y="445" font-family="sans-serif" font-size="13" font-weight="600" fill="#94A3B8" text-anchor="middle">Sahra Depo Gorevlisinin Dinamik QR Kodunu Okutun</text>
+  <text x="187" y="465" font-family="sans-serif" font-size="11" fill="#38BDF8" text-anchor="middle">&#128274; ECDSA SHA-256 Kriptografik Cevrimdisi Imza</text>
+
+  <!-- Verified Receipt Card -->
+  <rect x="16" y="490" width="343" height="170" rx="14" fill="#FFFFFF"/>
+  <circle cx="44" cy="520" r="14" fill="#DCFCE7"/>
+  <text x="44" y="526" font-size="16" font-weight="bold" fill="#16A34A" text-anchor="middle">&#10003;</text>
+  <text x="68" y="518" font-family="sans-serif" font-size="14" font-weight="800" fill="#0F172A">QR Kod Eslesmesi Basarili!</text>
+  <text x="68" y="534" font-family="sans-serif" font-size="11" fill="#16A34A">Imza Dogrulandi: Antakya Sahra Depo 2 Sorumlusu</text>
+
+  <line x1="32" y1="548" x2="343" y2="548" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="32" y="572" font-family="sans-serif" font-size="12" fill="#64748B">Teslim Edilen:</text>
+  <text x="343" y="572" font-family="sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">12 Palet Su, 50 Cadir</text>
+  <text x="32" y="596" font-family="sans-serif" font-size="12" fill="#64748B">Irsaliye Kodu:</text>
+  <text x="343" y="596" font-family="monospace" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">SHP-10492-OK</text>
+  <text x="32" y="620" font-family="sans-serif" font-size="12" fill="#64748B">Baglanti Durumu:</text>
+  <text x="343" y="620" font-family="sans-serif" font-size="11" font-weight="700" fill="#D97706" text-anchor="end">&#9679; Offline Kuyruga Alindi</text>
+  <text x="32" y="644" font-family="sans-serif" font-size="10" fill="#94A3B8">Sebeke geri geldiginde merkeze otomatik esitlenecek.</text>
+
+  <!-- Complete Button -->
+  <rect x="16" y="680" width="343" height="54" rx="14" fill="#16A34A"/>
+  <text x="187" y="713" font-family="sans-serif" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">TESLIMATI ONAYLA VE BITIR</text>
+</svg>
