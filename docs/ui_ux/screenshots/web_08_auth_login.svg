@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <style>
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Arka Plan -->
+  <rect width="1440" height="900" fill="#F8FAFC"/>
+
+  <!-- Üst Menü Çubuğu (Web Platform) -->
+  <rect width="1440" height="70" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="32" y="19" width="32" height="32" rx="6" fill="#B91C1C"/>
+  <path d="M 40 37 L 48 27 L 56 37 Z" fill="#FFFFFF"/>
+  <text x="76" y="38" class="font" font-size="20" font-weight="900" fill="#0F172A" letter-spacing="-0.5">AFLOS</text>
+  <text x="76" y="51" class="font" font-size="11" font-weight="600" fill="#64748B">Afet Lojistik ve İhtiyaç Koordinasyon Platformu</text>
+
+  <!-- Navigasyon Menüsü -->
+  <text x="440" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Canlı Afet Haritası</text>
+  <text x="610" y="42" class="font" font-size="14" font-weight="500" fill="#475569">İhtiyaç Talebi Bildir</text>
+  <text x="780" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Talep Sorgula &amp; Takip</text>
+  <text x="960" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Saha Gönüllüsü Ol</text>
+  <text x="1120" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Taşıyıcı / Tır Sevk</text>
+
+  <!-- Sağ Butonlar -->
+  <rect x="1260" y="18" width="90" height="34" rx="6" fill="#0F172A"/>
+  <text x="1305" y="40" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Giriş Yap</text>
+
+  <rect x="1358" y="18" width="90" height="34" rx="6" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="1403" y="40" class="font" font-size="13" font-weight="600" fill="#475569" text-anchor="middle">Kayıt Ol</text>
+
+  <!-- Bilgi Şeridi -->
+  <rect y="70" width="1440" height="36" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="48" cy="88" r="4.5" fill="#2563EB"/>
+  <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#1E3A8A">GÜVENLİ KURUMSAL VE SAHA ERİŞİMİ:</text>
+  <text x="310" y="92" class="font" font-size="12" fill="#1D4ED8">Afet bölgesinde yetkisiz müdahaleleri ve mükerrer kayıtları önlemek amacıyla tüm yetkili oturumlar 2FA SMS ve uçtan uca şifrelemeyle korunmaktadır.</text>
+  <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#1E3A8A" text-anchor="end">Güvenlik Seviyesi: Seviye 3</text>
+
+  <!-- Giriş Kartı (Merkezi Split View: 1040x680) -->
+  <g filter="url(#card-shadow)">
+    <!-- Kart Tabanı -->
+    <rect x="200" y="132" width="1040" height="690" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+
+    <!-- Sol Sütun: Koyu Tema Kurumsal Bilgilendirme (400px) -->
+    <rect x="200" y="132" width="400" height="690" rx="12 0 0 12" fill="#0F172A"/>
+    
+    <!-- Sol Logo & Arması -->
+    <rect x="236" y="168" width="44" height="44" rx="8" fill="#B91C1C"/>
+    <path d="M 246 194 L 258 178 L 270 194 Z" fill="#FFFFFF"/>
+    <text x="292" y="192" class="font" font-size="22" font-weight="900" fill="#FFFFFF">AFLOS</text>
+    <text x="292" y="206" class="font" font-size="11" font-weight="600" fill="#94A3B8">Afet Lojistik Operasyon Sistemi</text>
+
+    <text x="236" y="260" class="font" font-size="18" font-weight="800" fill="#FFFFFF">Görevli &amp; Yetkili Girişi</text>
+    <text x="236" y="284" class="font" font-size="12" fill="#94A3B8">Sistemdeki görevinize göre yetkilendirilmiş panellere erişim sağlayın.</text>
+
+    <!-- Avantaj ve Yetkiler Listesi -->
+    <rect x="236" y="316" width="328" height="60" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <circle cx="260" cy="346" r="10" fill="#16A34A"/>
+    <text x="260" y="350" class="font" font-size="10" font-weight="900" fill="#FFF" text-anchor="middle">✓</text>
+    <text x="282" y="340" class="font" font-size="12" font-weight="700" fill="#FFFFFF">Depo Envanter &amp; Barkod</text>
+    <text x="282" y="356" class="font" font-size="11" fill="#94A3B8">Sahra depolarında palet sayım ve kabul</text>
+
+    <rect x="236" y="388" width="328" height="60" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <circle cx="260" cy="418" r="10" fill="#2563EB"/>
+    <text x="260" y="422" class="font" font-size="10" font-weight="900" fill="#FFF" text-anchor="middle">✓</text>
+    <text x="282" y="412" class="font" font-size="12" font-weight="700" fill="#FFFFFF">Tır Sevk &amp; Slot Yönetimi</text>
+    <text x="282" y="428" class="font" font-size="11" fill="#94A3B8">Araç kotası, randevu ve rota telemetrisi</text>
+
+    <rect x="236" y="460" width="328" height="60" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <circle cx="260" cy="490" r="10" fill="#DC2626"/>
+    <text x="260" y="494" class="font" font-size="10" font-weight="900" fill="#FFF" text-anchor="middle">✓</text>
+    <text x="282" y="484" class="font" font-size="12" font-weight="700" fill="#FFFFFF">Kriz Masası GIS Kontrolü</text>
+    <text x="282" y="500" class="font" font-size="11" fill="#94A3B8">Bölgesel talep triyajı ve konvoy sevki</text>
+
+    <!-- Entegrasyon Rozeti -->
+    <rect x="236" y="550" width="328" height="74" rx="8" fill="#020617" stroke="#334155" stroke-width="1"/>
+    <text x="252" y="574" class="font" font-size="11" font-weight="700" fill="#E2E8F0">Resmi Kurum Entegrasyonları:</text>
+    <text x="252" y="594" class="font" font-size="10" fill="#94A3B8">• T.C. İçişleri Bakanlığı NVİ Kimlik Servisi</text>
+    <text x="252" y="610" class="font" font-size="10" fill="#94A3B8">• AFAD Ulusal Afet Müdahale Ağı (TAMP)</text>
+
+    <!-- Destek Telefonu -->
+    <text x="236" y="668" class="font" font-size="11" font-weight="600" fill="#64748B">Saha İletişim &amp; Yardım Masası:</text>
+    <text x="236" y="688" class="mono" font-size="14" font-weight="700" fill="#F8FAFC">AFAD 122 · AFLOS Destek 0850 440 02 02</text>
+
+    <!-- Sağ Sütun: Form Alanı (640px) -->
+    <text x="640" y="180" class="font" font-size="22" font-weight="800" fill="#0F172A">Sisteme Giriş Yap</text>
+    <text x="640" y="202" class="font" font-size="13" fill="#64748B">Kayıtlı e-posta, T.C. kimlik veya telefon numaranızla giriş yapabilirsiniz.</text>
+
+    <!-- Rol Seçici Sekmeleri -->
+    <text x="640" y="234" class="font" font-size="11" font-weight="700" fill="#475569">GİRİŞ YAPILACAK ROL / YETKİ</text>
+    <rect x="640" y="244" width="560" height="38" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    
+    <rect x="642" y="246" width="138" height="34" rx="5" fill="#0F172A"/>
+    <text x="711" y="268" class="font" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Saha Gönüllüsü</text>
+
+    <rect x="782" y="246" width="138" height="34" rx="5" fill="transparent"/>
+    <text x="851" y="268" class="font" font-size="12" font-weight="600" fill="#475569" text-anchor="middle">Taşıyıcı / Şoför</text>
+
+    <rect x="922" y="246" width="138" height="34" rx="5" fill="transparent"/>
+    <text x="991" y="268" class="font" font-size="12" font-weight="600" fill="#475569" text-anchor="middle">Depo Sorumlusu</text>
+
+    <rect x="1062" y="246" width="136" height="34" rx="5" fill="transparent"/>
+    <text x="1130" y="268" class="font" font-size="12" font-weight="600" fill="#475569" text-anchor="middle">Kriz Masası</text>
+
+    <!-- Alan 1: Kullanıcı Kimliği -->
+    <text x="640" y="314" class="font" font-size="11" font-weight="700" fill="#475569">T.C. KİMLİK NO / KURUMSAL E-POSTA / TELEFON</text>
+    <rect x="640" y="324" width="560" height="44" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="656" y="352" class="font" font-size="14" font-weight="600" fill="#0F172A">kaan.kilinc@afad.gov.tr</text>
+    <circle cx="1178" cy="346" r="8" fill="#DCFCE7"/>
+    <text x="1178" y="350" class="font" font-size="10" font-weight="900" fill="#15803D" text-anchor="middle">✓</text>
+
+    <!-- Alan 2: Şifre -->
+    <text x="640" y="398" class="font" font-size="11" font-weight="700" fill="#475569">GÜVENLİK ŞİFRESİ</text>
+    <rect x="640" y="408" width="560" height="44" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="656" y="436" class="mono" font-size="16" font-weight="700" fill="#0F172A">••••••••••••••••</text>
+    <text x="1160" y="434" class="font" font-size="11" font-weight="600" fill="#64748B">Göster</text>
+
+    <!-- Seçenekler Satırı -->
+    <rect x="640" y="468" width="16" height="16" rx="3" fill="#0F172A"/>
+    <text x="648" y="480" class="font" font-size="10" font-weight="900" fill="#FFF" text-anchor="middle">✓</text>
+    <text x="664" y="481" class="font" font-size="12" font-weight="500" fill="#334155">Bu cihazda oturumumu açık tut (Güvenli Cihaz)</text>
+
+    <text x="1200" y="481" class="font" font-size="12" font-weight="700" fill="#B91C1C" text-anchor="end">Şifremi Unuttum?</text>
+
+    <!-- Giriş Butonu -->
+    <rect x="640" y="506" width="560" height="48" rx="8" fill="#B91C1C"/>
+    <text x="920" y="536" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">Sisteme Güvenli Giriş Yap</text>
+
+    <!-- Çizgi / Ayraç -->
+    <line x1="640" y1="580" x2="890" y2="580" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="920" y="584" class="font" font-size="12" fill="#94A3B8" text-anchor="middle">veya alternatif yöntem</text>
+    <line x1="950" y1="580" x2="1200" y2="580" stroke="#E2E8F0" stroke-width="1"/>
+
+    <!-- e-Devlet Girişi Butonu -->
+    <rect x="640" y="604" width="560" height="44" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <rect x="656" y="614" width="24" height="24" rx="4" fill="#C8102E"/>
+    <text x="668" y="630" class="font" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle">eD</text>
+    <text x="920" y="632" class="font" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle">e-Devlet Kapısı ile Giriş Yap</text>
+
+    <!-- SMS Tek Kullanımlık Kod Butonu -->
+    <rect x="640" y="658" width="560" height="40" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="920" y="683" class="font" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Şifresiz SMS Tek Kullanımlık Kod (OTP) ile Giriş</text>
+
+    <!-- Kayıt Ol Köprüsü -->
+    <rect x="640" y="718" width="560" height="44" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="920" y="745" class="font" font-size="12" fill="#475569" text-anchor="middle">Henüz resmi AFLOS hesabınız yok mu? <tspan font-weight="700" fill="#B91C1C">Hemen Kayıt Olun →</tspan></text>
+
+    <!-- Afetzede Notu -->
+    <text x="920" y="792" class="font" font-size="11" fill="#64748B" text-anchor="middle">Afetzede veya depremzede misiniz? İhtiyaç bildirmek için hesap gerekmez. <tspan font-weight="700" fill="#0F172A">Doğrudan Talep Bildirin</tspan></text>
+  </g>
+</svg>
