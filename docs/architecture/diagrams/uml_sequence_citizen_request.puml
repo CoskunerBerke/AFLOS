@@ -1,0 +1,22 @@
+@startuml
+title Citizen aid request - baseline + SRS proposal
+actor Citizen
+participant "PWA Client" as Client
+participant "Need API" as API
+participant "Request Service" as Needs
+database PostgreSQL as DB
+participant "Triage (SRS proposed)" as Triage
+Citizen -> Client: Open form / allow GPS or use manual pin
+Citizen -> Client: Enter need items and submit
+Client -> API: POST /need-requests (Idempotency-Key)
+API -> Needs: Validate location and PII
+Needs -> DB: INSERT aid_request + request lines (transaction)
+DB --> Needs: request ID / PENDING_VERIFICATION
+opt SRS extension - not in current API
+Needs -> Triage: Score urgency and check duplicates
+Triage --> Needs: Proposed priority / duplicate cluster
+end
+Needs --> API: Created receipt
+API --> Client: 201 (PII masked)
+Client --> Citizen: Confirmation (tracking PIN proposed)
+@enduml
