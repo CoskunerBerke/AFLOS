@@ -176,33 +176,40 @@ docs/ui_ux/screenshots/
 
 ---
 
-## 4. Interactive Prototype Flow & Hotspot Architecture
+## 4. Interactive Prototype Flow & Logical Screen Hierarchy
 
-The Figma prototype models four complete, end-to-end interactive user flows:
+The Figma prototype models four complete, end-to-end interactive user flows arranged in strict logical progression (Mobile Citizen & Field Operations $\rightarrow$ Large Screen Operations Center):
 
 ```mermaid
-flowchart LR
-    subgraph Flow 1 [Citizen Journey]
-        C1[Screen 01: Request Form] -->|Tap 'Submit Help Request'| C2[Screen 02: Tracking Stepper]
-        C2 -->|Tap 'Cancel Request'| C1
+flowchart TD
+    subgraph Mobile_A [1. Afetzede & Takip Akışı - Mobil 390x844]
+        S1["Ekran 01: İhtiyaç Bildirimi (Bebek/Yaşlı Triyajı)"] -->|Talebi Gönder| S2["Ekran 02: Talep Süreç Adımları"]
+        S2 -->|Takip Kodu Gir| S3["Ekran 03: Talep Sorgulama & Canlı Rota Haritası"]
     end
 
-    subgraph Flow 2 [Carrier Journey]
-        D1[Screen 03: Carrier Cockpit] -->|Tap 'Arrive & Scan QR'| D2[Screen 04: Scanner HUD]
-        D2 -->|Optical QR Verified| D3[Handover Modal: Success]
-        D3 -->|Tap 'Complete Mission'| D1
+    subgraph Mobile_B [2. Saha Gönüllüsü Akışı - Mobil 390x844]
+        S4["Ekran 04: Saha Gönüllüsü Başvuru & Vardiya Portalı"]
     end
 
-    subgraph Flow 3 [Warehouse Journey]
-        W1[Screen 05: Inventory Ledger] -->|Tap 'Scan Pallet'| W2[Auto-Reserve 600L Water]
-        W2 -->|Tap 'New Dispatch Manifest'| W3[Vehicle Staging Sheet]
+    subgraph Mobile_C [3. Taşıyıcı & Lojistik Akışı - Mobil 390x844]
+        S5["Ekran 05: Taşıyıcı Görev Kokpiti & Sevk Emri"] -->|Teslimat Noktasında QR Aç| S6["Ekran 06: Kriptografik QR Teslimat Onayı"]
     end
 
-    subgraph Flow 4 [Coordinator Journey]
-        K1[Screen 06: Macro GIS Heatmap] -->|Click 'Defne Cluster'| K2[Bottleneck Modal]
-        K2 -->|Click 'Authorize Convoy'| K3[Audit Log Record Appended]
+    subgraph Large_Screens [4. Tesis & Kriz Yönetim Merkezleri - Geniş Ekran]
+        S7["Ekran 07: Depo Stok Sayım & Ayrıştırma (Tablet 1024px)"]
+        S8["Ekran 08: Koordinatör GIS Afet Haritası & Kontrol Paneli (Masaüstü 1440px)"]
     end
 ```
+
+### 4.1 Ekranların Mantıksal Sunum Sırası (Figma Prototype Sıralaması)
+1. **Ekran 01 (Mobil):** Vatandaş Afet İhtiyaç Formu (Bebek, Çocuk, Yaşlı, Yetişkin triyaj seçicileri).
+2. **Ekran 02 (Mobil):** Talep Süreç Adımları (Talep Alındı $\rightarrow$ Triyaj $\rightarrow$ Araca Yüklendi $\rightarrow$ Teslim).
+3. **Ekran 03 (Mobil):** Talep Sorgulama & Rota Takibi (Takip kodu sorgulama ve lojistik tır konumu harita önizlemesi).
+4. **Ekran 04 (Mobil):** Saha Gönüllüsü Portalı (Görev alanı, uzmanlık ve vardiya seçimi).
+5. **Ekran 05 (Mobil):** Taşıyıcı Lojistik Kokpiti (Güzergah navigasyonu, yük manifestosu ve varış slotu).
+6. **Ekran 06 (Mobil):** Kriptografik QR Teslimat Onayı (Çevrimdışı teslimat kanıtı ve doğrulama).
+7. **Ekran 07 (Tablet):** Depo Stok Sayım & Ayrıştırma (Palet barkod okuma ve anlık stok defteri).
+8. **Ekran 08 (Masaüstü):** Koordinatör Afet Kontrol Merkezi (Türkiye GIS Afet Haritası, acil darboğaz tespiti ve konvoy sevkiyatı).
 
 ### 4.1 Interactive Clickable Hotspots
 1. **Citizen Submission:** On `Screen 01`, clicking category tiles toggles selection borders (`#2563EB`). Clicking `ACİL YARDIM TALEBİ OLUŞTUR` transitions with a `Smart Animate` 300ms ease-out into `Screen 02`.
