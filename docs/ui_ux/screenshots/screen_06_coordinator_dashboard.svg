@@ -1,107 +1,105 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
   <defs>
     <style>
-      .t { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
       .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
     </style>
   </defs>
 
   <rect width="1440" height="900" fill="#0B0F19"/>
 
-  <!-- Enterprise Top Command Bar -->
+  <!-- Üst Menü Çubuğu -->
   <rect width="1440" height="54" fill="#111827" stroke="#1F2937" stroke-width="1"/>
-  <text x="24" y="33" class="t" font-size="17" font-weight="800" fill="#DC2626">AFLOS</text>
-  <text x="96" y="33" class="t" font-size="13" font-weight="600" fill="#E5E7EB">Kriz Masası &amp; Afet Koordinasyon Merkezi</text>
+  <text x="24" y="33" class="font" font-size="17" font-weight="800" fill="#B91C1C">AFLOS</text>
+  <text x="96" y="33" class="font" font-size="13" font-weight="600" fill="#E5E7EB">Kriz Masası &amp; Afet Koordinasyon Merkezi</text>
   
   <rect x="580" y="14" width="170" height="26" rx="4" fill="#0B0F19" stroke="#1F2937" stroke-width="1"/>
   <circle cx="594" cy="27" r="3.5" fill="#10B981"/>
-  <text x="670" y="31" class="t" font-size="11" font-weight="600" fill="#E5E7EB" text-anchor="middle">Canlı Akış (12 ms)</text>
+  <text x="670" y="31" class="font" font-size="11" font-weight="600" fill="#E5E7EB" text-anchor="middle">Canlı Akış (12 ms)</text>
 
-  <text x="1416" y="33" class="t" font-size="12" fill="#9CA3AF" text-anchor="end">Koordinatör: <tspan font-weight="600" fill="#F9FAFB">Kaan Kılınç (PO)</tspan></text>
+  <text x="1416" y="33" class="font" font-size="12" fill="#9CA3AF" text-anchor="end">Koordinatör: <tspan font-weight="600" fill="#F9FAFB">Kaan Kılınç (PO)</tspan></text>
 
-  <!-- Metric Strip -->
+  <!-- 4 Metrik Kartı -->
   <rect x="24" y="70" width="330" height="80" rx="8" fill="#111827" stroke="#1F2937" stroke-width="1"/>
-  <text x="44" y="94" class="t" font-size="11" font-weight="600" fill="#9CA3AF">TOPLAM İHTİYAÇ TALEBİ</text>
+  <text x="44" y="94" class="font" font-size="11" font-weight="600" fill="#9CA3AF">TOPLAM İHTİYAÇ TALEBİ</text>
   <text x="44" y="132" class="mono" font-size="26" font-weight="700" fill="#F9FAFB">48,210</text>
-  <text x="330" y="132" class="t" font-size="12" font-weight="600" fill="#EF4444" text-anchor="end">Aktif Acil</text>
+  <text x="330" y="132" class="font" font-size="12" font-weight="600" fill="#EF4444" text-anchor="end">Aktif Acil</text>
 
   <rect x="378" y="70" width="330" height="80" rx="8" fill="#111827" stroke="#1F2937" stroke-width="1"/>
-  <text x="398" y="94" class="t" font-size="11" font-weight="600" fill="#9CA3AF">KARŞILANMA ORANI</text>
+  <text x="398" y="94" class="font" font-size="11" font-weight="600" fill="#9CA3AF">KARŞILANMA ORANI</text>
   <text x="398" y="132" class="mono" font-size="26" font-weight="700" fill="#10B981">%75.6</text>
-  <text x="684" y="132" class="t" font-size="12" fill="#9CA3AF" text-anchor="end">36,450 Teslim</text>
+  <text x="684" y="132" class="font" font-size="12" fill="#9CA3AF" text-anchor="end">36,450 Teslim</text>
 
   <rect x="732" y="70" width="330" height="80" rx="8" fill="#111827" stroke="#1F2937" stroke-width="1"/>
-  <text x="752" y="94" class="t" font-size="11" font-weight="600" fill="#9CA3AF">SEFERDEKİ LOJİSTİK TIR</text>
+  <text x="752" y="94" class="font" font-size="11" font-weight="600" fill="#9CA3AF">SEFERDEKİ LOJİSTİK TIR</text>
   <text x="752" y="132" class="mono" font-size="26" font-weight="700" fill="#38BDF8">84 Araç</text>
-  <text x="1038" y="132" class="t" font-size="12" fill="#9CA3AF" text-anchor="end">3,400 Ton</text>
+  <text x="1038" y="132" class="font" font-size="12" fill="#9CA3AF" text-anchor="end">3,400 Ton</text>
 
-  <rect x="1086" y="70" width="330" height="80" rx="8" fill="#111827" stroke="#DC2626" stroke-width="1"/>
-  <text x="1106" y="94" class="t" font-size="11" font-weight="700" fill="#FCA5A5">&#9888; TESPİT EDİLEN DARBOĞAZ</text>
+  <rect x="1086" y="70" width="330" height="80" rx="8" fill="#111827" stroke="#B91C1C" stroke-width="1"/>
+  <text x="1106" y="94" class="font" font-size="11" font-weight="700" fill="#FCA5A5">TESPİT EDİLEN DARBOĞAZ</text>
   <text x="1106" y="132" class="mono" font-size="26" font-weight="700" fill="#EF4444">3 Bölge</text>
-  <text x="1392" y="132" class="t" font-size="11" font-weight="600" fill="#FCA5A5" text-anchor="end">Müdahale Bekliyor</text>
+  <text x="1392" y="132" class="font" font-size="11" font-weight="600" fill="#FCA5A5" text-anchor="end">Müdahale Bekliyor</text>
 
-  <!-- Left: Main Map Canvas (990x710) -->
+  <!-- Sol Harita Paneli -->
   <rect x="24" y="166" width="990" height="710" rx="8" fill="#030712" stroke="#1F2937" stroke-width="1"/>
   
-  <!-- Map Filter Bar -->
   <rect x="40" y="182" width="958" height="36" rx="4" fill="#111827"/>
-  <text x="56" y="205" class="t" font-size="12" font-weight="600" fill="#F9FAFB">Bölgesel Talep &amp; Sevkiyat Haritası (Hatay - Maraş - Gaziantep)</text>
-  <rect x="740" y="188" width="76" height="24" rx="4" fill="#DC2626"/>
-  <text x="778" y="204" class="t" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">Isı Haritası</text>
+  <text x="56" y="205" class="font" font-size="12" font-weight="600" fill="#F9FAFB">Bölgesel Talep &amp; Sevkiyat Haritası (Hatay - Maraş - Gaziantep)</text>
+  <rect x="740" y="188" width="76" height="24" rx="4" fill="#B91C1C"/>
+  <text x="778" y="204" class="font" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">Isı Haritası</text>
   <rect x="824" y="188" width="76" height="24" rx="4" fill="#1F2937"/>
-  <text x="862" y="204" class="t" font-size="11" font-weight="500" fill="#9CA3AF" text-anchor="middle">Depolar</text>
+  <text x="862" y="204" class="font" font-size="11" font-weight="500" fill="#9CA3AF" text-anchor="middle">Depolar</text>
   <rect x="908" y="188" width="76" height="24" rx="4" fill="#1F2937"/>
-  <text x="946" y="204" class="t" font-size="11" font-weight="500" fill="#9CA3AF" text-anchor="middle">Tırlar</text>
+  <text x="946" y="204" class="font" font-size="11" font-weight="500" fill="#9CA3AF" text-anchor="middle">Tırlar</text>
 
-  <!-- Clean Topographical Vectors -->
+  <!-- Sade Coğrafi Vektörler -->
   <path d="M 120 420 L 260 360 L 410 380 L 530 330 L 710 350 L 860 440 L 790 640 L 610 700 L 430 660 L 260 600 Z" fill="#0B132B" stroke="#1F2937" stroke-width="1.5"/>
 
-  <!-- Heatmap Rings (Defne Deficit Zone) -->
-  <circle cx="510" cy="530" r="120" fill="#DC2626" opacity="0.12"/>
-  <circle cx="510" cy="530" r="70" fill="#DC2626" opacity="0.25"/>
+  <!-- Yoğunluk Halkaları (Defne Bölgesi) -->
+  <circle cx="510" cy="530" r="120" fill="#B91C1C" opacity="0.12"/>
+  <circle cx="510" cy="530" r="70" fill="#B91C1C" opacity="0.25"/>
   <circle cx="510" cy="530" r="28" fill="#EF4444" opacity="0.6"/>
-  <text x="510" y="534" class="t" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">Defne (%380 Açık)</text>
+  <text x="510" y="534" class="font" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">Defne (%380 Açık)</text>
 
-  <!-- Antakya Zone -->
+  <!-- Antakya -->
   <circle cx="590" cy="460" r="80" fill="#F59E0B" opacity="0.15"/>
   <circle cx="590" cy="460" r="35" fill="#F59E0B" opacity="0.45"/>
-  <text x="590" y="464" class="t" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">Antakya</text>
+  <text x="590" y="464" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">Antakya</text>
 
-  <!-- Route Line from Mersin to Defne -->
+  <!-- Sevkiyat Güzergahı -->
   <path d="M 280 440 Q 380 490 500 525" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="6,4"/>
   <circle cx="280" cy="440" r="6" fill="#38BDF8"/>
-  <text x="280" y="428" class="t" font-size="11" font-weight="600" fill="#38BDF8" text-anchor="middle">Mersin Ana Depo</text>
+  <text x="280" y="428" class="font" font-size="11" font-weight="600" fill="#38BDF8" text-anchor="middle">Mersin Ana Depo</text>
 
-  <!-- Right: Bottleneck Drawer (390x710) -->
+  <!-- Sağ Darboğaz Çekmecesi -->
   <rect x="1026" y="166" width="390" height="710" rx="8" fill="#111827" stroke="#1F2937" stroke-width="1"/>
-  <text x="1046" y="198" class="t" font-size="15" font-weight="700" fill="#F9FAFB">Darboğaz Çözüm Konsolu</text>
-  <text x="1046" y="214" class="t" font-size="11" fill="#9CA3AF">Yapay zeka ve kural motoru önerisi</text>
+  <text x="1046" y="198" class="font" font-size="15" font-weight="700" fill="#F9FAFB">Darboğaz Çözüm Konsolu</text>
+  <text x="1046" y="214" class="font" font-size="11" fill="#9CA3AF">Kural motoru ve stok optimizasyonu</text>
 
-  <!-- Alert Item Box -->
-  <rect x="1046" y="234" width="350" height="186" rx="6" fill="#0B0F19" stroke="#DC2626" stroke-width="1"/>
+  <rect x="1046" y="234" width="350" height="186" rx="6" fill="#0B0F19" stroke="#B91C1C" stroke-width="1"/>
   <rect x="1060" y="248" width="90" height="20" rx="3" fill="#7F1D1D"/>
-  <text x="1105" y="262" class="t" font-size="10" font-weight="700" fill="#FECACA" text-anchor="middle">KRİTİK DEFNE</text>
+  <text x="1105" y="262" class="font" font-size="10" font-weight="700" fill="#FECACA" text-anchor="middle">KRİTİK DEFNE</text>
 
-  <text x="1060" y="288" class="t" font-size="13" font-weight="700" fill="#F9FAFB">Çadır Talebi Stoku Aşıyor!</text>
-  <text x="1060" y="308" class="t" font-size="12" fill="#9CA3AF">Bekleyen Çadır: <tspan font-weight="700" fill="#EF4444">4,200 Adet</tspan></text>
-  <text x="1060" y="326" class="t" font-size="12" fill="#9CA3AF">Mevcut Sahra Stoku: <tspan font-weight="700" fill="#F9FAFB">140 Adet</tspan></text>
-  <text x="1060" y="348" class="t" font-size="11" fill="#38BDF8">&#10132; Öneri: Mersin Merkez Hubtan 1.500 Çadır Yönlendir</text>
+  <text x="1060" y="288" class="font" font-size="13" font-weight="700" fill="#F9FAFB">Çadır Talebi Stoku Aşıyor!</text>
+  <text x="1060" y="308" class="font" font-size="12" fill="#9CA3AF">Bekleyen Çadır: <tspan font-weight="700" fill="#EF4444">4,200 Adet</tspan></text>
+  <text x="1060" y="326" class="font" font-size="12" fill="#9CA3AF">Mevcut Sahra Stoku: <tspan font-weight="700" fill="#F9FAFB">140 Adet</tspan></text>
+  <text x="1060" y="348" class="font" font-size="11" fill="#38BDF8">&#10132; Öneri: Mersin Merkez Hubtan 1.500 Çadır Yönlendir</text>
 
-  <rect x="1060" y="366" width="322" height="38" rx="6" fill="#DC2626"/>
-  <text x="1221" y="390" class="t" font-size="12" font-weight="600" fill="#FFF" text-anchor="middle">Acil Konvoy Sevkiyatını Onayla</text>
+  <rect x="1060" y="366" width="322" height="38" rx="6" fill="#B91C1C"/>
+  <text x="1221" y="390" class="font" font-size="12" font-weight="600" fill="#FFF" text-anchor="middle">Acil Konvoy Sevkiyatını Onayla</text>
 
-  <!-- Audit Log Stream -->
-  <text x="1046" y="456" class="t" font-size="13" font-weight="700" fill="#F9FAFB">Sistem Denetim Günlüğü (Audit Log)</text>
+  <!-- Sistem Denetim İzi (Audit Log) -->
+  <text x="1046" y="456" class="font" font-size="13" font-weight="700" fill="#F9FAFB">Sistem Denetim Günlüğü (Audit Log)</text>
 
   <rect x="1046" y="472" width="350" height="52" rx="4" fill="#0B0F19" stroke="#1F2937" stroke-width="1"/>
   <text x="1058" y="492" class="mono" font-size="10" fill="#38BDF8">23:05 · Kaan Kılınç (PO)</text>
-  <text x="1058" y="510" class="t" font-size="11" fill="#9CA3AF">Triyaj motoru katsayısı güncellendi: Bebek/Yaşlı 1.4x</text>
+  <text x="1058" y="510" class="font" font-size="11" fill="#9CA3AF">Triyaj motoru katsayısı güncellendi: Bebek/Yaşlı 1.4x</text>
 
   <rect x="1046" y="534" width="350" height="52" rx="4" fill="#0B0F19" stroke="#1F2937" stroke-width="1"/>
   <text x="1058" y="554" class="mono" font-size="10" fill="#10B981">23:01 · Hüseyin Zor (Lead Arch)</text>
-  <text x="1058" y="572" class="t" font-size="11" fill="#9CA3AF">Antakya Sahra Hub-2 ye 2 tır tahsis edildi</text>
+  <text x="1058" y="572" class="font" font-size="11" fill="#9CA3AF">Antakya Sahra Hub-2 ye 2 tır tahsis edildi</text>
 
   <rect x="1046" y="596" width="350" height="52" rx="4" fill="#0B0F19" stroke="#1F2937" stroke-width="1"/>
   <text x="1058" y="616" class="mono" font-size="10" fill="#F59E0B">22:50 · Onur Şahin (QA)</text>
-  <text x="1058" y="634" class="t" font-size="11" fill="#9CA3AF">1500 TPS yük testi başarıyla doğrulandı</text>
+  <text x="1058" y="634" class="font" font-size="11" fill="#9CA3AF">1500 TPS yük testi başarıyla doğrulandı</text>
 </svg>
