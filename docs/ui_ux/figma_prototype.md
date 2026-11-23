@@ -183,6 +183,26 @@ docs/ui_ux/screenshots/
 
 ![Screen 09: Volunteer & Field Staff Registration](./screenshots/screen_09_user_registration.svg)
 
+### Screen 10: National Disaster Logistics & Needs Web Platform (Desktop - 1440x900)
+* **Target Persona:** General Public, Donors, Municipality Liasons, Proxy Reporters (`PUBLIC`, `REPORTER`)
+* **Core Capabilities:**
+  * Institutional Web Header with national navigation: Live Disaster Map, Citizen Aid Request, Tracking Query, Volunteer Accreditation, Carrier Portal.
+  * National Live Emergency Ticker & Macro KPIs: 48,210 verified needs, 76.4% fulfillment rate, 142 en-route trucks, 1,280 accredited field volunteers.
+  * Interactive Vector Turkey Disaster Map (60% width): OpenStreetMap/Leaflet integration displaying regional status pins (Hatay critical red, Maraş amber, Mersin hub), active supply corridors, and live truck telemetry.
+  * Web Action & Triage Console (40% width): Rapid multi-item citizen request form with demographic selectors (Infant, Child, Elderly, Adult), location dropdowns, and P1 triage escalation banner.
+
+![Screen 10: National Disaster Logistics Web Platform](./screenshots/screen_10_web_public_platform.svg)
+
+### Screen 11: Carrier Fleet & Time-Slot Logistics Portal (Desktop - 1440x900)
+* **Target Persona:** Logistics Companies, Commercial Carriers, Volunteer Truck Owners (`PER-02` / `CARRIER`)
+* **Core Capabilities:**
+  * Drop-Off Bottleneck Prevention Console: Real-time quota alerts informing drivers of vehicle quotas (e.g. max 8 trucks/hour at Antakya Hub) to eliminate road congestion.
+  * Active Need Demands & Time-Slot Booking Table: Filterable regional destinations showing remaining item deficits (Water, Winter Tents, Baby Food) and available arrival windows (`10:00 - 14:00`).
+  * Truck & Semi-Trailer Allocation Console: License plate entry (`31 KAA 84 / 31 KAA 85`), 24-ton capacity rating, driver identity vetting, and multi-pallet cargo manifest generation.
+  * Integration with E-Devlet and highway police checkpoints for green-corridor highway permits.
+
+![Screen 11: Carrier Fleet Logistics Portal](./screenshots/screen_11_web_carrier_logistics.svg)
+
 ---
 
 ## 4. Interactive Prototype Flow & Logical Screen Hierarchy
