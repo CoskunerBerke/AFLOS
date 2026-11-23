@@ -174,6 +174,15 @@ docs/ui_ux/screenshots/
 
 ![Screen 08: Field Volunteer Application Portal](./screenshots/screen_08_volunteer_portal.svg)
 
+### Screen 09: Volunteer & Field Staff Identity Registration (Mobile - 390x844)
+* **Target Persona:** Civilian Volunteers, Commercial Carriers, Field Personnel (`PER-02`, `PER-03`)
+* **Security & Authentication Governance:**
+  * **Zero-Friction Citizen Exemption:** Disaster victims in shock do not register with email/passwords; they file rapid aid demands without authentication friction.
+  * **Mandatory Institutional Vetting:** Field volunteers, warehouse workers, and carrier truck owners MUST establish verified digital identities before receiving cargo or entering distribution centers.
+  * **Fields:** Full Name, 11-digit Turkish National ID (NVİ/MERNİS checksum verification badge), Mobile Phone (+90 SMS OTP verification), Official Email, Residence City/District (`Hatay · Antakya`), Strong Password, Role selector (`Saha Gönüllüsü` vs. `Gönüllü Taşıyıcı`), and explicit KVKK disaster duty consent.
+
+![Screen 09: Volunteer & Field Staff Registration](./screenshots/screen_09_user_registration.svg)
+
 ---
 
 ## 4. Interactive Prototype Flow & Logical Screen Hierarchy
