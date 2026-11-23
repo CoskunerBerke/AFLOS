@@ -19,9 +19,9 @@ This dossier presents the official **UI/UX Prototype Suite and Design System** f
 ### 🔗 Live Interactive Figma Project Links
 
 * **Figma Project Cloud Workspace:**  
-  [https://www.figma.com/design/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System](https://www.figma.com/design/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System?node-id=0-1&p=f&t=UdXJXzRAmx54U08I-0)
+  [https://www.figma.com/design/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System](https://www.figma.com/design/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System?node-id=1-2&p=f&t=UdXJXzRAmx54U08I-0)
 * **Figma Interactive Presentation (Play Mode):**  
-  [https://www.figma.com/proto/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System](https://www.figma.com/proto/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System?node-id=0-1&p=f&t=UdXJXzRAmx54U08I-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1)
+  [https://www.figma.com/proto/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System](https://www.figma.com/proto/bzqnRBVt4sFbKMl72N1U44/AFLOS---Disaster-Logistics---Aid-Coordination-System?node-id=1-2&p=f&t=UdXJXzRAmx54U08I-0&scaling=scale-down&starting-point-node-id=1%3A2)
 * **Access Permissions:** **Anyone with the link can view** (Evaluators and course instructors can directly inspect frames, typography, components, and interactive hotspot links without mandatory sign-in).
 
 ---
