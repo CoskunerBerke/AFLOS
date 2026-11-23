@@ -1,0 +1,22 @@
+flowchart LR
+  Users["People (Users)"] -->|HTTPS| Edge["NGINX Reverse Proxy (Container)"]
+  Edge -->|Serve| Web["Responsive Web Client (Container)"]
+  Web -->|REST /api/v1| Edge
+  Edge -->|Forward| API["REST API (Container)"]
+  API -->|ACID SQL| DB["PostgreSQL (Database)"]
+  Web -->|Map tiles| OSM["OpenStreetMap (External)"]
+  Web -.-> PWA["Service Worker + IndexedDB (SRS goal)"]
+  PWA -.->|Replay TBD| API
+  Edge -.-> Cache["Public cache (optional)"]
+  Cache -.-> API
+  Extensions["Warehouse / Triage / Route / SMS (SRS goals)"] -.-> API
+  Extensions -.-> Redis["Redis spatial cache (SRS goal)"]
+  Extensions -.-> SMS["SMS Gateway (External SRS goal)"]
+  classDef baseline fill:#1168bd,color:#fff,stroke:#084b8a
+  classDef data fill:#34774e,color:#fff,stroke:#205632
+  classDef external fill:#777,color:#fff,stroke:#555
+  classDef proposal fill:#fff1cf,color:#493f28,stroke:#b78e24,stroke-dasharray:5 4
+  class Edge,Web,API baseline
+  class DB data
+  class Users,OSM external
+  class PWA,Cache,Extensions,Redis,SMS proposal

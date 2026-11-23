@@ -1,0 +1,33 @@
+digraph G {
+graph [bgcolor="white", pad="0.22", nodesep="0.37", ranksep="0.88", fontname="Arial", fontsize=20, fontcolor="#132638", splines=polyline, outputorder=edgesfirst];
+node [shape=box, style="filled,rounded", color="#1f4d72", penwidth=1.2, fontname="Arial", fontsize=11, fontcolor="white", margin="0.22,0.16"];
+edge [fontname="Arial", fontsize=9, color="#60758b", fontcolor="#344b61", arrowsize=0.65, penwidth=1.12];
+graph [rankdir=LR, label="AFLOS | C4 Level 2 - Container View (blue: baseline / yellow dashed: SRS extension)", labelloc=t];
+user [label="People on Web / Mobile\n[Users]", fillcolor="#08427b"];
+osm [label="OpenStreetMap Tiles\n[External]", fillcolor="#767d87"];
+smsgw [label="SMS Gateway\n[External: SRS only]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+subgraph cluster_aflos { label="AFLOS system boundary - proposed deployments"; style="rounded"; color="#7498b7"; bgcolor="#f6faff";
+ edgegw [label="NGINX Reverse Proxy\n[Edge container]\nHTTPS / rate limiting", fillcolor="#1168bd"];
+ web [label="Responsive Web Frontend\n[Browser container]\nForms, maps, dashboard", fillcolor="#1168bd"];
+ pwa [label="PWA Service Worker + IndexedDB\n[Client-side SRS extension]\nOffline queue and replay", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ api [label="Backend REST API\n[Application container]\nCurrent OpenAPI v0.1.0", fillcolor="#1168bd"];
+ db [label="PostgreSQL\n[Database container]\nSlots / needs / shipments / audit", shape=cylinder, style=filled, fillcolor="#34774e"];
+ edgecache [label="Public HTTP Cache\n[Optional]\n15s contract baseline", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ newservices [label="SRS Services / Adapters\n[Proposed application container(s)]\nTriage, warehouse, SMS, routing", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ spatial [label="Redis / Spatial Cache\n[Proposed data store from SRS]", fillcolor="#fff1cf", color="#b78e24", fontcolor="#493f28", style="filled,dashed,rounded"];
+ }
+user -> edgegw [label="HTTPS"];
+edgegw -> web [label="Serve app"];
+web -> edgegw [label="REST /api/v1", constraint=false];
+edgegw -> api [label="API requests"];
+api -> db [label="SQL / ACID"];
+web -> osm [label="HTTPS tiles"];
+web -> pwa [style=dashed, color="#b78e24", label="Offline capture"];
+pwa -> api [style=dashed, color="#b78e24", label="Replay protocol TBD"];
+edgegw -> edgecache [style=dashed, color="#b78e24", label="Optional public GET caching"];
+edgecache -> api [style=dashed, color="#b78e24"];
+newservices -> api [style=dashed, color="#b78e24", label="SRS interface reconciliation"];
+newservices -> db [style=dashed, color="#b78e24"];
+newservices -> spatial [style=dashed, color="#b78e24"];
+newservices -> smsgw [style=dashed, color="#b78e24", label="SMS transport"];
+}
