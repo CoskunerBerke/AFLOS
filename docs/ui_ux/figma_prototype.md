@@ -153,6 +153,27 @@ docs/ui_ux/screenshots/
 
 ![Screen 06: Crisis Coordinator GIS Dashboard](./screenshots/screen_06_coordinator_dashboard.svg)
 
+### Screen 07: Aid Request Query & Live Route Telemetry (Mobile - 390x844)
+* **Target Persona:** Affected Citizen / Neighborhood Muhtar / Aid Requester (`PER-01`)
+* **Core Capabilities:**
+  * Alphanumeric Request Code Lookup (`TRK-8492X`) & Registered Phone Search input field with instant debounce validation.
+  * Active Shipment Summary: Real-time status badge (`SEVKTE`), exact dispatch destination, assigned carrier truck plate (`31 KAA 84`), and line-item manifest verification (Water, Baby Food, Blankets).
+  * Dynamic Route Telemetry: Schematic vector route showing Logistics Hub origin, en-route truck position, destination coordinates, and estimated arrival time (`22 Dakika`).
+  * Instant offline-cached view for re-querying during periodic network disconnects.
+
+![Screen 07: Aid Request Query & Live Route Telemetry](./screenshots/screen_07_request_tracking.svg)
+
+### Screen 08: Field Volunteer Application & Shift Onboarding Portal (Mobile - 390x844)
+* **Target Persona:** Field Staff & Civilian Relief Volunteer (`PER-03` / `FIELD_STAFF`)
+* **Core Capabilities:**
+  * Official Emergency Mobilization Banner with civic accreditation guidance.
+  * Identity & Vetting Verification: Full Name, verified Turkish Citizen ID (`230204•••••`), and verified mobile phone number.
+  * Task Domain Selection with urgent demand badges: Warehouse Sorting & Palletizing (`Acil İhtiyaç`), Tent Distribution, Food Preparation / Soup Kitchen, First Aid & Psychosocial Support.
+  * Zone & Shift Window Picker: Distribution Zone selection (`Hatay - Antakya 3 No'lu Ana Lojistik Sahası`) with Day Shift (`08:00 - 16:00`) and Night Shift (`16:00 - 00:00`) capacity slots.
+  * Safety agreement acknowledgment and submission dispatch triggering instant coordinator vetting and digital mission pass issuance.
+
+![Screen 08: Field Volunteer Application Portal](./screenshots/screen_08_volunteer_portal.svg)
+
 ---
 
 ## 4. Interactive Prototype Flow & Hotspot Architecture

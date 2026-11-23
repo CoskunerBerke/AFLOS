@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <style>
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <!-- Arka Plan -->
+  <rect width="390" height="844" fill="#F8FAFC"/>
+
+  <!-- iOS Durum Çubuğu -->
+  <rect width="390" height="48" fill="#FFFFFF"/>
+  <text x="36" y="32" class="font" font-size="14" font-weight="600" fill="#0F172A">09:40</text>
+  <path d="M 326 30 L 326 24 M 330 30 L 330 21 M 334 30 L 334 18 M 338 30 L 338 15" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+  <rect x="346" y="20" width="22" height="12" rx="3.5" fill="none" stroke="#0F172A" stroke-width="1.2"/>
+  <rect x="348" y="22" width="14" height="8" rx="2" fill="#0F172A"/>
+
+  <!-- Üst Başlık Çubuğu -->
+  <rect y="48" width="390" height="56" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <path d="M 28 76 L 20 68 L 28 60" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="82" class="font" font-size="16" font-weight="700" fill="#0F172A">Talep Sorgulama &amp; Canlı Takip</text>
+  <circle cx="356" cy="76" r="14" fill="#F1F5F9"/>
+  <path d="M 352 76 A 4 4 0 1 0 360 76 A 4 4 0 1 0 352 76 M 359 79 L 363 83" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Arama Kartı -->
+  <rect x="16" y="116" width="358" height="152" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="32" y="142" class="font" font-size="14" font-weight="700" fill="#0F172A">Talep Durumu Sorgula</text>
+  <text x="32" y="158" class="font" font-size="12" fill="#64748B">SMS ile gönderilen takip kodunu veya telefonunuzu girin</text>
+
+  <!-- Input Kutusu -->
+  <rect x="32" y="172" width="224" height="44" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="44" y="199" class="mono" font-size="13" font-weight="600" fill="#0F172A">TRK-8492X</text>
+
+  <!-- Sorgula Butonu -->
+  <rect x="264" y="172" width="94" height="44" rx="6" fill="#B91C1C"/>
+  <text x="311" y="199" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Sorgula</text>
+
+  <!-- Bilgi Notu -->
+  <text x="32" y="244" class="font" font-size="11" fill="#94A3B8">Son aranan: 0532 ••• •• 47 · Hatay Antakya Talebi</text>
+
+  <!-- Bulunan Talep Sonucu Başlığı -->
+  <text x="16" y="292" class="font" font-size="13" font-weight="700" fill="#64748B" letter-spacing="0.5">AKTİF TALEP AYRINTILARI</text>
+
+  <!-- Sonuç Kartı -->
+  <rect x="16" y="304" width="358" height="236" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <!-- Üst Kısım: Kod ve Durum -->
+  <text x="32" y="332" class="mono" font-size="17" font-weight="700" fill="#0F172A">TRK-8492X</text>
+  <text x="32" y="348" class="font" font-size="11" fill="#64748B">Bildirim Tarihi: 23 Kasım 2026 · 09:41</text>
+
+  <rect x="274" y="318" width="84" height="26" rx="4" fill="#0F172A"/>
+  <text x="316" y="335" class="font" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">SEVKTE</text>
+
+  <line x1="32" y1="364" x2="358" y2="364" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- İçerik Detayları -->
+  <text x="32" y="386" class="font" font-size="12" font-weight="600" fill="#64748B">Teslimat Adresi</text>
+  <text x="32" y="402" class="font" font-size="13" font-weight="600" fill="#0F172A">Odabaşı Mah. Uğur Mumcu Cad. No:14, Antakya</text>
+
+  <text x="32" y="428" class="font" font-size="12" font-weight="600" fill="#64748B">Tahsis Edilen Sevkiyat</text>
+  <text x="32" y="444" class="font" font-size="13" font-weight="600" fill="#0F172A">Tır Plaka: 31 KAA 84 · Taşıyıcı: Mehmet K.</text>
+
+  <text x="32" y="470" class="font" font-size="12" font-weight="600" fill="#64748B">Kapsamdaki Malzemeler</text>
+  <text x="32" y="486" class="font" font-size="12" fill="#334155">İçme Suyu (12 Koli), Bebek Maması (4 Kutu), Battaniye (8 Adet)</text>
+
+  <!-- Tahmini Varış Süresi Vurgusu -->
+  <rect x="32" y="500" width="326" height="28" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="44" y="519" class="font" font-size="12" font-weight="700" fill="#991B1B">Tahmini Varış: 22 Dakika (Güzergah Güvenli)</text>
+
+  <!-- Canlı Güzergah Harita Önizlemesi -->
+  <rect x="16" y="556" width="358" height="172" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <!-- Harita Yolları ve İkonları -->
+  <path d="M 40 680 Q 120 640 180 620 T 300 590" fill="none" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 40 680 Q 120 640 180 620" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Dağıtım Merkezi İkonu -->
+  <circle cx="40" cy="680" r="10" fill="#0F172A"/>
+  <text x="40" y="684" class="font" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">HUB</text>
+  <text x="40" y="704" class="font" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Lojistik Depo</text>
+
+  <!-- Taşıyıcı Araç İkonu (Hareketli) -->
+  <circle cx="180" cy="620" r="12" fill="#B91C1C"/>
+  <circle cx="180" cy="620" r="18" fill="none" stroke="#B91C1C" stroke-width="1.5" opacity="0.3"/>
+  <text x="180" y="624" class="font" font-size="9" font-weight="800" fill="#FFFFFF" text-anchor="middle">TIR</text>
+  <text x="180" y="600" class="font" font-size="10" font-weight="700" fill="#B91C1C" text-anchor="middle">31 KAA 84</text>
+
+  <!-- Hedef Noktası İkonu -->
+  <circle cx="300" cy="590" r="10" fill="#16A34A"/>
+  <text x="300" y="594" class="font" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">VAR</text>
+  <text x="300" y="614" class="font" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Siz (Odabaşı)</text>
+
+  <!-- Alt Buton: Detaylı Rota ve Destek -->
+  <rect x="16" y="744" width="358" height="48" rx="8" fill="#0F172A"/>
+  <text x="195" y="774" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Canlı Harita Takibini Aç</text>
+
+  <!-- iOS Ana Ekran Çizgisi -->
+  <rect x="128" y="830" width="134" height="5" rx="2.5" fill="#0F172A"/>
+</svg>

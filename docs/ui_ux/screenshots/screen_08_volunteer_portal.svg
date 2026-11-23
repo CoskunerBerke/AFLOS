@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <style>
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="390" height="844" fill="#F8FAFC"/>
+
+  <!-- iOS Durum Çubuğu -->
+  <rect width="390" height="48" fill="#FFFFFF"/>
+  <text x="36" y="32" class="font" font-size="14" font-weight="600" fill="#0F172A">09:42</text>
+  <path d="M 326 30 L 326 24 M 330 30 L 330 21 M 334 30 L 334 18 M 338 30 L 338 15" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+  <rect x="346" y="20" width="22" height="12" rx="3.5" fill="none" stroke="#0F172A" stroke-width="1.2"/>
+  <rect x="348" y="22" width="14" height="8" rx="2" fill="#0F172A"/>
+
+  <!-- Üst Başlık Çubuğu -->
+  <rect y="48" width="390" height="56" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <path d="M 28 76 L 20 68 L 28 60" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="82" class="font" font-size="16" font-weight="700" fill="#0F172A">Saha Gönüllüsü Başvurusu</text>
+  <rect x="306" y="62" width="68" height="28" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="340" y="80" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Portal 3</text>
+
+  <!-- Bilgilendirme Banner -->
+  <rect x="16" y="114" width="358" height="48" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="34" cy="138" r="8" fill="#2563EB"/>
+  <text x="34" y="142" class="font" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">i</text>
+  <text x="50" y="134" class="font" font-size="12" font-weight="600" fill="#1E3A8A">Resmi Afet Lojistik Seferberliği</text>
+  <text x="50" y="148" class="font" font-size="11" fill="#3B82F6">Onaylanan gönüllülere dijital saha görev kartı verilir.</text>
+
+  <!-- Bölüm 1: Kişisel Bilgiler -->
+  <text x="16" y="182" class="font" font-size="13" font-weight="700" fill="#0F172A">Gönüllü Kimlik &amp; İletişim</text>
+  <rect x="16" y="192" width="358" height="96" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <text x="32" y="214" class="font" font-size="11" font-weight="600" fill="#64748B">Ad Soyad</text>
+  <text x="32" y="232" class="font" font-size="13" font-weight="600" fill="#0F172A">Kaan Kılınç</text>
+  
+  <text x="200" y="214" class="font" font-size="11" font-weight="600" fill="#64748B">Telefon Numarası</text>
+  <text x="200" y="232" class="font" font-size="13" font-weight="600" fill="#0F172A">0532 984 •• 12</text>
+
+  <line x1="32" y1="244" x2="358" y2="244" stroke="#F1F5F9" stroke-width="1"/>
+
+  <text x="32" y="262" class="font" font-size="11" font-weight="600" fill="#64748B">T.C. Kimlik Numarası (Doğrulama Amaçlı)</text>
+  <text x="32" y="278" class="font" font-size="13" font-weight="600" fill="#0F172A">230204•••••</text>
+  <rect x="296" y="254" width="62" height="22" rx="4" fill="#DCFCE7"/>
+  <text x="327" y="269" class="font" font-size="10" font-weight="700" fill="#15803D" text-anchor="middle">Doğrulandı</text>
+
+  <!-- Bölüm 2: Görev Seçimi -->
+  <text x="16" y="310" class="font" font-size="13" font-weight="700" fill="#0F172A">Faaliyet &amp; Uzmanlık Alanı</text>
+  <text x="16" y="324" class="font" font-size="11" fill="#64748B">Destek vermek istediğiniz birincil görevi seçin</text>
+
+  <!-- Görev Seçenek 1 (Seçili) -->
+  <rect x="16" y="334" width="358" height="54" rx="8" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.8"/>
+  <circle cx="36" cy="361" r="9" fill="#0F172A"/>
+  <circle cx="36" cy="361" r="3.5" fill="#FFFFFF"/>
+  <text x="56" y="354" class="font" font-size="13" font-weight="700" fill="#0F172A">Depo Ayrıştırma, Sayım &amp; Tasnif</text>
+  <text x="56" y="371" class="font" font-size="11" fill="#64748B">Gelen tırların indirilmesi, kolileme ve barkodlama</text>
+  <rect x="288" y="348" width="74" height="24" rx="4" fill="#FEF2F2"/>
+  <text x="325" y="364" class="font" font-size="10" font-weight="700" fill="#991B1B" text-anchor="middle">Acil İhtiyaç</text>
+
+  <!-- Görev Seçenek 2 -->
+  <rect x="16" y="396" width="358" height="54" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="36" cy="423" r="9" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="56" y="416" class="font" font-size="13" font-weight="600" fill="#334155">Saha Dağıtımı &amp; Çadır Kent İntikali</text>
+  <text x="56" y="433" class="font" font-size="11" fill="#64748B">Koli paketlerinin afetzede çadırlarına ulaştırılması</text>
+
+  <!-- Görev Seçenek 3 -->
+  <rect x="16" y="458" width="358" height="54" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="36" cy="485" r="9" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="56" y="478" class="font" font-size="13" font-weight="600" fill="#334155">İlk Yardım &amp; Psikososyal Destek</text>
+  <text x="56" y="495" class="font" font-size="11" fill="#64748B">Sertifikalı sağlık personeli ve destek ekipleri</text>
+
+  <!-- Bölüm 3: Saha & Vardiya Seçimi -->
+  <text x="16" y="534" class="font" font-size="13" font-weight="700" fill="#0F172A">Görev Lokasyonu &amp; Vardiya</text>
+  
+  <rect x="16" y="546" width="358" height="114" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="32" y="570" class="font" font-size="11" font-weight="600" fill="#64748B">SEÇİLEN DAĞITIM BÖLGESİ</text>
+  <text x="32" y="588" class="font" font-size="13" font-weight="700" fill="#0F172A">Hatay - Antakya 3 No'lu Ana Lojistik Sahası</text>
+
+  <line x1="32" y1="600" x2="358" y2="600" stroke="#F1F5F9" stroke-width="1"/>
+
+  <text x="32" y="620" class="font" font-size="11" font-weight="600" fill="#64748B">VARDİYA TERCİHİ</text>
+  
+  <!-- Vardiya 1 (Seçili) -->
+  <rect x="32" y="628" width="154" height="26" rx="4" fill="#0F172A"/>
+  <text x="109" y="645" class="font" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Gündüz: 08:00 - 16:00</text>
+
+  <!-- Vardiya 2 -->
+  <rect x="194" y="628" width="154" height="26" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="271" y="645" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Gece: 16:00 - 00:00</text>
+
+  <!-- Taahhüt Kutusu -->
+  <rect x="16" y="670" width="358" height="42" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="28" y="683" width="14" height="14" rx="3" fill="#0F172A"/>
+  <path d="M 31 690 L 34 693 L 39 687" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <text x="50" y="694" class="font" font-size="11" fill="#475569">Saha güvenlik kurallarına ve AFAD talimatlarına uyacağımı onaylıyorum.</text>
+
+  <!-- Buton -->
+  <rect x="16" y="726" width="358" height="50" rx="8" fill="#B91C1C"/>
+  <text x="195" y="756" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Gönüllü Başvurusunu Tamamla</text>
+
+  <!-- Güvenlik Bilgisi -->
+  <text x="195" y="794" class="font" font-size="11" fill="#94A3B8" text-anchor="middle">Başvurunuz Koordinatör onayından sonra SMS ile teyit edilir.</text>
+
+  <!-- iOS Ana Ekran Çizgisi -->
+  <rect x="128" y="830" width="134" height="5" rx="2.5" fill="#0F172A"/>
+</svg>
