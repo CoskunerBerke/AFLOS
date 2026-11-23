@@ -1,0 +1,21 @@
+@startuml
+title Aid Request lifecycle (SRS workflow projection)
+state Pending
+state Verified
+state Dispatched
+state Delivered
+state Archived
+state Rejected
+[*] --> Pending
+Pending --> Verified : Coordinator verifies / review_status=VERIFIED
+Pending --> Rejected : Reject / review_status=REJECTED
+Verified --> Dispatched : Related shipment IN_TRANSIT
+Dispatched --> Delivered : Server accepts required handovers
+Delivered --> Archived : Close case with audit entry
+Archived --> [*]
+Rejected --> [*]
+note bottom of Dispatched
+AidRequest lifecycle is proposed, distinct from Shipment.status.
+Local offline scan never triggers canonical Delivered before sync.
+end note
+@enduml

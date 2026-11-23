@@ -1,0 +1,54 @@
+digraph erd {
+	bgcolor=white compound=true dpi=120 fontname=Helvetica nodesep=.3 overlap=false pad=.35 rankdir=LR ranksep=1.0 splines=spline
+	node [fontname=Helvetica fontsize=11 shape=plain]
+	edge [arrowsize=.7 color="#64748B" fontname=Helvetica fontsize=10 penwidth=1.3]
+	subgraph cluster_Access {
+		color="#CBD5E1" fontcolor="#334155" fontsize=18 label=Access labelloc=t margin=16 style=rounded
+		UserAccount [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>UserAccount</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>role : TEXT<BR ALIGN="LEFT"/>created_at : TIMESTAMPTZ</TD></TR></TABLE>>]
+	}
+	subgraph cluster_Need_and_zone {
+		color="#CBD5E1" fontcolor="#334155" fontsize=18 label="Need and zone" labelloc=t margin=16 style=rounded
+		AidZone [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>AidZone</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>name : TEXT<BR ALIGN="LEFT"/>latitude : NUMERIC(9,6)<BR ALIGN="LEFT"/>longitude : NUMERIC(9,6)<BR ALIGN="LEFT"/>disaster_type : TEXT<BR ALIGN="LEFT"/>status : TEXT</TD></TR></TABLE>>]
+		AidRequest [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#7C3AED" STYLE="ROUNDED"><TR><TD BGCOLOR="#F5F3FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>AidRequest</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK reporter_id : UUID NULL<BR ALIGN="LEFT"/>FK zone_id : UUID NULL<BR ALIGN="LEFT"/>review_status : TEXT<BR ALIGN="LEFT"/>lifecycle_state : TEXT<BR ALIGN="LEFT"/>latitude : NUMERIC(9,6)<BR ALIGN="LEFT"/>longitude : NUMERIC(9,6)<BR ALIGN="LEFT"/>contact_phone_encrypted : BYTEA NULL<BR ALIGN="LEFT"/>urgency_score : NUMERIC(3,1) NULL<BR ALIGN="LEFT"/>tracking_token_hash : TEXT NULL<BR ALIGN="LEFT"/>submitted_at : TIMESTAMPTZ</TD></TR></TABLE>>]
+		AidRequestLine [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>AidRequestLine</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK request_id : UUID<BR ALIGN="LEFT"/>category : TEXT<BR ALIGN="LEFT"/>item_name : TEXT<BR ALIGN="LEFT"/>quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>unit : TEXT</TD></TR></TABLE>>]
+		AidNeed [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>AidNeed</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK zone_id : UUID<BR ALIGN="LEFT"/>category : TEXT<BR ALIGN="LEFT"/>item_name : TEXT<BR ALIGN="LEFT"/>unit : TEXT<BR ALIGN="LEFT"/>required_quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>reserved_quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>delivered_quantity : NUMERIC(14,2)</TD></TR></TABLE>>]
+	}
+	subgraph cluster_Dispatch {
+		color="#CBD5E1" fontcolor="#334155" fontsize=18 label=Dispatch labelloc=t margin=16 style=rounded
+		TimeSlot [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>TimeSlot</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK zone_id : UUID<BR ALIGN="LEFT"/>starts_at : TIMESTAMPTZ<BR ALIGN="LEFT"/>ends_at : TIMESTAMPTZ<BR ALIGN="LEFT"/>max_vehicles : INTEGER<BR ALIGN="LEFT"/>assigned_vehicles : INTEGER</TD></TR></TABLE>>]
+		Vehicle [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>Vehicle</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK carrier_id : UUID<BR ALIGN="LEFT"/>license_plate : TEXT<BR ALIGN="LEFT"/>vehicle_type : TEXT<BR ALIGN="LEFT"/>capacity_kg : NUMERIC(14,2)</TD></TR></TABLE>>]
+		Shipment [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>Shipment</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK carrier_id : UUID<BR ALIGN="LEFT"/>FK vehicle_id : UUID<BR ALIGN="LEFT"/>FK target_zone_id : UUID<BR ALIGN="LEFT"/>FK time_slot_id : UUID<BR ALIGN="LEFT"/>status : TEXT<BR ALIGN="LEFT"/>created_at : TIMESTAMPTZ<BR ALIGN="LEFT"/>updated_at : TIMESTAMPTZ</TD></TR></TABLE>>]
+		ShipmentItem [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>ShipmentItem</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK shipment_id : UUID<BR ALIGN="LEFT"/>FK aid_need_id : UUID<BR ALIGN="LEFT"/>pledged_quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>actual_delivered_quantity : NUMERIC(14,2) NULL</TD></TR></TABLE>>]
+	}
+	subgraph cluster_Warehouse {
+		color="#CBD5E1" fontcolor="#334155" fontsize=18 label=Warehouse labelloc=t margin=16 style=rounded
+		Warehouse [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#B45309" STYLE="ROUNDED"><TR><TD BGCOLOR="#FFF8E8" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>Warehouse</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK zone_id : UUID NULL<BR ALIGN="LEFT"/>name : TEXT<BR ALIGN="LEFT"/>latitude : NUMERIC(9,6)<BR ALIGN="LEFT"/>longitude : NUMERIC(9,6)</TD></TR></TABLE>>]
+		StockItem [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#B45309" STYLE="ROUNDED"><TR><TD BGCOLOR="#FFF8E8" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>StockItem</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK warehouse_id : UUID<BR ALIGN="LEFT"/>category : TEXT<BR ALIGN="LEFT"/>item_name : TEXT<BR ALIGN="LEFT"/>unit : TEXT<BR ALIGN="LEFT"/>on_hand_quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>reserved_quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>barcode : TEXT NULL<BR ALIGN="LEFT"/>lot_number : TEXT NULL</TD></TR></TABLE>>]
+		StockReservation [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#B45309" STYLE="ROUNDED"><TR><TD BGCOLOR="#FFF8E8" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>StockReservation</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK stock_item_id : UUID<BR ALIGN="LEFT"/>FK shipment_item_id : UUID<BR ALIGN="LEFT"/>quantity : NUMERIC(14,2)<BR ALIGN="LEFT"/>status : TEXT</TD></TR></TABLE>>]
+	}
+	subgraph cluster_Governance {
+		color="#CBD5E1" fontcolor="#334155" fontsize=18 label=Governance labelloc=t margin=16 style=rounded
+		HandoverProof [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#7C3AED" STYLE="ROUNDED"><TR><TD BGCOLOR="#F5F3FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>HandoverProof</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK shipment_id : UUID<BR ALIGN="LEFT"/>FK verifier_user_id : UUID<BR ALIGN="LEFT"/>proof_method : TEXT<BR ALIGN="LEFT"/>proof_hash : TEXT<BR ALIGN="LEFT"/>confirmed_at : TIMESTAMPTZ NULL<BR ALIGN="LEFT"/>server_verified : BOOLEAN</TD></TR></TABLE>>]
+		AuditEntry [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>AuditEntry</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>FK actor_id : UUID NULL<BR ALIGN="LEFT"/>entity_type : TEXT<BR ALIGN="LEFT"/>entity_id : UUID<BR ALIGN="LEFT"/>action : TEXT<BR ALIGN="LEFT"/>occurred_at : TIMESTAMPTZ<BR ALIGN="LEFT"/>payload : JSONB</TD></TR></TABLE>>]
+		IdempotencyRecord [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" BGCOLOR="white" COLOR="#1D4ED8" STYLE="ROUNDED"><TR><TD BGCOLOR="#F0F7FF" ALIGN="LEFT" CELLPADDING="7"><FONT POINT-SIZE="15"><B>IdempotencyRecord</B></FONT></TD></TR><TR><TD ALIGN="LEFT" CELLPADDING="6">PK id : UUID<BR ALIGN="LEFT"/>actor_scope : TEXT<BR ALIGN="LEFT"/>http_method : TEXT<BR ALIGN="LEFT"/>path : TEXT<BR ALIGN="LEFT"/>idempotency_key : TEXT<BR ALIGN="LEFT"/>payload_hash : TEXT<BR ALIGN="LEFT"/>result : JSONB<BR ALIGN="LEFT"/>expires_at : TIMESTAMPTZ</TD></TR></TABLE>>]
+	}
+	UserAccount -> AidRequest [label=reporter_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidZone -> AidRequest [label=zone_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidRequest -> AidRequestLine [label=request_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidZone -> AidNeed [label=zone_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidZone -> TimeSlot [label=zone_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	UserAccount -> Vehicle [label=carrier_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	UserAccount -> Shipment [label=carrier_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	Vehicle -> Shipment [label=vehicle_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidZone -> Shipment [label=target_zone_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	TimeSlot -> Shipment [label=time_slot_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	Shipment -> ShipmentItem [label=shipment_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidNeed -> ShipmentItem [label=aid_need_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	AidZone -> Warehouse [label=zone_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	Warehouse -> StockItem [label=warehouse_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	StockItem -> StockReservation [label=stock_item_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	ShipmentItem -> StockReservation [label=shipment_item_id arrowhead=crow arrowsize=.65 constraint=true fontsize=9]
+	Shipment -> HandoverProof [label=shipment_id arrowhead=crow arrowsize=.65 constraint=false fontsize=9]
+	UserAccount -> HandoverProof [label=verifier_user_id arrowhead=crow arrowsize=.65 constraint=false fontsize=9]
+	UserAccount -> AuditEntry [label=actor_id arrowhead=crow arrowsize=.65 constraint=false fontsize=9]
+}

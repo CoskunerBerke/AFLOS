@@ -1,0 +1,21 @@
+digraph state {
+	bgcolor=white fontname=Helvetica nodesep=.5 pad=.25 rankdir=LR ranksep=.9 splines=polyline
+	node [color="#2563EB" fillcolor="#EFF6FF" fontname=Helvetica fontsize=13 margin=".17,.12" shape=box style="rounded,filled"]
+	edge [arrowsize=.8 color="#475569" fontname=Helvetica fontsize=11]
+	start [label="" color=black fillcolor=black height=.16 shape=circle style=filled width=.16]
+	Pending [label=Pending]
+	Verified [label=Verified]
+	Dispatched [label=Dispatched]
+	Delivered [label=Delivered]
+	Archived [label=Archived]
+	Rejected [label=Rejected color="#B91C1C" fillcolor="#FEF2F2"]
+	end [label="" color=black fillcolor=black height=.25 shape=doublecircle style=filled width=.25]
+	start -> Pending
+	Pending -> Verified [label="approve / review_status=VERIFIED"]
+	Pending -> Rejected [label=reject]
+	Verified -> Dispatched [label="accepted shipment goes IN_TRANSIT"]
+	Dispatched -> Delivered [label="all required handovers accepted"]
+	Delivered -> Archived [label="coordinator closes case"]
+	Archived -> end
+	Rejected -> end
+}

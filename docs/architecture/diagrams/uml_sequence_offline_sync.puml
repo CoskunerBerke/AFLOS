@@ -1,0 +1,34 @@
+@startuml
+title PWA blackout and replay - SRS proposal, not existing API
+actor "Field Staff" as Staff
+participant "PWA Client" as PWA
+database "IndexedDB (on device)" as Local
+participant "Sync Adapter (proposed)" as Sync
+participant "API Gateway" as API
+database PostgreSQL as DB
+Staff -> PWA: Submit report / signed QR receipt while offline
+PWA -> Local: Store command + stable idempotency key
+Local --> PWA: Queued locally
+PWA --> Staff: Pending sync (NOT server-confirmed delivery)
+... connectivity restored ...
+loop Replay pending commands in order
+PWA -> Sync: Resume replay
+Sync -> Local: Get queued command
+Sync -> API: HTTPS operation + same Idempotency-Key
+API -> DB: Authenticate, validate and dedupe
+alt Successful commit or safe duplicate
+DB --> API: Stable receipt
+API --> Sync: 200/201 receipt
+Sync -> Local: Mark synced
+else Business conflict
+DB --> API: 409 conflict
+API --> Sync: Conflict + resolution reason
+Sync -> Local: Retain for manual resolution
+end
+end
+PWA --> Staff: Show canonical state only after server ack
+note over PWA,DB
+Offline sync endpoints and signed-QR proof format
+are SRS extensions and require a versioned contract.
+end note
+@enduml

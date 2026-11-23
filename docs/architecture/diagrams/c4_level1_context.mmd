@@ -1,0 +1,17 @@
+flowchart LR
+  Citizen["Citizen / Reporter (Person)"] -->|Reports needs / views maps| AFLOS["AFLOS (Software System)"]
+  Carrier["Carrier (Person)"] -->|Books and delivers| AFLOS
+  Staff["Field / Warehouse Staff (Person)"] -->|Receives stock / handover| AFLOS
+  Coord["Coordinator (Person)"] -->|Coordinates operations| AFLOS
+  Admin["Admin (Person)"] -->|Audit oversight| AFLOS
+  AFLOS -->|HTTPS map tiles| Map["OpenStreetMap (External System)"]
+  AFLOS -.->|SRS SMS intake| SMS["SMS Gateway (SRS target)"]
+  AFLOS -.->|SRS routing data| Roads["Road / Alert Feeds (SRS target)"]
+  classDef person fill:#08427b,color:#fff,stroke:#08427b
+  classDef system fill:#1168bd,color:#fff,stroke:#084b8a
+  classDef external fill:#777,color:#fff,stroke:#555
+  classDef proposal fill:#fff1cf,color:#493f28,stroke:#b78e24,stroke-dasharray:5 4
+  class Citizen,Carrier,Staff,Coord,Admin person
+  class AFLOS system
+  class Map external
+  class SMS,Roads proposal
