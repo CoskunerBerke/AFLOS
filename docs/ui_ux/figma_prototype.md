@@ -68,7 +68,9 @@ docs/ui_ux/screenshots/
 ├── web_04_volunteer_portal.svg          (1440x900 - Sekme 4: Saha Gönüllüsü Ol & Resmi Kayıt)
 ├── web_05_carrier_logistics.svg         (1440x900 - Sekme 5: Taşıyıcı / Tır Sevk & Zaman Slotları)
 ├── web_06_warehouse_inventory.svg       (1440x900 - Modül 6: Sahra Depo Stok Sayım & Barkodlama)
-└── web_07_coordinator_dashboard.svg     (1440x900 - Modül 7: Kriz Masası Koordinatör GIS Merkezi)
+├── web_07_coordinator_dashboard.svg     (1440x900 - Modül 7: Kriz Masası Koordinatör GIS Merkezi)
+├── web_08_auth_login.svg                (1440x900 - Modül 8: Personel & Gönüllü Giriş Portalı)
+└── web_09_auth_register.svg             (1440x900 - Modül 9: Resmi Hesap Oluşturma & Akreditasyon)
 ```
 
 ---
@@ -183,6 +185,11 @@ flowchart TD
         W6["Sayfa 06: Sahra Depo Stok Sayım & Envanter Defteri"]
         W7["Sayfa 07: Kriz Masası Koordinatör GIS Durum Merkezi"]
     end
+
+    subgraph Security_Auth [4. Kimlik Doğrulama & Yetkilendirme - Web 1440x900]
+        W8["Sayfa 08: Personel & Gönüllü Giriş Portalı"]
+        W9["Sayfa 09: Resmi Hesap Oluşturma & NVİ Akreditasyon"]
+    end
 ```
 
 ### 4.1 Ekranların Mantıksal Sunum Sırası (Figma Prototype Sıralaması)
@@ -195,6 +202,8 @@ flowchart TD
 7. **Web Sayfa 05 (1440x900):** Taşıyıcı / Tır Sevk (Zaman Slotları ve Sefer Manifestosu)
 8. **Web Sayfa 06 (1440x900):** Sahra Depo Envanter ve Mal Kabul Terminali
 9. **Web Sayfa 07 (1440x900):** Kriz Masası Koordinatör GIS Afet Haritası Merkezi
+10. **Web Sayfa 08 (1440x900):** Personel & Gönüllü Giriş Portalı (T.C. Kimlik / 2FA SMS / e-Devlet Girişi)
+11. **Web Sayfa 09 (1440x900):** Resmi Hesap Oluşturma & NVİ Akreditasyon Portalı (Genel Kayıt)
 
 ---
 
