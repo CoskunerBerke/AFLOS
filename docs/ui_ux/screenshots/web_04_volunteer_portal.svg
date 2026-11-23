@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <style>
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <!-- Arka Plan -->
+  <rect width="1440" height="900" fill="#F8FAFC"/>
+
+  <!-- Üst Menü Çubuğu (Web Platform) -->
+  <rect width="1440" height="70" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="32" y="19" width="32" height="32" rx="6" fill="#B91C1C"/>
+  <path d="M 40 37 L 48 27 L 56 37 Z" fill="#FFFFFF"/>
+  <text x="76" y="38" class="font" font-size="20" font-weight="900" fill="#0F172A" letter-spacing="-0.5">AFLOS</text>
+  <text x="76" y="51" class="font" font-size="11" font-weight="600" fill="#64748B">Afet Lojistik ve İhtiyaç Koordinasyon Platformu</text>
+
+  <!-- Navigasyon Menüsü -->
+  <text x="440" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Canlı Afet Haritası</text>
+  <text x="610" y="42" class="font" font-size="14" font-weight="500" fill="#475569">İhtiyaç Talebi Bildir</text>
+  <text x="780" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Talep Sorgula &amp; Takip</text>
+  <text x="960" y="42" class="font" font-size="14" font-weight="700" fill="#B91C1C">Saha Gönüllüsü Ol</text>
+  <line x1="960" y1="68" x2="1090" y2="68" stroke="#B91C1C" stroke-width="2.5"/>
+  <text x="1120" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Taşıyıcı / Tır Sevk</text>
+
+  <!-- Sağ Butonlar -->
+  <rect x="1270" y="19" width="60" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="1300" y="41" class="font" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">TR · EN</text>
+
+  <rect x="1340" y="19" width="68" height="34" rx="6" fill="#0F172A"/>
+  <text x="1374" y="41" class="font" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Giriş</text>
+
+  <!-- Kurumsal Güvenlik & Seferberlik Bandı -->
+  <rect y="70" width="1440" height="36" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="48" cy="88" r="4.5" fill="#2563EB"/>
+  <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#1E3A8A">RESMİ SAHA GÖNÜLLÜSÜ AKREDİTASYONU:</text>
+  <text x="350" y="92" class="font" font-size="12" fill="#1D4ED8">Saha güvenliği, malzeme emniyeti ve adil dağıtım için gönüllü adaylarının T.C. Kimlik doğrulaması ve koordinatör onayı zorunludur.</text>
+  <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#1E3A8A" text-anchor="end">Portal 3 (Saha Onboarding)</text>
+
+  <!-- Ana İçerik Gövdesi (Web 1200px) -->
+  <rect x="120" y="126" width="1200" height="740" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Başlık -->
+  <rect x="120" y="126" width="1200" height="64" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="156" y="156" class="font" font-size="18" font-weight="800" fill="#0F172A">Saha Gönüllüsü ve Personel Başvuru Portalı</text>
+  <text x="156" y="174" class="font" font-size="12" fill="#64748B">Lojistik depolarda ayrıştırma, çadır kentlere paket dağıtımı ve ilk yardım faaliyetlerinde görev alacak gönüllü başvurusu</text>
+  <rect x="1150" y="142" width="146" height="32" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="1223" y="162" class="font" font-size="11" font-weight="700" fill="#991B1B" text-anchor="middle">Acil Gönüllü İhtiyacı</text>
+
+  <!-- SOL KOLON: KİMLİK, İLETİŞİM VE HESAP OLUŞTURMA (Web 560px) -->
+  <text x="156" y="222" class="font" font-size="13" font-weight="800" fill="#0F172A">1. KİMLİK VE İLETİŞİM BİLGİLERİ (DOĞRULAMA AMAÇLI)</text>
+
+  <!-- Ad Soyad & T.C. Kimlik -->
+  <text x="156" y="248" class="font" font-size="11" font-weight="700" fill="#475569">AD SOYAD</text>
+  <rect x="156" y="256" width="260" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="170" y="281" class="font" font-size="13" font-weight="600" fill="#0F172A">Kaan Kılınç</text>
+
+  <text x="432" y="248" class="font" font-size="11" font-weight="700" fill="#475569">T.C. KİMLİK NUMARASI</text>
+  <rect x="432" y="256" width="180" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="446" y="281" class="mono" font-size="13" font-weight="600" fill="#0F172A">23020404712</text>
+  <rect x="618" y="256" width="98" height="40" rx="6" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
+  <text x="667" y="280" class="font" font-size="10" font-weight="700" fill="#15803D" text-anchor="middle">NVİ Onaylı</text>
+
+  <!-- Telefon & E-Posta -->
+  <text x="156" y="318" class="font" font-size="11" font-weight="700" fill="#475569">TELEFON NUMARASI (SMS GÖREV KODU İÇİN)</text>
+  <rect x="156" y="326" width="260" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="170" y="351" class="mono" font-size="13" font-weight="600" fill="#0F172A">+90 532 984 47 00</text>
+
+  <text x="432" y="318" class="font" font-size="11" font-weight="700" fill="#475569">E-POSTA ADRESİ</text>
+  <rect x="432" y="326" width="284" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="446" y="351" class="font" font-size="13" font-weight="500" fill="#0F172A">kaan.kilinc@aflos.org.tr</text>
+
+  <!-- Şehir & Güvenli Şifre -->
+  <text x="156" y="388" class="font" font-size="11" font-weight="700" fill="#475569">İKAMETGAH / ŞEHİR</text>
+  <rect x="156" y="396" width="260" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="170" y="421" class="font" font-size="13" font-weight="500" fill="#0F172A">Hatay · Antakya (Afet Bölgesi)</text>
+
+  <text x="432" y="388" class="font" font-size="11" font-weight="700" fill="#475569">GÜVENLİ ŞİFRE OLUŞTURUN</text>
+  <rect x="432" y="396" width="284" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="446" y="421" class="font" font-size="15" font-weight="700" fill="#0F172A">••••••••••••</text>
+  <text x="704" y="420" class="font" font-size="10" font-weight="600" fill="#2563EB" text-anchor="end">Güçlü</text>
+
+  <text x="156" y="462" class="font" font-size="13" font-weight="800" fill="#0F172A">2. YASAL SORUMLULUK VE KVKK TAAHHÜTNAMESİ</text>
+  <rect x="156" y="472" width="560" height="88" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <rect x="172" y="488" width="16" height="16" rx="4" fill="#0F172A"/>
+  <path d="M 175 496 L 178 499 L 185 492" stroke="#FFF" stroke-width="1.5" fill="none"/>
+  <text x="198" y="500" class="font" font-size="11" font-weight="600" fill="#0F172A">AFAD ve Kriz Masası Saha Güvenlik Talimatlarına Uyacağımı Taahhüt Ederim.</text>
+  <text x="198" y="516" class="font" font-size="10" fill="#64748B">Saha görevinde AFAD yeleği ve dijital görev kartı taşınması zorunludur.</text>
+  <text x="198" y="542" class="font" font-size="11" fill="#475569">6698 sayılı KVKK kapsamında kimlik bilgilerimin afet koordinasyonunda işlenmesine onay veriyorum.</text>
+
+  <!-- İkincil Bilgi Kartı -->
+  <rect x="156" y="576" width="560" height="92" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="178" cy="600" r="8" fill="#2563EB"/>
+  <text x="178" y="604" class="font" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">QR</text>
+  <text x="198" y="598" class="font" font-size="12" font-weight="700" fill="#1E3A8A">Onay Sonrası Dijital Saha Görev Kartı:</text>
+  <text x="198" y="616" class="font" font-size="11" fill="#1D4ED8">Başvurunuz Koordinatör tarafından onaylandığında mobil cihazınıza ve sisteme özel bir QR Saha Geçiş Kartı tanımlanacaktır. Bu kart depo girişlerinde okutulur.</text>
+
+
+  <!-- SAĞ KOLON: GÖREV SEÇİMİ, LOKASYON VE VARDİYA (Web 560px) -->
+  <text x="760" y="222" class="font" font-size="13" font-weight="800" fill="#0F172A">3. GÖREV VE FAALİYET ALANI TERCİHİ</text>
+  <text x="760" y="238" class="font" font-size="11" fill="#64748B">Destek vermek istediğiniz birincil uzmanlık alanını belirleyiniz</text>
+
+  <!-- Görev 1 (Seçili) -->
+  <rect x="760" y="252" width="536" height="58" rx="6" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.8"/>
+  <circle cx="782" cy="281" r="8" fill="#0F172A"/>
+  <circle cx="782" cy="281" r="3.5" fill="#FFFFFF"/>
+  <text x="802" y="274" class="font" font-size="13" font-weight="700" fill="#0F172A">Lojistik Depo Ayrıştırma, Sayım &amp; Tasnif</text>
+  <text x="802" y="292" class="font" font-size="11" fill="#64748B">Gelen tırların boşaltılması, palet sayımı, barkodlama ve kolileme</text>
+  <rect x="1200" y="268" width="84" height="24" rx="4" fill="#FEF2F2"/>
+  <text x="1242" y="284" class="font" font-size="10" font-weight="700" fill="#991B1B" text-anchor="middle">Acil İhtiyaç</text>
+
+  <!-- Görev 2 -->
+  <rect x="760" y="320" width="536" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="782" cy="349" r="8" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="802" y="342" class="font" font-size="13" font-weight="600" fill="#334155">Saha Dağıtımı &amp; Çadır Kent İntikali</text>
+  <text x="802" y="360" class="font" font-size="11" fill="#64748B">Hazırlanan yardım paketlerinin aile çadırlarına birebir ulaştırılması</text>
+
+  <!-- Görev 3 -->
+  <rect x="760" y="388" width="536" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="782" cy="417" r="8" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="802" y="410" class="font" font-size="13" font-weight="600" fill="#334155">İlk Yardım, Sıcak Yemek &amp; Psikososyal Destek</text>
+  <text x="802" y="428" class="font" font-size="11" fill="#64748B">Aşevi dağıtımı veya sertifikalı ilk yardım personeli desteği</text>
+
+  <!-- Lokasyon & Vardiya Seçimi -->
+  <text x="760" y="472" class="font" font-size="13" font-weight="800" fill="#0F172A">4. GÖREV YAPILACAK BÖLGE VE VARDİYA DİLİMİ</text>
+  
+  <rect x="760" y="482" width="536" height="114" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="778" y="506" class="font" font-size="11" font-weight="700" fill="#475569">SEÇİLEN MERKEZ LOJİSTİK SAHASI</text>
+  <text x="778" y="526" class="font" font-size="13" font-weight="800" fill="#0F172A">Hatay - Antakya 3 No'lu Ana İkmal Sahası (Odabaşı)</text>
+
+  <line x1="778" y1="538" x2="1280" y2="538" stroke="#E2E8F0" stroke-width="1"/>
+
+  <text x="778" y="556" class="font" font-size="11" font-weight="700" fill="#475569">MÜSAİT VARDİYA ARALIĞI</text>
+  
+  <!-- Vardiya 1 (Seçili) -->
+  <rect x="778" y="564" width="240" height="26" rx="4" fill="#0F172A"/>
+  <text x="898" y="581" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">Gündüz: 08:00 - 16:00 (14 Kişi Açık)</text>
+
+  <!-- Vardiya 2 -->
+  <rect x="1030" y="564" width="240" height="26" rx="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="1150" y="581" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Gece: 16:00 - 00:00 (6 Kişi Açık)</text>
+
+  <!-- Başvuru Gönderim Butonu -->
+  <rect x="760" y="618" width="536" height="52" rx="8" fill="#B91C1C"/>
+  <text x="1028" y="650" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">Gönüllü Başvurusunu Tamamla ve Görev Kartını Al</text>
+
+  <!-- Alt Bilgi -->
+  <text x="1028" y="694" class="font" font-size="11" fill="#64748B" text-anchor="middle">Başvurunuz Kriz Masası onayından geçtikten sonra SMS ve e-posta ile onay kodu iletilir.</text>
+</svg>

@@ -7,7 +7,7 @@
 **Document Author & UI/UX Leads:** Product Owner & Requirements Engineer — **Kaan Kılınç (230204047)** ([`@kaanklnc`](https://github.com/kaanklnc))  
 **Co-Designers:** Berke Coşkuner ([`@CoskunerBerke`](https://github.com/CoskunerBerke)), Hüseyin Zor ([`@kurdoglu25`](https://github.com/kurdoglu25)), Ulaş Balcı ([`@ulasbalci0653`](https://github.com/ulasbalci0653))  
 **Repository:** [https://github.com/CoskunerBerke/AFLOS](https://github.com/CoskunerBerke/AFLOS)  
-**Document Version:** 1.0.0 (Release 1 Baseline)  
+**Document Version:** 2.0.0 (AFLOS Unified Desktop Web Platform Baseline)  
 **Figma Prototype Status:** Public View Access Configured (No Login Barrier)  
 
 ---
@@ -15,6 +15,8 @@
 ## 1. Executive Summary & Live Figma Prototype Links
 
 This dossier presents the official **UI/UX Prototype Suite and Design System** for **AFLOS**. Grounded in empirical disaster psychology and field constraints (cellular network degradation, acute victim trauma, blinding outdoor glare, and low smartphone battery), the interface prioritizes **zero cognitive friction**, **high-contrast visual feedback**, and **sub-second offline responsiveness**.
+
+The system is architected as an **Enterprise Disaster Coordination Web Platform (1440x900 Desktop Web)** comprising 7 cohesive operational portals matching the platform navigation bar.
 
 ### 🔗 Live Interactive Figma Project Links
 
@@ -39,7 +41,7 @@ This dossier presents the official **UI/UX Prototype Suite and Design System** f
 | `--color-success-green` | `#16A34A` | Completed deliveries, verified QR cryptographic scans, safe stock | **4.7:1** (Pass AA) |
 | `--color-slate-900` | `#0F172A` | Background for night/outdoor mode, primary high-contrast text | **15.8:1** (Pass AAA) |
 | `--color-slate-600` | `#475569` | Secondary captions, timestamps, helper descriptions | **5.2:1** (Pass AA) |
-| `--color-canvas-light` | `#F8FAFC` | Mobile canvas background for clean readability | Baseline |
+| `--color-canvas-light` | `#F8FAFC` | Mobile & desktop canvas background for clean readability | Baseline |
 
 ### 2.2 Typography Scale & Rhythm
 * **Font Family:** `Inter` / `Roboto` (System native sans-serif fallback for ultra-fast rendering without webfont network delays).
@@ -47,203 +49,146 @@ This dossier presents the official **UI/UX Prototype Suite and Design System** f
 * **Display H1:** `24px / 32px Extrabold` — Emergency module titles.
 * **Section H2:** `18px / 24px Bold` — Card headings and category titles.
 * **Body Regular:** `15px / 22px Regular` — Form input fields and descriptions.
-* **Touch-Target Compliance:** Every clickable tile, button, and counter has a minimum touch target bounding box of **$48 \times 48\text{ dp/px}$** with at least $8\text{px}$ margin separation to avoid fat-finger misclicks by shaking hands.
+* **Touch-Target Compliance:** Every clickable tile, button, and counter has a minimum touch target bounding box of **$48 \times 48\text{ dp/px}$** with at least $8\text{px}$ margin separation to avoid misclicks under stress.
 
 ---
 
-## 3. High-Fidelity Screen Inventory & Vector Frames
+## 3. High-Fidelity Screen Inventory: AFLOS Unified Web Platform (1440x900)
 
-The complete interactive prototype comprises **six core high-fidelity screens** spanning mobile, tablet, and desktop viewports:
+The official AFLOS Figma project models an enterprise-grade **Disaster Coordination & Aid Logistics Web Platform** designed natively for desktop web viewports (`1440x900 px`), matching the top navigation bar tabs:
 
 ```
 docs/ui_ux/screenshots/
 │
-├── screen_01_citizen_request.svg         (375x812 - Mobile Citizen Need Intake)
-├── screen_02_citizen_tracking.svg        (375x812 - Mobile Citizen Tracking Stepper)
-├── screen_03_carrier_cockpit.svg         (375x812 - Mobile Driver Navigation & Route)
-├── screen_04_carrier_qr_handover.svg     (375x812 - Mobile Offline QR Delivery Verification)
-├── screen_05_warehouse_inventory.svg     (1024x768 - Tablet Warehouse Rapid Scanner & Ledger)
-└── screen_06_coordinator_dashboard.svg   (1440x900 - Desktop GIS Situational Command Center)
+├── web_01_live_map.svg                  (1440x900 - Sekme 1: Canlı Afet Haritası & Ulusal Platform)
+├── web_02_citizen_request.svg           (1440x900 - Sekme 2: İhtiyaç Talebi Bildir - Web Formu)
+├── web_03_request_tracking.svg          (1440x900 - Sekme 3: Talep Sorgula & Canlı Telemetri)
+├── web_04_volunteer_portal.svg          (1440x900 - Sekme 4: Saha Gönüllüsü Ol & Resmi Kayıt)
+├── web_05_carrier_logistics.svg         (1440x900 - Sekme 5: Taşıyıcı / Tır Sevk & Zaman Slotları)
+├── web_06_warehouse_inventory.svg       (1440x900 - Modül 6: Sahra Depo Stok Sayım & Barkodlama)
+└── web_07_coordinator_dashboard.svg     (1440x900 - Modül 7: Kriz Masası Koordinatör GIS Merkezi)
 ```
 
 ---
 
-### Screen 01: Citizen Emergency Aid Request & Automated Triage (Mobile - 375x812)
-* **Target Persona:** Disaster Victim / Affected Citizen (`PER-01`)
-* **Core Capabilities:**
-  * Zero-friction: No email/password registration required.
-  * GPS auto-location with $\pm 8\text{m}$ precision and human-readable reverse geocoding ("Hatay, Antakya, Odabaşı Mah.").
-  * High-contrast 6-category visual selection grid (Drinking Water, Winter Tent, Ready Food, First Aid, Infant Care, Mobile Heating).
-  * Affected person counter with sub-counters for infants and elderly.
-  * Urgent danger checkboxes (Sub-zero exposure, acute trauma).
-  * Primary Red Action Button: `ACİL YARDIM TALEBİ OLUŞTUR` with micro-interaction feedback.
+### Web Sayfa 01: Canlı Afet Haritası & Ulusal Koordinasyon Portalı (1440x900)
+* **Navigasyon Sekmesi:** `Canlı Afet Haritası` (Aktif)
+* **Kullanıcı Kitlesi:** Genel Kamuoyu, Bağışçılar, STK'lar ve Afetzedeler (`PUBLIC`, `REPORTER`)
+* **Temel Yetenekler:**
+  * Ulusal Acil Durum KPI Göstergeleri: 48,210 Doğrulanmış Talep, %76.4 Karşılanma, 142 Sahadaki Tır, 1,280 Saha Gönüllüsü.
+  * Sol Panel (Geniş Leaflet Haritası): Ankara-Mersin-Hatay ikmal koridorları, renk kodlu aciliyet pinleri (Hatay kritik kırmızı, Maraş amber, Antep yeşil) ve hareket halindeki tır simgeleri.
+  * Sağ Panel (Hızlı İşlem Konsolu): Web üzerinden anlık ihtiyaç bildirimi, takip kodu sorgulama ve gönüllü katılım köprüsü.
 
-![Screen 01: Citizen Emergency Request](./screenshots/screen_01_citizen_request.svg)
+![Web Sayfa 01: Canlı Afet Haritası](./screenshots/web_01_live_map.svg)
 
 ---
 
-### Screen 02: Citizen Need Status & Stepper Tracking (Mobile - 375x812)
-* **Target Persona:** Disaster Victim / Affected Citizen (`PER-01`)
-* **Core Capabilities:**
-  * Prominent 8-character tracking token: `TRK-8492X`.
-  * Dynamic status badge: `YOLDA / SEVK` with pulsating amber indicator.
-  * 4-Stage visual stepper:
-    1. `Talep Alındı` (09:41 — GPS coordinates verified)
-    2. `Triyaj Onaylandı` (09:43 — Priority Score: 8.7/10 High Urgency)
-    3. `Araca Yüklendi ve Sevk Edildi` (Active — Plate: 31-K-4920, ETA: 25 min)
-    4. `Teslimat ve QR Onayı` (Pending physical handover)
-  * Assigned volunteer carrier information card (Driver name, vehicle plate, cargo summary).
-  * Telecommunication blackout 2G SMS fallback instructions (`DURUM TRK-8492X` to `3820`).
-  * Self-service cancellation button (`Yardıma İhtiyacım Kalmadı - İptal Et`) to prevent wasted dispatch trips.
+### Web Sayfa 02: Afet İhtiyaç Bildirim ve Lojistik Talep Portalı (1440x900)
+* **Navigasyon Sekmesi:** `İhtiyaç Talebi Bildir` (Aktif)
+* **Kullanıcı Kitlesi:** Depremzede Vatandaş, Muhtar, Yerel Temsilci (`PER-01` / `REPORTER`)
+* **Temel Yetenekler:**
+  * Sıfır Sürtünme İlkesi: Şifre ve e-posta zorunluluğu olmaksızın doğrudan acil ihtiyaç bildirimi.
+  * İki Sütunlu Form Mimarisi: İl/ilçe ve çadır alanı konumu, 6 temel malzeme kategorisi (İçme suyu, kışlık çadır, bebek bakımı, tıbbi ihtiyaç, ısınma, gıda).
+  * Kırılgan Grup Seçicileri: Bebek (0-2 yaş), Çocuk (3-12 yaş), Yaşlı (65+) ve Yetişkin sayaçları.
+  * Acil Triyaj Puanlaması (P1 Skoru): Bebek ve donma riski taşıyan başvurularda otomatik önceliklendirme ve 2G SMS yedekleme protokolü.
 
-![Screen 02: Citizen Need Status & Tracking](./screenshots/screen_02_citizen_tracking.svg)
+![Web Sayfa 02: İhtiyaç Talebi Bildir](./screenshots/web_02_citizen_request.svg)
 
 ---
 
-### Screen 03: Volunteer & Commercial Carrier Cockpit (Mobile - 375x812)
-* **Target Persona:** Transport Carrier / Relief Truck Driver (`PER-02`)
-* **Core Capabilities:**
-  * Mission ID `#104` with route summary: `Mersin Hub -> Antakya Sahra Depo 2`.
-  * Cargo manifest metrics: 12 Pallets Water, 50 Winter Tents (Total weight: 7,800 kg; Capacity utilization: 78%).
-  * Hazard-Aware Map view with green safe corridor and red blocked road warning (`D-825 Heyelan Kapanması - Kırıkhan Baypası Aktif`).
-  * Offline-Ready local indicator badge.
-  * Primary Action: `TESLİMAT NOKTASINDA QR OKUT` launching optical scanner.
-  * Breakdown / SOS alert trigger for vehicle roadside assistance.
+### Web Sayfa 03: Talep Sorgula & Canlı Rota Telemetrisi (1440x900)
+* **Navigasyon Sekmesi:** `Talep Sorgula & Takip` (Aktif)
+* **Kullanıcı Kitlesi:** Talep Sahibi Vatandaş, Saha Dağıtım Ekipleri (`PER-01`, `FIELD_STAFF`)
+* **Temel Yetenekler:**
+  * Alfanümerik Takip Numarası (`TRK-8492X`) ve telefon numarasıyla anında arama.
+  * Sol Panel (Canlı Sevkiyat Telemetrisi): Mersin Liman Deposu'ndan yola çıkan yardım tırının (Plaka: `31 KAA 84`, Hız: 62 km/s, Kalan Süre: 22 Dk) harita üzerindeki konumu.
+  * Sağ Panel (Süreç Stepper & Malzeme Dökümü): Talep Alındı $\rightarrow$ Triyaj Onayı $\rightarrow$ Yolda $\rightarrow$ Teslimat aşamaları ve koli muhteviyatı.
+  * Çevrimdışı Teslim Alma QR Kodu: İnternet çekmeyen bölgelerde şoförün taraması için dinamik doğrulama kodu.
 
-![Screen 03: Carrier Logistics Cockpit](./screenshots/screen_03_carrier_cockpit.svg)
-
----
-
-### Screen 04: Carrier Cryptographic QR Delivery Handover (Mobile - 375x812)
-* **Target Persona:** Carrier (`PER-02`) & Receiving Field Warehouse Staff (`PER-03`)
-* **Core Capabilities:**
-  * High-contrast optical scanner HUD with animated laser scanline and corner alignment guides.
-  * Real-time verification of receiver's dynamic ECDSA-signed QR code.
-  * Offline mode support: Cryptographic proof is validated locally against public key and queued in local IndexedDB/SQLite with zero packet data dependency.
-  * Success receipt confirmation dialog showing delivered cargo items, transaction timestamp, and manifest hash (`SHP-10492-OK`).
-  * Green Completion Button: `TESLİMATI ONAYLA VE BİTİR`.
-
-![Screen 04: Carrier QR Handover Verification](./screenshots/screen_04_carrier_qr_handover.svg)
+![Web Sayfa 03: Talep Sorgula & Takip](./screenshots/web_03_request_tracking.svg)
 
 ---
 
-### Screen 05: Field Warehouse Intake & Allocation Terminal (Tablet - 1024x768)
-* **Target Persona:** Field Warehouse Supervisor (`PER-03`)
-* **Core Capabilities:**
-  * Top KPI metric strip: Total Item Stock (24,800), Inbound Trucks (3 Queued), Critical Stock Alerts (2 Categories $<20\%$), Daily Fulfillments (14,200).
-  * Left Panel: Rapid Mal Kabul (Live camera barcode/QR scanner, SKU parser, batch expiration picker, and stock increment button).
-  * Automated Soft-Lock Allocation banner: Newly scanned pallet is instantly matched and reserved for high-priority local emergency needs.
-  * Right Panel: Live Sphere-standard inventory ledger with real-time status badges (`YETERLİ`, `ORTA`, `KRİTİK <20%`).
-  * Action bar: `YENİ SEVK İRSALİYESİ BAŞLAT (TIR YÜKLEME)`.
+### Web Sayfa 04: Saha Gönüllüsü Ol & Resmi Kimlik Portalı (1440x900)
+* **Navigasyon Sekmesi:** `Saha Gönüllüsü Ol` (Aktif)
+* **Kullanıcı Kitlesi:** Sivil Toplum Gönüllüleri, Saha Dağıtım Personeli (`PER-03` / `FIELD_STAFF`)
+* **Temel Yetenekler:**
+  * Resmi Kimlik Akreditasyonu: Ad Soyad, 11 haneli T.C. Kimlik No (NVİ/MERNİS doğrulaması), SMS onaylı telefon, kurumsal e-posta ve şifre.
+  * Görev ve Uzmanlık Tercihi: Lojistik Depo Ayrıştırma & Tasnif (Acil İhtiyaç), Çadır Kent Dağıtımı, Sıcak Yemek / Aşevi, İlk Yardım Desteği.
+  * Merkez Lojistik Sahası & Vardiya Kotası: Hatay Antakya 3 No'lu Hub için Gündüz (08:00 - 16:00) ve Gece (16:00 - 00:00) vardiya kapasiteleri.
+  * Dijital Saha Görev Kartı: Onaylanan gönüllüye tahsis edilen QR güvenlik kartı.
 
-![Screen 05: Field Warehouse Inventory Terminal](./screenshots/screen_05_warehouse_inventory.svg)
+![Web Sayfa 04: Saha Gönüllüsü Ol](./screenshots/web_04_volunteer_portal.svg)
 
 ---
 
-### Screen 06: Crisis Command Coordinator GIS Situational Center (Desktop - 1440x900)
-* **Target Persona:** Disaster Coordinator / Incident Commander (`PER-04`)
-* **Core Capabilities:**
-  * Macro Situational KPI Header: Total Requests (48,210), Fulfillment Rate (75.6%), En-Route Convoys (84 Trucks, 3,400 tons), Active Bottlenecks (3 Red Alerts).
-  * Main GIS Panel: Dark-mode vector map displaying regional demand heatmaps (Defne, Antakya, Kırıkhan), central logistics hubs (Mersin), and live telemetry vectors of relief trucks.
-  * Right Panel — Bottleneck Resolution Console:
-    * Heuristic detection of severe demand-supply deficits (e.g. Defne tent demand exceeding stock by 380% for >12 hours).
-    * One-click automated supply diversion recommendation from surplus donor warehouse (Mersin Central Hub).
-    * Action button: `ACİL KONVOY SEVKİYATINI ONAYLA`.
-  * Real-time immutable Security Audit Trail stream logging coordinator actions.
+### Web Sayfa 05: Taşıyıcı ve Tır Lojistik Sevk Yönetim Portalı (1440x900)
+* **Navigasyon Sekmesi:** `Taşıyıcı / Tır Sevk` (Aktif)
+* **Kullanıcı Kitlesi:** Ticari Lojistik Filoları, Gönüllü Tır Sahipleri (`PER-02` / `CARRIER`)
+* **Temel Yetenekler:**
+  * Lojistik Trafik Kontrolü & Darboğaz Önleme: Hatay Antakya girişinde kontrolsüz tır yığılmasını önleyen saatlik 8 araç kotası ve slot rezervasyonu.
+  * Açık İntikal Bölgeleri Tablosu: Hatay, Kahramanmaraş, Adıyaman açık ihtiyaçları ve yükleme hazır durumları.
+  * Sefer Emri & Yük Manifestosu: Çekici/dorse plakası (`31 KAA 84`), 24 tonluk tenteli tır eşleşmesi, 18 palet su + 4 palet mama manifestosu.
+  * E-Devlet ve Emniyet Yol Kontrol Geçiş İzni entegrasyonu.
 
-![Screen 06: Crisis Coordinator GIS Dashboard](./screenshots/screen_06_coordinator_dashboard.svg)
+![Web Sayfa 05: Taşıyıcı Lojistik Portalı](./screenshots/web_05_carrier_logistics.svg)
 
-### Screen 07: Aid Request Query & Live Route Telemetry (Mobile - 390x844)
-* **Target Persona:** Affected Citizen / Neighborhood Muhtar / Aid Requester (`PER-01`)
-* **Core Capabilities:**
-  * Alphanumeric Request Code Lookup (`TRK-8492X`) & Registered Phone Search input field with instant debounce validation.
-  * Active Shipment Summary: Real-time status badge (`SEVKTE`), exact dispatch destination, assigned carrier truck plate (`31 KAA 84`), and line-item manifest verification (Water, Baby Food, Blankets).
-  * Dynamic Route Telemetry: Schematic vector route showing Logistics Hub origin, en-route truck position, destination coordinates, and estimated arrival time (`22 Dakika`).
-  * Instant offline-cached view for re-querying during periodic network disconnects.
+---
 
-![Screen 07: Aid Request Query & Live Route Telemetry](./screenshots/screen_07_request_tracking.svg)
+### Web Sayfa 06: Sahra Depo Envanter ve Mal Kabul Terminali (1440x900)
+* **Yetkili Modül:** Depo Envanter & Mal Kabul Konsolu
+* **Kullanıcı Kitlesi:** Depo Amiri, Mal Kabul Görevlisi (`PER-03` / `FIELD_STAFF`)
+* **Temel Yetenekler:**
+  * Kamera & Barkod Terminali: Tırdan indirilen paletlerin barkodla sisteme girişi ($\le 200\text{ ms}$).
+  * Canlı Envanter Defteri: Su, kışlık çadır, bebek maması, battaniye ve kuru gıda stok durumları, ayrılan ve rezerve miktarlar.
+  * Otomatik Rezervasyon & İkmal Uyarısı: Kritik eşiğin altına inen malzemeler için liman depolarından otomatik konvoy talep mekanizması.
 
-### Screen 08: Field Volunteer Application & Shift Onboarding Portal (Mobile - 390x844)
-* **Target Persona:** Field Staff & Civilian Relief Volunteer (`PER-03` / `FIELD_STAFF`)
-* **Core Capabilities:**
-  * Official Emergency Mobilization Banner with civic accreditation guidance.
-  * Identity & Vetting Verification: Full Name, verified Turkish Citizen ID (`230204•••••`), and verified mobile phone number.
-  * Task Domain Selection with urgent demand badges: Warehouse Sorting & Palletizing (`Acil İhtiyaç`), Tent Distribution, Food Preparation / Soup Kitchen, First Aid & Psychosocial Support.
-  * Zone & Shift Window Picker: Distribution Zone selection (`Hatay - Antakya 3 No'lu Ana Lojistik Sahası`) with Day Shift (`08:00 - 16:00`) and Night Shift (`16:00 - 00:00`) capacity slots.
-  * Safety agreement acknowledgment and submission dispatch triggering instant coordinator vetting and digital mission pass issuance.
+![Web Sayfa 06: Sahra Depo Envanter Terminali](./screenshots/web_06_warehouse_inventory.svg)
 
-![Screen 08: Field Volunteer Application Portal](./screenshots/screen_08_volunteer_portal.svg)
+---
 
-### Screen 09: Volunteer & Field Staff Identity Registration (Mobile - 390x844)
-* **Target Persona:** Civilian Volunteers, Commercial Carriers, Field Personnel (`PER-02`, `PER-03`)
-* **Security & Authentication Governance:**
-  * **Zero-Friction Citizen Exemption:** Disaster victims in shock do not register with email/passwords; they file rapid aid demands without authentication friction.
-  * **Mandatory Institutional Vetting:** Field volunteers, warehouse workers, and carrier truck owners MUST establish verified digital identities before receiving cargo or entering distribution centers.
-  * **Fields:** Full Name, 11-digit Turkish National ID (NVİ/MERNİS checksum verification badge), Mobile Phone (+90 SMS OTP verification), Official Email, Residence City/District (`Hatay · Antakya`), Strong Password, Role selector (`Saha Gönüllüsü` vs. `Gönüllü Taşıyıcı`), and explicit KVKK disaster duty consent.
+### Web Sayfa 07: Kriz Masası Koordinatör GIS Durum Merkezi (1440x900)
+* **Yetkili Modül:** Kriz Masası GIS Durum Merkezi
+* **Kullanıcı Kitlesi:** AFAD Koordinatörü, Kriz Masası Yöneticisi (`PER-04` / `COORDINATOR`)
+* **Temel Yetenekler:**
+  * Makro Durum KPI Şeridi: Toplam talep, gerçekleşen sevkiyatlar, seferdeki tırlar ve aktif darboğaz uyarıları.
+  * Çoklu Ekran Vektörel Harita Konsolu: Bölgesel talep ısı haritaları, tır takip telemetry vektörleri.
+  * Otomatik Darboğaz Çözüm Konsolu: Talep açığı olan bölgelere (Örn: Defne) fazla veren depolardan (Mersin) tek tıkla acil konvoy yönlendirme (`ACİL KONVOY SEVKİYATINI ONAYLA`).
 
-![Screen 09: Volunteer & Field Staff Registration](./screenshots/screen_09_user_registration.svg)
-
-### Screen 10: National Disaster Logistics & Needs Web Platform (Desktop - 1440x900)
-* **Target Persona:** General Public, Donors, Municipality Liasons, Proxy Reporters (`PUBLIC`, `REPORTER`)
-* **Core Capabilities:**
-  * Institutional Web Header with national navigation: Live Disaster Map, Citizen Aid Request, Tracking Query, Volunteer Accreditation, Carrier Portal.
-  * National Live Emergency Ticker & Macro KPIs: 48,210 verified needs, 76.4% fulfillment rate, 142 en-route trucks, 1,280 accredited field volunteers.
-  * Interactive Vector Turkey Disaster Map (60% width): OpenStreetMap/Leaflet integration displaying regional status pins (Hatay critical red, Maraş amber, Mersin hub), active supply corridors, and live truck telemetry.
-  * Web Action & Triage Console (40% width): Rapid multi-item citizen request form with demographic selectors (Infant, Child, Elderly, Adult), location dropdowns, and P1 triage escalation banner.
-
-![Screen 10: National Disaster Logistics Web Platform](./screenshots/screen_10_web_public_platform.svg)
-
-### Screen 11: Carrier Fleet & Time-Slot Logistics Portal (Desktop - 1440x900)
-* **Target Persona:** Logistics Companies, Commercial Carriers, Volunteer Truck Owners (`PER-02` / `CARRIER`)
-* **Core Capabilities:**
-  * Drop-Off Bottleneck Prevention Console: Real-time quota alerts informing drivers of vehicle quotas (e.g. max 8 trucks/hour at Antakya Hub) to eliminate road congestion.
-  * Active Need Demands & Time-Slot Booking Table: Filterable regional destinations showing remaining item deficits (Water, Winter Tents, Baby Food) and available arrival windows (`10:00 - 14:00`).
-  * Truck & Semi-Trailer Allocation Console: License plate entry (`31 KAA 84 / 31 KAA 85`), 24-ton capacity rating, driver identity vetting, and multi-pallet cargo manifest generation.
-  * Integration with E-Devlet and highway police checkpoints for green-corridor highway permits.
-
-![Screen 11: Carrier Fleet Logistics Portal](./screenshots/screen_11_web_carrier_logistics.svg)
+![Web Sayfa 07: Kriz Masası Koordinatör Paneli](./screenshots/web_07_coordinator_dashboard.svg)
 
 ---
 
 ## 4. Interactive Prototype Flow & Logical Screen Hierarchy
 
-The Figma prototype models four complete, end-to-end interactive user flows arranged in strict logical progression (Mobile Citizen & Field Operations $\rightarrow$ Large Screen Operations Center):
+The Figma prototype models a unified, responsive **Web Platform Suite** where all primary operational screens share the consistent 1440x900 desktop viewport:
 
 ```mermaid
 flowchart TD
-    subgraph Mobile_A [1. Afetzede & Takip Akışı - Mobil 390x844]
-        S1["Ekran 01: İhtiyaç Bildirimi (Bebek/Yaşlı Triyajı)"] -->|Talebi Gönder| S2["Ekran 02: Talep Süreç Adımları"]
-        S2 -->|Takip Kodu Gir| S3["Ekran 03: Talep Sorgulama & Canlı Rota Haritası"]
+    subgraph Public_Web [1. Kamu & Vatandaş Portalı - Web 1440x900]
+        W1["Sayfa 01: Canlı Afet Haritası & Platform Ana Sayfası"] -->|Sekme Değiştir| W2["Sayfa 02: İhtiyaç Talebi Bildir (Form)"]
+        W1 -->|Sekme Değiştir| W3["Sayfa 03: Talep Sorgula & Canlı Rota Takip"]
     end
 
-    subgraph Mobile_B [2. Saha Gönüllüsü Akışı - Mobil 390x844]
-        S4["Ekran 04: Saha Gönüllüsü Başvuru & Vardiya Portalı"]
+    subgraph Operations_Web [2. Lojistik ve Saha Operasyonları - Web 1440x900]
+        W4["Sayfa 04: Saha Gönüllüsü Ol & Kayıt Portalı"]
+        W5["Sayfa 05: Taşıyıcı & Lojistik Sevk (Slot Rezervasyonu)"]
     end
 
-    subgraph Mobile_C [3. Taşıyıcı & Lojistik Akışı - Mobil 390x844]
-        S5["Ekran 05: Taşıyıcı Görev Kokpiti & Sevk Emri"] -->|Teslimat Noktasında QR Aç| S6["Ekran 06: Kriptografik QR Teslimat Onayı"]
-    end
-
-    subgraph Large_Screens [4. Tesis & Kriz Yönetim Merkezleri - Geniş Ekran]
-        S7["Ekran 07: Depo Stok Sayım & Ayrıştırma (Tablet 1024px)"]
-        S8["Ekran 08: Koordinatör GIS Afet Haritası & Kontrol Paneli (Masaüstü 1440px)"]
+    subgraph Institutional_Web [3. Depo ve Kriz Masası Yönetimi - Web 1440x900]
+        W6["Sayfa 06: Sahra Depo Stok Sayım & Envanter Defteri"]
+        W7["Sayfa 07: Kriz Masası Koordinatör GIS Durum Merkezi"]
     end
 ```
 
 ### 4.1 Ekranların Mantıksal Sunum Sırası (Figma Prototype Sıralaması)
-1. **Ekran 01 (Mobil):** Vatandaş Afet İhtiyaç Formu (Bebek, Çocuk, Yaşlı, Yetişkin triyaj seçicileri).
-2. **Ekran 02 (Mobil):** Talep Süreç Adımları (Talep Alındı $\rightarrow$ Triyaj $\rightarrow$ Araca Yüklendi $\rightarrow$ Teslim).
-3. **Ekran 03 (Mobil):** Talep Sorgulama & Rota Takibi (Takip kodu sorgulama ve lojistik tır konumu harita önizlemesi).
-4. **Ekran 04 (Mobil):** Saha Gönüllüsü Portalı (Görev alanı, uzmanlık ve vardiya seçimi).
-5. **Ekran 05 (Mobil):** Taşıyıcı Lojistik Kokpiti (Güzergah navigasyonu, yük manifestosu ve varış slotu).
-6. **Ekran 06 (Mobil):** Kriptografik QR Teslimat Onayı (Çevrimdışı teslimat kanıtı ve doğrulama).
-7. **Ekran 07 (Tablet):** Depo Stok Sayım & Ayrıştırma (Palet barkod okuma ve anlık stok defteri).
-8. **Ekran 08 (Masaüstü):** Koordinatör Afet Kontrol Merkezi (Türkiye GIS Afet Haritası, acil darboğaz tespiti ve konvoy sevkiyatı).
-
-### 4.1 Interactive Clickable Hotspots
-1. **Citizen Submission:** On `Screen 01`, clicking category tiles toggles selection borders (`#2563EB`). Clicking `ACİL YARDIM TALEBİ OLUŞTUR` transitions with a `Smart Animate` 300ms ease-out into `Screen 02`.
-2. **Carrier Delivery Verification:** On `Screen 03`, clicking `TESLİMAT NOKTASINDA QR OKUT` triggers a camera viewfinder overlay transitioning to `Screen 04`. Tapping the QR viewfinder simulates successful barcode recognition with an audio chime and pops up the verified green checkmark card.
-3. **Coordinator Bottleneck Resolution:** On `Screen 06`, clicking the pulsating red Defne cluster opens the bottleneck mitigation card. Clicking `ACİL KONVOY SEVKİYATINI ONAYLA` appends an instant audit log line and updates the fulfillment KPI.
+1. **Web Sayfa 01 (1440x900):** Canlı Afet Haritası & Ulusal Platform (Ana Sayfa)
+2. **Web Sayfa 02 (1440x900):** İhtiyaç Talebi Bildir (Vatandaş Web Formu)
+3. **Web Sayfa 03 (1440x900):** Talep Sorgula & Takip (Canlı Rota ve Telemetri)
+4. **Web Sayfa 04 (1440x900):** Saha Gönüllüsü Ol & Resmi Kimlik Kayıt Portalı
+5. **Web Sayfa 05 (1440x900):** Taşıyıcı / Tır Sevk (Zaman Slotları ve Sefer Manifestosu)
+6. **Web Sayfa 06 (1440x900):** Sahra Depo Envanter ve Mal Kabul Terminali
+7. **Web Sayfa 07 (1440x900):** Kriz Masası Koordinatör GIS Afet Haritası Merkezi
 
 ---
 
@@ -252,9 +197,9 @@ flowchart TD
 This UI/UX deliverable satisfies every criterion established in the **BM 321 Team Project Specification & Rubric (Sprint 2 - 20%)**:
 
 * [x] **Figma Interactive Prototypes:** Full clickable prototypes available via public Figma cloud URLs with zero authentication barriers.
-* [x] **Comprehensive User-Flow Modeling:** 4 core operational personas covered with bidirectional flowcharts and transition logic.
+* [x] **Comprehensive Web Platform Suite:** 7 core operational portals covered at native 1440x900 desktop resolution with consistent top-navigation tabs.
 * [x] **High-Fidelity Visual Artifacts:** Pixel-perfect vector SVG renderings committed directly to the Git repository for deterministic evaluator review.
-* [x] **Disaster Zone Constraints:** Dedicated design system tokens for sub-second offline feedback, 48px touch targets, high contrast legibility, and 2G SMS fallbacks.
+* [x] **Disaster Zone Constraints:** Dedicated design system tokens for sub-second feedback, high contrast legibility, and 2G SMS fallbacks.
 * [x] **Traceability:** Direct visual correspondence to IEEE SRS requirements `REQ-FR-101` through `REQ-FR-405` and OpenAPI 3.1.0 data schemas.
 
 ---

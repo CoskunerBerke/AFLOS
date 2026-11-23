@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <style>
+      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="900" fill="#F8FAFC"/>
+
+  <!-- Üst Menü Çubuğu (Lojistik Platform) -->
+  <rect width="1440" height="70" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="32" y="19" width="32" height="32" rx="6" fill="#0F172A"/>
+  <path d="M 40 37 L 48 27 L 56 37 Z" fill="#FFFFFF"/>
+  <text x="76" y="38" class="font" font-size="20" font-weight="900" fill="#0F172A" letter-spacing="-0.5">AFLOS</text>
+  <text x="76" y="51" class="font" font-size="11" font-weight="600" fill="#64748B">Taşıyıcı ve Filo Lojistik Sevk Portalı</text>
+
+  <!-- Lojistik Navigasyon -->
+  <text x="420" y="42" class="font" font-size="14" font-weight="700" fill="#0F172A">Açık Sevk Havuzu</text>
+  <line x1="420" y1="68" x2="540" y2="68" stroke="#0F172A" stroke-width="2.5"/>
+  <text x="570" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Zaman Dilimi (Slot) Rezervasyonu</text>
+  <text x="790" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Aktif Seferlerim &amp; Yük Manifestosu</text>
+  <text x="1050" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Boş Tır / Araç Bildir</text>
+
+  <!-- Profil Bilgisi -->
+  <rect x="1230" y="18" width="178" height="36" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <circle cx="1248" cy="36" r="10" fill="#0F172A"/>
+  <text x="1248" y="40" class="font" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">TR</text>
+  <text x="1266" y="34" class="font" font-size="12" font-weight="700" fill="#0F172A">Mehmet K. (Şoför)</text>
+  <text x="1266" y="47" class="font" font-size="10" fill="#64748B">Plaka: 31 KAA 84 · Onaylı</text>
+
+  <!-- Durum ve Slot Uyarısı -->
+  <rect y="70" width="1440" height="36" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="48" cy="88" r="4.5" fill="#2563EB"/>
+  <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#1E3A8A">LOJİSTİK TRAFİK KONTROLÜ:</text>
+  <text x="248" y="92" class="font" font-size="12" fill="#1D4ED8">Hatay Antakya girişinde kontrolsüz tır yığılmasını önlemek amacıyla saatlik 8 araç kotası uygulanmaktadır. Randevusuz araçlar sahaya kabul edilmemektedir.</text>
+
+  <!-- Sol Taraf: Açık Sevk Talepleri ve Zaman Dilimi Kotası Tablosu (Web 880px) -->
+  <rect x="32" y="122" width="870" height="754" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <rect x="32" y="122" width="870" height="54" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="52" y="154" class="font" font-size="15" font-weight="800" fill="#0F172A">Acil Yardım Bekleyen Bölgeler &amp; İntikal Slotları</text>
+  
+  <rect x="740" y="134" width="146" height="30" rx="4" fill="#0F172A"/>
+  <text x="813" y="153" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">+ Boş Tır Kapasitesi Ekle</text>
+
+  <!-- Tablo Başlıkları -->
+  <rect x="48" y="190" width="838" height="36" fill="#F1F5F9" rx="4"/>
+  <text x="64" y="213" class="font" font-size="11" font-weight="700" fill="#475569">HEDEF AFET SAHASI</text>
+  <text x="280" y="213" class="font" font-size="11" font-weight="700" fill="#475569">ACİL İHTİYAÇ AÇIĞI</text>
+  <text x="480" y="213" class="font" font-size="11" font-weight="700" fill="#475569">MÜSAİT ZAMAN DİLİMİ</text>
+  <text x="680" y="213" class="font" font-size="11" font-weight="700" fill="#475569">ARAÇ KOTASI</text>
+  <text x="820" y="213" class="font" font-size="11" font-weight="700" fill="#475569" text-anchor="end">İŞLEM</text>
+
+  <!-- Satır 1 (Seçili / Öncelikli) -->
+  <rect x="48" y="234" width="838" height="84" rx="6" fill="#FEF2F2" stroke="#B91C1C" stroke-width="1.5"/>
+  <text x="64" y="262" class="font" font-size="14" font-weight="800" fill="#B91C1C">Hatay · Antakya 3 No'lu Hub</text>
+  <text x="64" y="280" class="font" font-size="11" fill="#64748B">Odabaşı Dağıtım Merkezi · 38 km koridor</text>
+  <rect x="64" y="288" width="88" height="20" rx="3" fill="#B91C1C"/>
+  <text x="108" y="302" class="font" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">En Yüksek Aciliyet</text>
+
+  <text x="280" y="262" class="font" font-size="13" font-weight="700" fill="#0F172A">İçme Suyu (4,000 Koli)</text>
+  <text x="280" y="280" class="font" font-size="11" fill="#64748B">Kışlık Çadır (450 Adet), Bebek Maması</text>
+
+  <text x="480" y="262" class="font" font-size="13" font-weight="700" fill="#0F172A">10:00 - 14:00 (Bugün)</text>
+  <text x="480" y="280" class="font" font-size="11" fill="#15803D">Boşaltma Ekibi &amp; Forklift Hazır</text>
+
+  <rect x="680" y="252" width="60" height="24" rx="4" fill="#0F172A"/>
+  <text x="710" y="268" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">5 / 8 Araç</text>
+  <text x="680" y="292" class="font" font-size="10" fill="#64748B">3 Tır Kontenjanı Kaldı</text>
+
+  <rect x="760" y="254" width="112" height="34" rx="4" fill="#B91C1C"/>
+  <text x="816" y="275" class="font" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">Sefer Rezerve Et</text>
+
+  <!-- Satır 2 -->
+  <rect x="48" y="328" width="838" height="74" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="64" y="356" class="font" font-size="13" font-weight="700" fill="#0F172A">Kahramanmaraş · Pazarcık</text>
+  <text x="64" y="374" class="font" font-size="11" fill="#64748B">Merkez Spor Salonu Depo</text>
+
+  <text x="280" y="356" class="font" font-size="12" font-weight="600" fill="#0F172A">Konserve Gıda (12 Palet)</text>
+  <text x="280" y="374" class="font" font-size="11" fill="#64748B">Isıtıcı &amp; Odun Sobası (80 Adet)</text>
+
+  <text x="480" y="356" class="font" font-size="12" font-weight="600" fill="#0F172A">14:00 - 18:00 (Bugün)</text>
+  <text x="480" y="374" class="font" font-size="11" fill="#64748B">Dağıtım Gönüllüleri Sahada</text>
+
+  <rect x="680" y="348" width="60" height="22" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="710" y="363" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">6 / 10 Araç</text>
+
+  <rect x="760" y="344" width="112" height="30" rx="4" fill="#0F172A"/>
+  <text x="816" y="363" class="font" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">Slot Seç</text>
+
+  <!-- Satır 3 -->
+  <rect x="48" y="412" width="838" height="74" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="64" y="440" class="font" font-size="13" font-weight="700" fill="#0F172A">Adıyaman · Gölbaşı</text>
+  <text x="64" y="458" class="font" font-size="11" fill="#64748B">Gölbaşı Afet Dağıtım Çadırı</text>
+
+  <text x="280" y="440" class="font" font-size="12" font-weight="600" fill="#0F172A">Kuru Gıda &amp; Bakliyat (8 Palet)</text>
+  <text x="280" y="458" class="font" font-size="11" fill="#64748B">Hijyen Kiti (600 Koli)</text>
+
+  <text x="480" y="440" class="font" font-size="12" font-weight="600" fill="#0F172A">18:00 - 22:00 (Gece)</text>
+  <text x="480" y="458" class="font" font-size="11" fill="#64748B">Gece Aydınlatması Mevcut</text>
+
+  <rect x="680" y="432" width="60" height="22" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="710" y="447" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">2 / 6 Araç</text>
+
+  <rect x="760" y="428" width="112" height="30" rx="4" fill="#0F172A"/>
+  <text x="816" y="447" class="font" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">Slot Seç</text>
+
+  <!-- Alt Bilgi Kutusu -->
+  <rect x="48" y="500" width="838" height="80" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="64" y="528" class="font" font-size="12" font-weight="700" fill="#0F172A">Lojistik Koridor Trafik Durumu (AFAD &amp; Emniyet Protokolü):</text>
+  <text x="64" y="546" class="font" font-size="11" fill="#64748B">TAG Otoyolu Nurdağı geçişi yalnızca resmi izinli yardım tırlarına açıktır. Rezerve edilen her tır plakası emniyet kontrol noktalarına otomatik onaylı olarak iletilir.</text>
+
+
+  <!-- SAĞ TARAF: SEFER ONAY & YÜK MANİFESTOSU FORMU (Web 480px) -->
+  <rect x="922" y="122" width="486" height="754" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="922" y="122" width="486" height="54" rx="10 10 0 0" fill="#0F172A"/>
+  <text x="946" y="154" class="font" font-size="15" font-weight="800" fill="#FFFFFF">Sefer Emri &amp; Yük Manifestosu Detayı</text>
+
+  <!-- Seçilen Bölge Özeti -->
+  <rect x="946" y="194" width="438" height="64" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="962" y="218" class="font" font-size="11" font-weight="600" fill="#64748B">SEÇİLEN HEDEF SAHA</text>
+  <text x="962" y="238" class="font" font-size="14" font-weight="800" fill="#B91C1C">Hatay Antakya 3 No'lu Hub</text>
+  <text x="1368" y="238" class="font" font-size="12" font-weight="700" fill="#15803D" text-anchor="end">10:00 - 14:00</text>
+
+  <!-- Form Alanları -->
+  <text x="946" y="280" class="font" font-size="11" font-weight="700" fill="#475569">ÇEKİCİ / DORSE PLAKASI</text>
+  <rect x="946" y="288" width="210" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="958" y="312" class="mono" font-size="13" font-weight="700" fill="#0F172A">31 KAA 84 / 31 KAA 85</text>
+
+  <text x="1170" y="280" class="font" font-size="11" font-weight="700" fill="#475569">ARAÇ TİPİ &amp; TONAJ</text>
+  <rect x="1170" y="288" width="214" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="1182" y="312" class="font" font-size="13" font-weight="600" fill="#0F172A">Tenteli Tır (24 Ton)</text>
+
+  <text x="946" y="348" class="font" font-size="11" font-weight="700" fill="#475569">ŞOFÖR T.C. VE TELEFON NUMARASI</text>
+  <rect x="946" y="356" width="210" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="958" y="380" class="mono" font-size="13" font-weight="600" fill="#0F172A">230204•••••</text>
+
+  <rect x="1170" y="356" width="214" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="1182" y="380" class="mono" font-size="13" font-weight="600" fill="#0F172A">+90 532 984 47 00</text>
+
+  <!-- Yük Manifestosu Detayı (Çoklu Palet) -->
+  <text x="946" y="416" class="font" font-size="11" font-weight="700" fill="#475569">TAŞINACAK YARDIM MALZEMESİ (MANİFESTO)</text>
+  
+  <rect x="946" y="424" width="438" height="96" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <text x="962" y="448" class="font" font-size="12" font-weight="700" fill="#0F172A">• İçme Suyu (0.5L Şişe)</text>
+  <text x="1368" y="448" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">18 Palet (12,960 Koli)</text>
+
+  <text x="962" y="474" class="font" font-size="12" font-weight="700" fill="#0F172A">• Bebek Maması &amp; Hijyen</text>
+  <text x="1368" y="474" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">4 Palet (480 Koli)</text>
+
+  <text x="962" y="500" class="font" font-size="12" font-weight="700" fill="#0F172A">• Kışlık Termal Battaniye</text>
+  <text x="1368" y="500" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">2 Palet (300 Adet)</text>
+
+  <!-- Yükleme Deposu -->
+  <text x="946" y="542" class="font" font-size="11" font-weight="700" fill="#475569">ÇIKIŞ NOKTASI / YÜKLEME DEPOSU</text>
+  <rect x="946" y="550" width="438" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="958" y="574" class="font" font-size="13" font-weight="600" fill="#0F172A">Mersin Liman Lojistik İkmal Sahası (Depo No: 4)</text>
+
+  <!-- Kriptografik QR Teslimat Açıklaması -->
+  <rect x="946" y="602" width="438" height="52" rx="6" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <circle cx="964" cy="628" r="4" fill="#B91C1C"/>
+  <text x="978" y="622" class="font" font-size="11" font-weight="700" fill="#991B1B">Çevrimdışı Teslimat Doğrulama Güvencesi:</text>
+  <text x="978" y="638" class="font" font-size="10" fill="#7F1D1D">Teslimat noktasında internet çekmese dahi QR kod okutularak boşaltma onaylanacaktır.</text>
+
+  <!-- Onay Butonu -->
+  <rect x="946" y="670" width="438" height="50" rx="8" fill="#0F172A"/>
+  <text x="1165" y="701" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Lojistik Sevk Emrini Onayla ve Sefer Belgesi Al</text>
+
+  <!-- Alt Bilgi -->
+  <text x="1165" y="742" class="font" font-size="11" fill="#64748B" text-anchor="middle">Onaylanan sefer belgesi E-Devlet ve AFAD yol kontrol noktaları ile eşleşir.</text>
+</svg>
