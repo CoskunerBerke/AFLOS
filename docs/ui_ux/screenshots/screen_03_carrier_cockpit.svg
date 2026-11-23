@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812">
+  <defs>
+    <filter id="sh" x="-10%" y="-5%" width="120%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+  <rect width="375" height="812" fill="#F8FAFC"/>
+  
+  <!-- Status Bar -->
+  <rect width="375" height="44" fill="#1E293B"/>
+  <text x="32" y="28" font-family="sans-serif" font-size="14" font-weight="600" fill="#FFF">11:15</text>
+  
+  <!-- Header -->
+  <rect y="44" width="375" height="56" fill="#1E293B"/>
+  <text x="20" y="78" font-family="sans-serif" font-size="16" font-weight="800" fill="#FFF">Tasiyici Kokpiti</text>
+  <rect x="250" y="58" width="105" height="28" rx="14" fill="#0F172A"/>
+  <text x="302" y="76" font-family="monospace" font-size="12" font-weight="700" fill="#38BDF8" text-anchor="middle">31-K-4920</text>
+
+  <!-- Active Mission Card -->
+  <rect x="16" y="112" width="343" height="156" rx="14" fill="#FFFFFF" filter="url(#sh)"/>
+  <rect x="28" y="126" width="76" height="22" rx="6" fill="#EFF6FF"/>
+  <text x="66" y="141" font-family="sans-serif" font-size="10" font-weight="800" fill="#2563EB" text-anchor="middle">GÖREV #104</text>
+  <text x="330" y="142" font-family="sans-serif" font-size="12" font-weight="700" fill="#16A34A" text-anchor="end">&#9679; AKTIF SEVK</text>
+
+  <text x="28" y="172" font-family="sans-serif" font-size="15" font-weight="800" fill="#0F172A">Mersin Hub &#8594; Antakya Sahra 2</text>
+  <text x="28" y="192" font-family="sans-serif" font-size="12" fill="#64748B">Yük: 12 Palet Su, 50 Kışlık Çadır (7.800 kg)</text>
+
+  <line x1="28" y1="206" x2="330" y2="206" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="28" y="226" font-family="sans-serif" font-size="11" fill="#64748B">Hedefe Mesafe</text>
+  <text x="28" y="246" font-family="sans-serif" font-size="16" font-weight="800" fill="#0F172A">48 km (42 dk)</text>
+  <text x="180" y="226" font-family="sans-serif" font-size="11" fill="#64748B">Kapasite Doluluk</text>
+  <text x="180" y="246" font-family="sans-serif" font-size="16" font-weight="800" fill="#2563EB">%78 (Uygun)</text>
+
+  <!-- Simulated Map Card -->
+  <rect x="16" y="280" width="343" height="240" rx="14" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+  <!-- Map Graphic lines -->
+  <path d="M 40 460 Q 120 380 200 360 T 320 310" fill="none" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="40" cy="460" r="8" fill="#16A34A"/>
+  <circle cx="320" cy="310" r="10" fill="#DC2626"/>
+  <circle cx="200" cy="360" r="12" fill="#2563EB"/>
+  <text x="200" y="365" font-size="14" text-anchor="middle" fill="#FFF">&#128666;</text>
+  
+  <!-- Road Hazard Warning Overlay on Map -->
+  <rect x="36" y="294" width="220" height="42" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="1"/>
+  <text x="46" y="312" font-family="sans-serif" font-size="11" font-weight="800" fill="#991B1B">&#9888; D-825 Heyelan Kapanmasi!</text>
+  <text x="46" y="326" font-family="sans-serif" font-size="10" fill="#B91C1C">Kirikhan Baypas Rota Aktif (Yesil Hat)</text>
+
+  <!-- Offline Status Badge -->
+  <rect x="230" y="482" width="118" height="26" rx="13" fill="#0F172A" opacity="0.9"/>
+  <circle cx="242" cy="495" r="4" fill="#38BDF8"/>
+  <text x="282" y="499" font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">OFFLINE HAZIR</text>
+
+  <!-- Action Buttons -->
+  <rect x="16" y="534" width="343" height="54" rx="14" fill="#2563EB" filter="url(#sh)"/>
+  <text x="187" y="567" font-family="sans-serif" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">&#128248; TESLIMAT NOKTASINDA QR OKUT</text>
+
+  <!-- Secondary Buttons -->
+  <rect x="16" y="600" width="164" height="48" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="98" y="630" font-family="sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle">&#128203; Irsaliye Detayi</text>
+
+  <rect x="195" y="600" width="164" height="48" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="277" y="630" font-family="sans-serif" font-size="13" font-weight="700" fill="#DC2626" text-anchor="middle">&#9888; Ariza / SOS</text>
+</svg>
