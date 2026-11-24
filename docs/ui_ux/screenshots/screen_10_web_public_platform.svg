@@ -44,7 +44,7 @@
   <rect y="70" width="1440" height="36" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
   <circle cx="48" cy="88" r="4.5" fill="#B91C1C"/>
   <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#991B1B">RESMİ AFET MÜDAHALE PROTOKOLÜ:</text>
-  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Hatay, Kahramanmaraş ve Adıyaman lojistik koridorları için tır zaman dilimi (slot) randevuları açıktır. İnternetsiz bölgeler için SMS entegrasyonu aktiftir.</text>
+  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Acil koridorlar için tır slotları açıktır · İnternetsiz SMS hattı: 122</text>
   <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#991B1B" text-anchor="end">Sistem Durumu: Çevrimiçi · 12 ms</text>
 
   <!-- KPI Metrikleri Şeridi -->
@@ -74,7 +74,7 @@
   <!-- Harita Kontrol Üst Barı -->
   <rect x="32" y="212" width="870" height="48" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
   <circle cx="52" cy="236" r="4" fill="#B91C1C"/>
-  <text x="64" y="240" class="font" font-size="13" font-weight="700" fill="#0F172A">Ulusal Afet Telemetrisi ve Lojistik Haritası (Birebir Coğrafi Vektör Katmanı)</text>
+  <text x="64" y="240" class="font" font-size="13" font-weight="700" fill="#0F172A">Ulusal Afet Lojistiği ve Canlı Harita</text>
   
   <!-- Katman Seçici (Layer Switcher) -->
   <rect x="580" y="222" width="86" height="28" rx="4" fill="#0F172A"/>
@@ -296,7 +296,7 @@
 
   <!-- Panel İçeriği: Vatandaş İçin Web İhtiyaç Formu -->
   <text x="946" y="292" class="font" font-size="16" font-weight="800" fill="#0F172A">Afet İhtiyaç Bildirim Formu</text>
-  <text x="946" y="310" class="font" font-size="12" fill="#64748B">Hesap açmanız gerekmez. Bildiriminiz doğrudan kriz masası triyajına iletilir.</text>
+  <text x="946" y="310" class="font" font-size="12" fill="#64748B">Hesap gerekmez. Bildiriminiz doğrudan kriz masasına iletilir.</text>
 
   <!-- Lokasyon Seçimi (Web Grid) -->
   <text x="946" y="338" class="font" font-size="11" font-weight="700" fill="#475569">AFET İLİ / İLÇESİ</text>
@@ -329,7 +329,7 @@
   <circle cx="1368" cy="434" r="5" fill="#0F172A"/>
 
   <!-- Kişi & Kırılgan Grup Triyajı (Web Sütunları) -->
-  <text x="946" y="500" class="font" font-size="11" font-weight="700" fill="#475569">KİŞİ VE KIRILGAN GRUP SAYISI (Öncelikli Sevk İçin)</text>
+  <text x="946" y="500" class="font" font-size="11" font-weight="700" fill="#475569">KİŞİ SAYISI VE KIRILGAN GRUPLAR</text>
   <rect x="946" y="510" width="440" height="66" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
   
   <text x="964" y="534" class="font" font-size="11" font-weight="700" fill="#0F172A">Bebek (0-2)</text>
@@ -349,7 +349,7 @@
   <text x="1329" y="557" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">2 Yetişkin</text>
 
   <!-- İletişim & SMS Alanı -->
-  <text x="946" y="602" class="font" font-size="11" font-weight="700" fill="#475569">BİLDİRİM YAPAN KİŞİ VE TELEFON (Takip Kodu SMS ile Gönderilir)</text>
+  <text x="946" y="602" class="font" font-size="11" font-weight="700" fill="#475569">İLETİŞİM BİLGİLERİ (SMS TAKİP)</text>
   <rect x="946" y="610" width="210" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
   <text x="958" y="634" class="font" font-size="13" font-weight="600" fill="#0F172A">Ahmet Kılınç</text>
 
@@ -360,14 +360,14 @@
   <rect x="946" y="662" width="440" height="42" rx="6" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
   <circle cx="964" cy="683" r="4" fill="#B91C1C"/>
   <text x="978" y="681" class="font" font-size="11" font-weight="700" fill="#991B1B">Yüksek Öncelikli Triyaj (P1 Acil Sevk):</text>
-  <text x="978" y="695" class="font" font-size="10" fill="#7F1D1D">Bebek ve donma riski taşıyan yaşlı vatandaş mevcuttur. Tır tahsisi öne alınacaktır.</text>
+  <text x="978" y="695" class="font" font-size="10" fill="#7F1D1D">Bebek ve yaşlı mevcuttur. Öncelikli sevk (P1).</text>
 
   <!-- Gönder Butonu -->
   <rect x="946" y="720" width="440" height="48" rx="8" fill="#B91C1C"/>
-  <text x="1166" y="750" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">İhtiyaç Bildirimini Sisteme Gönder</text>
+  <text x="1166" y="750" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">İhtiyaç Talebini Gönder</text>
 
   <!-- SMS Yedek Hat Uyarısı -->
-  <text x="1166" y="790" class="font" font-size="11" fill="#64748B" text-anchor="middle">İnternet kesintisi durumunda aynı talebi <tspan font-weight="700" fill="#0F172A">SMS ile (2G)</tspan> iletebilirsiniz: AFLOS CADIR 4 HATAY ODABASI</text>
+  <text x="1166" y="790" class="font" font-size="11" fill="#64748B" text-anchor="middle">İnternetsiz SMS: <tspan font-weight="700" fill="#0F172A">AFLOS 4 HATAY ODABASI</tspan> -> <tspan font-weight="700" fill="#0F172A">122</tspan></text>
 
   <!-- Platform İkincil Eylemleri (Gönüllü & Taşıyıcı Kartı) -->
   <rect x="946" y="812" width="214" height="48" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
@@ -376,5 +376,5 @@
 
   <rect x="1172" y="812" width="214" height="48" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
   <text x="1184" y="832" class="font" font-size="12" font-weight="700" fill="#0F172A">Lojistik Tırını Kaydet</text>
-  <text x="1184" y="848" class="font" font-size="10" fill="#64748B">Zaman Dilimli Sevk Randevusu</text>
+  <text x="1184" y="848" class="font" font-size="10" fill="#64748B">Slot Rezervasyonu</text>
 </svg>

@@ -18,9 +18,9 @@
   <!-- Lojistik Navigasyon -->
   <text x="420" y="42" class="font" font-size="14" font-weight="700" fill="#0F172A">Açık Sevk Havuzu</text>
   <line x1="420" y1="68" x2="540" y2="68" stroke="#0F172A" stroke-width="2.5"/>
-  <text x="570" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Zaman Dilimi (Slot) Rezervasyonu</text>
-  <text x="790" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Aktif Seferlerim &amp; Yük Manifestosu</text>
-  <text x="1050" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Boş Tır / Araç Bildir</text>
+  <text x="570" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Slot Rezervasyonu</text>
+  <text x="790" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Sefer &amp; Manifesto</text>
+  <text x="1050" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Boş Araç Bildir</text>
 
   <!-- Profil Bilgisi -->
   <rect x="1230" y="18" width="178" height="36" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
@@ -33,13 +33,13 @@
   <rect y="70" width="1440" height="36" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
   <circle cx="48" cy="88" r="4.5" fill="#2563EB"/>
   <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#1E3A8A">LOJİSTİK TRAFİK KONTROLÜ:</text>
-  <text x="248" y="92" class="font" font-size="12" fill="#1D4ED8">Hatay Antakya girişinde kontrolsüz tır yığılmasını önlemek amacıyla saatlik 8 araç kotası uygulanmaktadır. Randevusuz araçlar sahaya kabul edilmemektedir.</text>
+  <text x="248" y="92" class="font" font-size="12" fill="#1D4ED8">Antakya girişinde saatlik 8 tır kotası vardır. Randevusuz araç alınmaz.</text>
 
   <!-- Sol Taraf: Açık Sevk Talepleri ve Zaman Dilimi Kotası Tablosu (Web 880px) -->
   <rect x="32" y="122" width="870" height="754" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
   
   <rect x="32" y="122" width="870" height="54" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="52" y="154" class="font" font-size="15" font-weight="800" fill="#0F172A">Acil Yardım Bekleyen Bölgeler &amp; İntikal Slotları</text>
+  <text x="52" y="154" class="font" font-size="15" font-weight="800" fill="#0F172A">Afet Bölgeleri &amp; İntikal Slotları</text>
   
   <rect x="740" y="134" width="146" height="30" rx="4" fill="#0F172A"/>
   <text x="813" y="153" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">+ Boş Tır Kapasitesi Ekle</text>
@@ -60,14 +60,14 @@
   <text x="108" y="302" class="font" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">En Yüksek Aciliyet</text>
 
   <text x="280" y="262" class="font" font-size="13" font-weight="700" fill="#0F172A">İçme Suyu (4,000 Koli)</text>
-  <text x="280" y="280" class="font" font-size="11" fill="#64748B">Kışlık Çadır (450 Adet), Bebek Maması</text>
+  <text x="280" y="280" class="font" font-size="11" fill="#64748B">450 Çadır, Bebek Maması</text>
 
   <text x="480" y="262" class="font" font-size="13" font-weight="700" fill="#0F172A">10:00 - 14:00 (Bugün)</text>
-  <text x="480" y="280" class="font" font-size="11" fill="#15803D">Boşaltma Ekibi &amp; Forklift Hazır</text>
+  <text x="480" y="280" class="font" font-size="11" fill="#15803D">Forklift &amp; Ekip Hazır</text>
 
   <rect x="680" y="252" width="60" height="24" rx="4" fill="#0F172A"/>
   <text x="710" y="268" class="font" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">5 / 8 Araç</text>
-  <text x="680" y="292" class="font" font-size="10" fill="#64748B">3 Tır Kontenjanı Kaldı</text>
+  <text x="710" y="292" class="font" font-size="10" fill="#64748B" text-anchor="middle">3 Araç Kaldı</text>
 
   <rect x="760" y="254" width="112" height="34" rx="4" fill="#B91C1C"/>
   <text x="816" y="275" class="font" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">Sefer Rezerve Et</text>
@@ -78,10 +78,10 @@
   <text x="64" y="374" class="font" font-size="11" fill="#64748B">Merkez Spor Salonu Depo</text>
 
   <text x="280" y="356" class="font" font-size="12" font-weight="600" fill="#0F172A">Konserve Gıda (12 Palet)</text>
-  <text x="280" y="374" class="font" font-size="11" fill="#64748B">Isıtıcı &amp; Odun Sobası (80 Adet)</text>
+  <text x="280" y="374" class="font" font-size="11" fill="#64748B">Isıtıcı &amp; Soba (80 Adet)</text>
 
   <text x="480" y="356" class="font" font-size="12" font-weight="600" fill="#0F172A">14:00 - 18:00 (Bugün)</text>
-  <text x="480" y="374" class="font" font-size="11" fill="#64748B">Dağıtım Gönüllüleri Sahada</text>
+  <text x="480" y="374" class="font" font-size="11" fill="#64748B">Gönüllüler Sahada</text>
 
   <rect x="680" y="348" width="60" height="22" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
   <text x="710" y="363" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">6 / 10 Araç</text>
@@ -94,11 +94,11 @@
   <text x="64" y="440" class="font" font-size="13" font-weight="700" fill="#0F172A">Adıyaman · Gölbaşı</text>
   <text x="64" y="458" class="font" font-size="11" fill="#64748B">Gölbaşı Afet Dağıtım Çadırı</text>
 
-  <text x="280" y="440" class="font" font-size="12" font-weight="600" fill="#0F172A">Kuru Gıda &amp; Bakliyat (8 Palet)</text>
+  <text x="280" y="440" class="font" font-size="12" font-weight="600" fill="#0F172A">Bakliyat (8 Palet)</text>
   <text x="280" y="458" class="font" font-size="11" fill="#64748B">Hijyen Kiti (600 Koli)</text>
 
   <text x="480" y="440" class="font" font-size="12" font-weight="600" fill="#0F172A">18:00 - 22:00 (Gece)</text>
-  <text x="480" y="458" class="font" font-size="11" fill="#64748B">Gece Aydınlatması Mevcut</text>
+  <text x="480" y="458" class="font" font-size="11" fill="#64748B">Aydınlatma Mevcut</text>
 
   <rect x="680" y="432" width="60" height="22" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
   <text x="710" y="447" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">2 / 6 Araç</text>
@@ -108,8 +108,8 @@
 
   <!-- Alt Bilgi Kutusu -->
   <rect x="48" y="500" width="838" height="80" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="64" y="528" class="font" font-size="12" font-weight="700" fill="#0F172A">Lojistik Koridor Trafik Durumu (AFAD &amp; Emniyet Protokolü):</text>
-  <text x="64" y="546" class="font" font-size="11" fill="#64748B">TAG Otoyolu Nurdağı geçişi yalnızca resmi izinli yardım tırlarına açıktır. Rezerve edilen her tır plakası emniyet kontrol noktalarına otomatik onaylı olarak iletilir.</text>
+  <text x="64" y="528" class="font" font-size="12" font-weight="700" fill="#0F172A">Lojistik Koridor Durumu:</text>
+  <text x="64" y="546" class="font" font-size="11" fill="#64748B">TAG Otoyolu yalnızca izinli tırlara açıktır. Plaka emniyete iletilir.</text>
 
 
   <!-- SAĞ TARAF: SEFER ONAY & YÜK MANİFESTOSU FORMU (Web 480px) -->
@@ -156,18 +156,18 @@
   <!-- Yükleme Deposu -->
   <text x="946" y="542" class="font" font-size="11" font-weight="700" fill="#475569">ÇIKIŞ NOKTASI / YÜKLEME DEPOSU</text>
   <rect x="946" y="550" width="438" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="958" y="574" class="font" font-size="13" font-weight="600" fill="#0F172A">Mersin Liman Lojistik İkmal Sahası (Depo No: 4)</text>
+  <text x="958" y="574" class="font" font-size="13" font-weight="600" fill="#0F172A">Mersin Liman Depo 4</text>
 
   <!-- Kriptografik QR Teslimat Açıklaması -->
   <rect x="946" y="602" width="438" height="52" rx="6" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
   <circle cx="964" cy="628" r="4" fill="#B91C1C"/>
   <text x="978" y="622" class="font" font-size="11" font-weight="700" fill="#991B1B">Çevrimdışı Teslimat Doğrulama Güvencesi:</text>
-  <text x="978" y="638" class="font" font-size="10" fill="#7F1D1D">Teslimat noktasında internet çekmese dahi QR kod okutularak boşaltma onaylanacaktır.</text>
+  <text x="978" y="638" class="font" font-size="10" fill="#7F1D1D">İnternetsiz QR okutma ile boşaltma onaylanır.</text>
 
   <!-- Onay Butonu -->
   <rect x="946" y="670" width="438" height="50" rx="8" fill="#0F172A"/>
-  <text x="1165" y="701" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Lojistik Sevk Emrini Onayla ve Sefer Belgesi Al</text>
+  <text x="1165" y="701" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Sevk Emrini Onayla</text>
 
   <!-- Alt Bilgi -->
-  <text x="1165" y="742" class="font" font-size="11" fill="#64748B" text-anchor="middle">Onaylanan sefer belgesi E-Devlet ve AFAD yol kontrol noktaları ile eşleşir.</text>
+  <text x="1165" y="742" class="font" font-size="11" fill="#64748B" text-anchor="middle">Sefer belgesi emniyet kontrol noktalarıyla eşleşir.</text>
 </svg>

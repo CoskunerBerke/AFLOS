@@ -44,7 +44,7 @@
   <rect y="70" width="1440" height="36" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
   <circle cx="48" cy="88" r="4.5" fill="#B91C1C"/>
   <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#991B1B">RESMİ AFET MÜDAHALE PROTOKOLÜ:</text>
-  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Hatay, Kahramanmaraş ve Adıyaman lojistik koridorları için tır zaman dilimi (slot) randevuları açıktır. İnternetsiz bölgeler için SMS entegrasyonu aktiftir.</text>
+  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Acil koridorlar için tır slotları açıktır · İnternetsiz SMS hattı: 122</text>
   <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#991B1B" text-anchor="end">Sistem Durumu: Çevrimiçi · 12 ms</text>
 
   <!-- KPI Metrikleri Şeridi -->
@@ -74,7 +74,7 @@
   <!-- Harita Kontrol Üst Barı -->
   <rect x="32" y="212" width="870" height="48" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
   <circle cx="52" cy="236" r="4" fill="#B91C1C"/>
-  <text x="64" y="240" class="font" font-size="13" font-weight="700" fill="#0F172A">Ulusal Afet Telemetrisi ve Lojistik Haritası (Birebir Coğrafi Vektör Katmanı)</text>
+  <text x="64" y="240" class="font" font-size="13" font-weight="700" fill="#0F172A">Ulusal Afet Lojistiği ve Canlı Harita</text>
   
   <!-- Katman Seçici (Layer Switcher) -->
   <rect x="580" y="222" width="86" height="28" rx="4" fill="#0F172A"/>
@@ -296,10 +296,10 @@
 
   <!-- Panel İçeriği: Talep Sorgulama & Canlı Telemetri -->
   <text x="946" y="292" class="font" font-size="16" font-weight="800" fill="#0F172A">Afet İhtiyaç Talebi Takip &amp; Sorgulama</text>
-  <text x="946" y="310" class="font" font-size="12" fill="#64748B">SMS ile gelen referans kodu veya cep numaranız ile anlık sevk durumunu sorgulayın.</text>
+  <text x="946" y="310" class="font" font-size="12" fill="#64748B">Takip kodunuz veya telefon numaranızla sorgulayın.</text>
 
   <!-- Arama Girişi -->
-  <text x="946" y="338" class="font" font-size="11" font-weight="700" fill="#475569">TALEP TAKİP KODU VEYA GSM TELEFON</text>
+  <text x="946" y="338" class="font" font-size="11" font-weight="700" fill="#475569">TALEP TAKİP KODU VEYA TELEFON</text>
   <rect x="946" y="346" width="310" height="42" rx="6" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/>
   <text x="960" y="372" class="mono" font-size="14" font-weight="700" fill="#0F172A">TRK-8492X</text>
   
@@ -319,9 +319,9 @@
 
   <!-- İhtiyaç Özeti -->
   <text x="964" y="462" class="font" font-size="11" font-weight="700" fill="#64748B">İHTİYAÇLAR:</text>
-  <text x="1046" y="462" class="font" font-size="11" font-weight="700" fill="#0F172A">İçme Suyu (5 Koli), Bebek Maması (3 Kutu), Kışlık Çadır</text>
+  <text x="1046" y="462" class="font" font-size="11" font-weight="700" fill="#0F172A">5 Koli Su, 3 Kutu Mama, Kışlık Çadır</text>
   <text x="964" y="482" class="font" font-size="11" font-weight="700" fill="#64748B">ATANAN TIR:</text>
-  <text x="1046" y="482" class="font" font-size="11" font-weight="700" fill="#0F172A">31 KAA 84 · Şoför: Mehmet Yılmaz (+90 533 112 33 44)</text>
+  <text x="1046" y="482" class="font" font-size="11" font-weight="700" fill="#0F172A">31 KAA 84 · Mehmet Y. (0533 112 33 44)</text>
 
   <!-- 4 Aşamalı Takip Süreci (Stepper) -->
   <line x1="978" y1="520" x2="1348" y2="520" stroke="#CBD5E1" stroke-width="2"/>
@@ -351,8 +351,8 @@
 
   <!-- Canlı Telemetri Bilgi Şeridi -->
   <rect x="964" y="572" width="404" height="54" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="978" y="594" class="font" font-size="11" font-weight="700" fill="#0F172A">Canlı Telemetri (O-21 Pozantı Geçişi):</text>
-  <text x="978" y="612" class="font" font-size="11" fill="#475569">Kalan: <tspan font-weight="700" fill="#B91C1C">142 km</tspan> · Tahmini Varış: <tspan font-weight="700" fill="#0F172A">14:30 (2 sa 15 dk)</tspan> · Hız: 78 km/s</text>
+  <text x="978" y="594" class="font" font-size="11" font-weight="700" fill="#0F172A">Canlı Telemetri (O-21 Pozantı):</text>
+  <text x="978" y="612" class="font" font-size="11" fill="#475569">Kalan: <tspan font-weight="700" fill="#B91C1C">142 km</tspan> · Varış: <tspan font-weight="700" fill="#0F172A">14:30 (2 sa 15 dk)</tspan></text>
 
   <!-- Teslim Alma QR Kodu & Güvenlik Kutusu -->
   <rect x="946" y="652" width="440" height="96" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
@@ -369,15 +369,15 @@
   <rect x="1010" y="712" width="8" height="8" fill="#0F172A"/>
 
   <text x="1046" y="682" class="font" font-size="12" font-weight="700" fill="#0F172A">Teslim Alma Doğrulama Karekodu</text>
-  <text x="1046" y="700" class="font" font-size="11" fill="#475569">Malzeme ulaştığında sahra dağıtım görevlisine bu QR kodu gösterin veya SMS şifrenizi iletin.</text>
+  <text x="1046" y="700" class="font" font-size="11" fill="#475569">Teslimat anında bu QR kodu görevliye gösteriniz.</text>
   <text x="1046" y="722" class="mono" font-size="11" font-weight="700" fill="#B91C1C">SMS Güvenlik Kodu: 849-219</text>
 
   <!-- Tam Ekran Takip Detayı Butonu -->
   <rect x="946" y="760" width="440" height="46" rx="8" fill="#B91C1C"/>
-  <text x="1166" y="788" class="font" font-size="14" font-weight="800" fill="#FFFFFF" text-anchor="middle">Ayrıntılı Rota &amp; İkmal Koridoru Ekranını Aç</text>
+  <text x="1166" y="788" class="font" font-size="14" font-weight="800" fill="#FFFFFF" text-anchor="middle">Ayrıntılı Rota Ekranı →</text>
 
   <!-- SMS Yedek Hat Uyarısı -->
-  <text x="1166" y="828" class="font" font-size="11" fill="#64748B" text-anchor="middle">İnternet kesintisinde SMS gönderin: <tspan font-weight="700" fill="#0F172A">DURUM TRK-8492X</tspan> to <tspan font-weight="700" fill="#0F172A">122</tspan></text>
+  <text x="1166" y="828" class="font" font-size="11" fill="#64748B" text-anchor="middle">SMS Sorgulama: <tspan font-weight="700" fill="#0F172A">DURUM TRK-8492X</tspan> -> <tspan font-weight="700" fill="#0F172A">122</tspan></text>
 
   <!-- Platform İkincil Eylemleri -->
   <rect x="946" y="842" width="214" height="24" rx="4" fill="#FFFFFF"/>
