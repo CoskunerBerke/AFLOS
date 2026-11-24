@@ -191,8 +191,8 @@ Sprint 2 focused on **Detailed Requirements Engineering (IEEE 830 / ISO 29148 SR
 | 2 | **Hüseyin Zor** | 230204042 | Deliverable 04 (C4 Model Architecture Level 1-3, ADRs, UML Class, Sequence, State, ERD & SQL Schema) | [#30](https://github.com/CoskunerBerke/AFLOS/issues/30), [#31](https://github.com/CoskunerBerke/AFLOS/issues/31) | [PR #40](https://github.com/CoskunerBerke/AFLOS/pull/40) (Author), [PR #41](https://github.com/CoskunerBerke/AFLOS/pull/41) (Author) |
 | 3 | **Mirza Akgöz** | 230201005 | Deliverable 04 (Architectural Spikes, C4 Workspace DSL, Sequence Handover Alignment) | [#30](https://github.com/CoskunerBerke/AFLOS/issues/30), [#31](https://github.com/CoskunerBerke/AFLOS/issues/31) | [PR #40](https://github.com/CoskunerBerke/AFLOS/pull/40) (Co-Author), [PR #41](https://github.com/CoskunerBerke/AFLOS/pull/41) (Co-Author) |
 | 4 | **Onur Şahin** | 230201030 | Deliverable 02 (NFR Verification Benchmarks, ISO 25010 Measurement Protocols, Load Test Targets) | [#33](https://github.com/CoskunerBerke/AFLOS/issues/33), [#26](https://github.com/CoskunerBerke/AFLOS/issues/26) | [PR #38](https://github.com/CoskunerBerke/AFLOS/pull/38) (Author), [PR #43](https://github.com/CoskunerBerke/AFLOS/pull/43) (Author), Reviews: [PR #29](https://github.com/CoskunerBerke/AFLOS/pull/29) (Approved) |
-| 5 | **Mustafa Çebin** | 230201024 | Sprint 2 RACI Responsibility Matrix & Agile Governance Oversight | [#34](https://github.com/CoskunerBerke/AFLOS/issues/34), [#35](https://github.com/CoskunerBerke/AFLOS/issues/35), [#37](https://github.com/CoskunerBerke/AFLOS/issues/37) | [PR #39](https://github.com/CoskunerBerke/AFLOS/pull/39) (Author) |
-| 6 | **Berke Coşkuner** | 230201062 | Sprint 2 Release Governance, CI Workflow Integrity, and Git-Flow Merge Management | [#36](https://github.com/CoskunerBerke/AFLOS/issues/36) | Release Management (`develop` -> `main`), Tagging (`v0.2.0-sprint2`) |
+| 5 | **Mustafa Çebin** | 230201024 | Sprint 2 RACI Responsibility Matrix, Ceremonies & Impediment Log | [#34](https://github.com/CoskunerBerke/AFLOS/issues/34), [#35](https://github.com/CoskunerBerke/AFLOS/issues/35), [#37](https://github.com/CoskunerBerke/AFLOS/issues/37) | [PR #39](https://github.com/CoskunerBerke/AFLOS/pull/39) (Author), [PR #44](https://github.com/CoskunerBerke/AFLOS/pull/44) (Author) |
+| 6 | **Berke Coşkuner** | 230201062 | Sprint 2 Release Governance, CI Workflow Integrity, Submission Manifest & Git-Flow Merge Management | [#36](https://github.com/CoskunerBerke/AFLOS/issues/36), [#37](https://github.com/CoskunerBerke/AFLOS/issues/37) | [PR #45](https://github.com/CoskunerBerke/AFLOS/pull/45) (Author), Reviews: [PR #44](https://github.com/CoskunerBerke/AFLOS/pull/44) (Approved & Merged), Tagging (`v0.2.0-sprint2`) |
 | 7 | **Ulaş Balcı** | 260201301 | UI/UX Prototyping Review, Component Specifications & Sprint 3 Scaffolding Alignment | [#32](https://github.com/CoskunerBerke/AFLOS/issues/32) | [PR #42](https://github.com/CoskunerBerke/AFLOS/pull/42) (Co-Author) |
 
 ---
@@ -247,18 +247,20 @@ Sprint 2 focused on **Detailed Requirements Engineering (IEEE 830 / ISO 29148 SR
 * **Role & Governance:** Scrum Master (`@Noct-0`). Responsible for team operating model, Agile ceremony cadence, and RACI governance.
 * **Sprint 2 Deliverables Produced:**
   * **Sprint 2 RACI Matrix:** [`docs/agile/raci_matrix_sprint2.md`](docs/agile/raci_matrix_sprint2.md) — Balanced responsibility matrix covering all 24 engineering activities across Sprint 2.
-  * Agile ceremony governance and stand-up impediment tracking.
+  * **Agile Ceremonies & Impediment Log:** [`docs/agile/sprint2_ceremonies.md`](docs/agile/sprint2_ceremonies.md) & [`docs/agile/impediment_log.md`](docs/agile/impediment_log.md) — Sprint 1 retrospective improvements, Sprint 2 kickoff & pre-submission review minutes, and impediment tracking register (`IMP-S2-01`).
 * **GitHub Traceability Links:**
   * **Issues:** [#34](https://github.com/CoskunerBerke/AFLOS/issues/34), [#35](https://github.com/CoskunerBerke/AFLOS/issues/35), [#37](https://github.com/CoskunerBerke/AFLOS/issues/37)
-  * **Pull Requests:** [PR #39](https://github.com/CoskunerBerke/AFLOS/pull/39) (Merged)
+  * **Pull Requests:** [PR #39](https://github.com/CoskunerBerke/AFLOS/pull/39) (Merged), [PR #44](https://github.com/CoskunerBerke/AFLOS/pull/44) (Merged)
 
 #### 3.6. Berke Coşkuner (230201062) — DevOps & CI/CD Infrastructure Lead
-* **Role & Governance:** DevOps Engineer (`@CoskunerBerke`). Responsible for Git-Flow governance, release tags, and automated CI pipelines.
+* **Role & Governance:** DevOps Engineer (`@CoskunerBerke`). Single point of accountability (`A`) for Git-Flow governance, release tags (`v0.2.0-sprint2`), automated CI pipelines, and official Microsoft Teams submission (`S2-ACT-16`, `S2-ACT-17`, `S2-ACT-24`).
 * **Sprint 2 Deliverables Produced:**
-  * Maintenance of GitHub Actions CI validation workflows.
-  * Branch merge governance from feature branches into `develop` and final release preparation into `main`.
+  * **CI Pipeline Upgrade:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — Automated verification of all Sprint 1 and Sprint 2 deliverables, architecture models (C4, UML, SQL schema), and OpenAPI 3.1.0 validation.
+  * **Sprint 2 Submission Manifest & Cover Sheet:** [`docs/submissions/sprint2_submission_manifest.md`](docs/submissions/sprint2_submission_manifest.md) & updated [`README.md`](README.md) indexing all Sprint 2 deliverables.
+  * **Git-Flow Merge & Release Management:** Peer review approval and merge of `PR #44`, integration into `develop` and `main`, and publication of official GitHub Release [`v0.2.0-sprint2`](https://github.com/CoskunerBerke/AFLOS/releases/tag/v0.2.0-sprint2).
 * **GitHub Traceability Links:**
-  * **Issues:** [#36](https://github.com/CoskunerBerke/AFLOS/issues/36)
+  * **Issues:** [#36](https://github.com/CoskunerBerke/AFLOS/issues/36), [#37](https://github.com/CoskunerBerke/AFLOS/issues/37)
+  * **Pull Requests & Peer Reviews:** [PR #45](https://github.com/CoskunerBerke/AFLOS/pull/45) (Author & Merged), Approved & Merged [PR #44](https://github.com/CoskunerBerke/AFLOS/pull/44)
 
 #### 3.7. Ulaş Balcı (260201301) — Implementation & UI Co-Designer
 * **Role & Governance:** Implementation & Integration Engineer (`@ulasbalci0653`). Responsible for UI component specifications and Sprint 3 backend preparation.
