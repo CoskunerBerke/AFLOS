@@ -188,7 +188,7 @@ flowchart TD
 
     subgraph Security_Auth [4. Kimlik Doğrulama & Yetkilendirme - Web 1440x900]
         W8["Sayfa 08: Personel & Gönüllü Giriş Portalı"]
-        W9["Sayfa 09: Resmi Hesap Oluşturma & NVİ Akreditasyon"]
+        W9["Sayfa 09: Resmi Hesap Oluşturma & Görevlendirme Akreditasyonu"]
     end
 ```
 
@@ -198,12 +198,12 @@ flowchart TD
 3. **Web Sayfa 01c (1440x900):** Canlı Afet Haritası (Sekme 3: Gönüllü / Taşıyıcı Hızlı Başvuru Aktif)
 4. **Web Sayfa 02 (1440x900):** İhtiyaç Talebi Bildir (Vatandaş Tam Web Formu)
 5. **Web Sayfa 03 (1440x900):** Talep Sorgula & Takip (Canlı Rota, Telemetri ve QR Kod)
-6. **Web Sayfa 04 (1440x900):** Saha Gönüllüsü Ol & Resmi Kimlik Kayıt Portalı (NVİ Doğrulamalı)
+6. **Web Sayfa 04 (1440x900):** Saha Gönüllüsü Ol & Resmi Kimlik Kayıt Portalı (T.C. Kimlik Doğrulamalı)
 7. **Web Sayfa 05 (1440x900):** Taşıyıcı / Tır Sevk (Zaman Slotları ve Sefer Manifestosu)
 8. **Web Sayfa 06 (1440x900):** Sahra Depo Envanter ve Mal Kabul Terminali
 9. **Web Sayfa 07 (1440x900):** Kriz Masası Koordinatör GIS Afet Haritası Merkezi
 10. **Web Sayfa 08 (1440x900):** Personel & Gönüllü Giriş Portalı (T.C. Kimlik / 2FA SMS / e-Devlet Girişi)
-11. **Web Sayfa 09 (1440x900):** Resmi Hesap Oluşturma & NVİ Akreditasyon Portalı (Genel Kayıt)
+11. **Web Sayfa 09 (1440x900):** Resmi Hesap Oluşturma & Görevlendirme Akreditasyonu Portalı (Genel Kayıt)
 
 ---
 
