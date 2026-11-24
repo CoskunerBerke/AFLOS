@@ -37,8 +37,8 @@
  <rect y="70" width="1440" height="36" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
  <circle cx="48" cy="88" r="4.5" fill="#16A34A"/>
  <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#166534">RESMİ AKREDİTASYON VE SAHA KAYIT PORTALI:</text>
- <text x="350" y="92" class="font" font-size="12" fill="#15803D">Tüm başvurular T.C. İçişleri Bakanlığı NVİ doğrulamasıyla yapılır.</text>
- <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#166534" text-anchor="end">Doğrulama: NVİ MERNİS</text>
+ <text x="350" y="92" class="font" font-size="12" fill="#15803D">Kayıtlar koordinatör onayı ve görevlendirmesi için kaydedilir.</text>
+ <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#166534" text-anchor="end">Yetkilendirme: AFLOS Auth</text>
 
  <!-- Ana Kayıt Kartı (1180x730) -->
  <g filter="url(#card-shadow)">
@@ -49,7 +49,7 @@
  <text x="166" y="156" class="font" font-size="18" font-weight="800" fill="#0F172A">AFLOS Resmi Hesap Oluşturma &amp; Akreditasyon Portalı</text>
  <text x="166" y="176" class="font" font-size="12" fill="#64748B">Saha lojistiği, tır sevkiyatı veya depo sayımı için kaydolun.</text>
  <rect x="1140" y="142" width="140" height="32" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
- <text x="1210" y="162" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">✓ NVİ Güvenli Doğrulama</text>
+ <text x="1210" y="162" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">✓ Güvenli Kayıt</text>
 
  <!-- Adım 1: Kayıt / Rol Türü Seçimi -->
  <text x="166" y="222" class="font" font-size="11" font-weight="700" fill="#475569">1. HESAP TÜRÜ SEÇİN</text>

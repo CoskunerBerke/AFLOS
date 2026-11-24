@@ -42,7 +42,7 @@
  <rect x="32" y="260" width="220" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
  <text x="44" y="285" class="mono" font-size="13" font-weight="600" fill="#0F172A">23020404712</text>
  <rect x="258" y="260" width="100" height="40" rx="6" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
- <text x="308" y="284" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">NVİ Onaylı</text>
+ <text x="308" y="284" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">Geçerli T.C.</text>
 
  <!-- Alan 3: Telefon Numarası -->
  <text x="32" y="316" class="font" font-size="11" font-weight="600" fill="#475569">TELEFON NUMARASI </text>
