@@ -35,7 +35,7 @@
   <rect y="70" width="1440" height="36" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
   <circle cx="48" cy="88" r="4.5" fill="#B91C1C"/>
   <text x="64" y="92" class="font" font-size="12" font-weight="700" fill="#991B1B">AFETZEDE ACİL BAŞVURU PORTALI:</text>
-  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Hesap açmanız gerekmez. Başvurunuz doğrudan en yakın sahra ikmal merkezine ve tır sevk triyajına iletilir.</text>
+  <text x="310" y="92" class="font" font-size="12" fill="#7F1D1D">Hesap gerekmez. Başvuru en yakın sahra merkezine iletilir.</text>
   <text x="1408" y="92" class="font" font-size="12" font-weight="600" fill="#991B1B" text-anchor="end">Sıfır Sürtünme İlkesi</text>
 
   <!-- Ana İçerik Gövdesi (Web 1440px Geniş Form Mimarisi) -->
@@ -44,7 +44,7 @@
   <!-- Form Başlık Şeridi -->
   <rect x="120" y="126" width="1200" height="64" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
   <text x="156" y="156" class="font" font-size="18" font-weight="800" fill="#0F172A">Afet İhtiyaç Bildirim ve Lojistik Talep Formu</text>
-  <text x="156" y="174" class="font" font-size="12" fill="#64748B">Adım 1/2: Konum, İhtiyaç Kategorileri, Kırılgan Grup Triyajı ve İletişim Bilgileri</text>
+  <text x="156" y="174" class="font" font-size="12" fill="#64748B">Adım 1/2: Konum, İhtiyaçlar ve İletişim Bilgileri</text>
   <rect x="1180" y="142" width="116" height="32" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
   <text x="1238" y="162" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">GPS Konum Aktif</text>
 
@@ -107,12 +107,12 @@
   <!-- Açıklama Alanı -->
   <text x="156" y="562" class="font" font-size="11" font-weight="700" fill="#475569">EK AYRINTILAR / ÖZEL İHTİYAÇLAR</text>
   <rect x="156" y="570" width="560" height="60" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="170" y="594" class="font" font-size="12" fill="#334155">1 Numaralı çadırda 7 aylık bebek ve astım hastası yaşlı bulunmaktadır. Hava sıcaklığı -2°C.</text>
+  <text x="170" y="594" class="font" font-size="12" fill="#334155">1 no'lu çadır: 7 aylık bebek ve yaşlı hasta var. Hava: -2°C.</text>
 
 
   <!-- SAĞ KOLON: KİŞİ SAYIMI, TRİYAJ KRİTERLERİ VE ONAY (Web 560px) -->
   <text x="760" y="218" class="font" font-size="13" font-weight="800" fill="#0F172A">3. ETKİLENEN KİŞİ VE KIRILGAN GRUP SAYISI</text>
-  <text x="760" y="234" class="font" font-size="11" fill="#64748B">Doğru triyaj ve malzeme dağıtımı için lütfen birey sayılarını belirtiniz</text>
+  <text x="760" y="234" class="font" font-size="11" fill="#64748B">Lütfen kişi sayılarını belirtiniz.</text>
 
   <!-- 4'lü Seçici Izgara (Web) -->
   <!-- 1. Bebek (0-2) -->
@@ -148,13 +148,13 @@
   
   <rect x="778" y="372" width="16" height="16" rx="4" fill="#B91C1C"/>
   <path d="M 781 380 L 784 383 L 791 376" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <text x="804" y="385" class="font" font-size="12" font-weight="600" fill="#991B1B">Açıkta / Soğukta Donma Riski Mevcut (Gece Hava Sıcaklığı -2°C)</text>
+  <text x="804" y="385" class="font" font-size="12" font-weight="600" fill="#991B1B">Soğukta Donma Riski (-2°C)</text>
 
   <rect x="778" y="402" width="16" height="16" rx="4" fill="#B91C1C"/>
   <path d="M 781 410 L 784 413 L 791 406" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <text x="804" y="415" class="font" font-size="12" font-weight="600" fill="#991B1B">Kronik Hastalığı Bulunan Birey veya Enkazdan Çıkarılmış Yaralı Var</text>
+  <text x="804" y="415" class="font" font-size="12" font-weight="600" fill="#991B1B">Kronik Hasta veya Yaralı Var</text>
   
-  <text x="804" y="434" class="font" font-size="11" font-weight="700" fill="#7F1D1D">Hesaplanan Triyaj Skoru: 9.2 / 10.0 (En Yüksek Öncelikli Kategori - P1)</text>
+  <text x="804" y="434" class="font" font-size="11" font-weight="700" fill="#7F1D1D">Triyaj Skoru: 9.2 / 10 (P1 Acil Sevk)</text>
 
   <!-- İletişim Bilgileri (Web) -->
   <text x="760" y="472" class="font" font-size="13" font-weight="800" fill="#0F172A">5. BİLDİRİMİ YAPAN KİŞİ VE TELEFON</text>
@@ -163,21 +163,21 @@
   <rect x="760" y="504" width="258" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
   <text x="774" y="529" class="font" font-size="13" font-weight="600" fill="#0F172A">Ahmet Kılınç (Vatandaş)</text>
 
-  <text x="1038" y="496" class="font" font-size="11" font-weight="700" fill="#475569">TELEFON NUMARASI (TAKİP KODU SMS İLE İLETİLİR)</text>
+  <text x="1038" y="496" class="font" font-size="11" font-weight="700" fill="#475569">GSM TELEFON (SMS TAKİP)</text>
   <rect x="1038" y="504" width="258" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
   <text x="1052" y="529" class="mono" font-size="13" font-weight="600" fill="#0F172A">+90 532 984 47 00</text>
 
   <!-- Güvenlik & SMS Bilgilendirmesi -->
   <rect x="760" y="562" width="536" height="52" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
   <text x="778" y="582" class="font" font-size="11" font-weight="700" fill="#0F172A">Hücresel SMS Yedekleme Protokolü:</text>
-  <text x="778" y="598" class="font" font-size="11" fill="#64748B">Talebiniz kaydedildiğinde telefonunuza otomatik onay SMS'i gelecektir. İnternet kesilirse talebi 2G SMS ile de iletebilirsiniz.</text>
+  <text x="778" y="598" class="font" font-size="11" fill="#64748B">Onay SMS'i iletilir. İnternetsiz SMS hattı: 122</text>
 
   <!-- Form Gönderim Aksiyon Butonu -->
   <rect x="760" y="632" width="536" height="52" rx="8" fill="#B91C1C"/>
-  <text x="1028" y="664" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">Afet İhtiyaç Talebini Gönder ve Takip Kodu Al</text>
+  <text x="1028" y="664" class="font" font-size="15" font-weight="800" fill="#FFFFFF" text-anchor="middle">Talebi Gönder ve Takip Kodu Al</text>
 
   <!-- Alt Yasal Bilgi -->
-  <text x="760" y="710" class="font" font-size="11" fill="#94A3B8">Bildirilen bilgiler AFAD ve akredite yardım kuruluşları dışındaki üçüncü taraflarla paylaşılmaz (KVKK Uyumu).</text>
+  <text x="760" y="710" class="font" font-size="11" fill="#94A3B8">Bilgiler AFAD ve resmi yardım kurumlarıyla paylaşılır.</text>
 
   <rect x="156" y="650" width="560" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
   <text x="436" y="672" class="font" font-size="12" fill="#475569" text-anchor="middle">Daha önce talep oluşturduysanız <tspan font-weight="700" fill="#0F172A">Talep Sorgula &amp; Takip</tspan> sekmesinden takip edebilirsiniz.</text>

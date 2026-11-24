@@ -13,7 +13,7 @@
   <rect x="24" y="14" width="26" height="26" rx="4" fill="#B91C1C"/>
   <path d="M 30 28 L 37 20 L 44 28 Z" fill="#FFF"/>
   <text x="58" y="32" class="font" font-size="16" font-weight="900" fill="#FFF">AFLOS</text>
-  <text x="120" y="32" class="font" font-size="13" font-weight="600" fill="#E5E7EB">Kriz Masası &amp; Afet Koordinasyon Merkezi (GIS Terminali)</text>
+  <text x="120" y="32" class="font" font-size="13" font-weight="600" fill="#E5E7EB">Kriz Masası GIS Terminali</text>
   
   <rect x="580" y="14" width="170" height="26" rx="4" fill="#0B0F19" stroke="#1F2937" stroke-width="1"/>
   <circle cx="594" cy="27" r="3.5" fill="#10B981"/>
@@ -47,7 +47,7 @@
   
   <rect x="40" y="182" width="958" height="38" rx="4" fill="#111827"/>
   <circle cx="56" cy="201" r="3.5" fill="#EF4444"/>
-  <text x="68" y="205" class="font" font-size="12" font-weight="600" fill="#F9FAFB">Ulusal Durum ve Sevkiyat Haritası (Gerçek WGS84 Coğrafi Projeksiyon)</text>
+  <text x="68" y="205" class="font" font-size="12" font-weight="600" fill="#F9FAFB">Ulusal Sevkiyat ve GIS Durum Haritası</text>
   <rect x="740" y="188" width="76" height="24" rx="4" fill="#B91C1C"/>
   <text x="778" y="204" class="font" font-size="11" font-weight="600" fill="#FFF" text-anchor="middle">Isı Haritası</text>
   <rect x="824" y="188" width="76" height="24" rx="4" fill="#1F2937"/>
