@@ -1,93 +1,93 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
-  <defs>
-    <style>
-      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    </style>
-  </defs>
+ <defs>
+ <style>
+ .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+ .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+ </style>
+ </defs>
 
-  <rect width="390" height="844" fill="#F8FAFC"/>
+ <rect width="390" height="844" fill="#F8FAFC"/>
 
-  <!-- iOS Durum Çubuğu -->
-  <rect width="390" height="48" fill="#FFFFFF"/>
-  <text x="36" y="32" class="font" font-size="14" font-weight="600" fill="#0F172A">09:43</text>
-  <path d="M 326 30 L 326 24 M 330 30 L 330 21 M 334 30 L 334 18 M 338 30 L 338 15" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
-  <rect x="346" y="20" width="22" height="12" rx="3.5" fill="none" stroke="#0F172A" stroke-width="1.2"/>
-  <rect x="348" y="22" width="14" height="8" rx="2" fill="#0F172A"/>
+ <!-- iOS Durum Çubuğu -->
+ <rect width="390" height="48" fill="#FFFFFF"/>
+ <text x="36" y="32" class="font" font-size="14" font-weight="600" fill="#0F172A">09:43</text>
+ <path d="M 326 30 L 326 24 M 330 30 L 330 21 M 334 30 L 334 18 M 338 30 L 338 15" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+ <rect x="346" y="20" width="22" height="12" rx="3.5" fill="none" stroke="#0F172A" stroke-width="1.2"/>
+ <rect x="348" y="22" width="14" height="8" rx="2" fill="#0F172A"/>
 
-  <!-- Üst Başlık Çubuğu -->
-  <rect y="48" width="390" height="56" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <path d="M 28 76 L 20 68 L 28 60" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="44" y="82" class="font" font-size="16" font-weight="700" fill="#0F172A">Gönüllü &amp; Personel Kaydı</text>
-  <rect x="296" y="62" width="78" height="28" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="335" y="80" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Giriş Yap</text>
+ <!-- Üst Başlık Çubuğu -->
+ <rect y="48" width="390" height="56" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <path d="M 28 76 L 20 68 L 28 60" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+ <text x="44" y="82" class="font" font-size="16" font-weight="700" fill="#0F172A">Gönüllü &amp; Personel Kaydı</text>
+ <rect x="296" y="62" width="78" height="28" rx="4" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="335" y="80" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Giriş Yap</text>
 
-  <!-- Kurumsal Güvenlik Uyarısı -->
-  <rect x="16" y="114" width="358" height="44" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
-  <circle cx="34" cy="136" r="7" fill="#2563EB"/>
-  <text x="34" y="140" class="font" font-size="10" font-weight="800" fill="#FFFFFF" text-anchor="middle">i</text>
-  <text x="50" y="132" class="font" font-size="12" font-weight="600" fill="#1E3A8A">Resmi Kimlik Doğrulaması Zorunludur</text>
-  <text x="50" y="146" class="font" font-size="10" fill="#3B82F6">Saha güvenliği için T.C. Kimlik doğrulaması yapılmaktadır.</text>
+ <!-- Kurumsal Güvenlik Uyarısı -->
+ <rect x="16" y="114" width="358" height="44" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+ <circle cx="34" cy="136" r="7" fill="#2563EB"/>
+ <text x="34" y="140" class="font" font-size="10" font-weight="800" fill="#FFFFFF" text-anchor="middle">i</text>
+ <text x="50" y="132" class="font" font-size="12" font-weight="600" fill="#1E3A8A">Resmi Kimlik Doğrulaması Zorunludur</text>
+ <text x="50" y="146" class="font" font-size="10" fill="#3B82F6">Saha güvenliği için T.C. Kimlik doğrulaması yapılmaktadır.</text>
 
-  <!-- Kayıt Formu Kartı -->
-  <rect x="16" y="166" width="358" height="526" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <!-- Kayıt Formu Kartı -->
+ <rect x="16" y="166" width="358" height="526" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
 
-  <!-- Alan 1: Ad Soyad -->
-  <text x="32" y="192" class="font" font-size="11" font-weight="600" fill="#475569">AD SOYAD</text>
-  <rect x="32" y="198" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="223" class="font" font-size="13" font-weight="600" fill="#0F172A">Kaan Kılınç</text>
+ <!-- Alan 1: Ad Soyad -->
+ <text x="32" y="192" class="font" font-size="11" font-weight="600" fill="#475569">AD SOYAD</text>
+ <rect x="32" y="198" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="223" class="font" font-size="13" font-weight="600" fill="#0F172A">Kaan Kılınç</text>
 
-  <!-- Alan 2: T.C. Kimlik No & Doğrulama Rozeti -->
-  <text x="32" y="254" class="font" font-size="11" font-weight="600" fill="#475569">T.C. KİMLİK NUMARASI</text>
-  <rect x="32" y="260" width="220" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="285" class="mono" font-size="13" font-weight="600" fill="#0F172A">23020404712</text>
-  <rect x="258" y="260" width="100" height="40" rx="6" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
-  <text x="308" y="284" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">NVİ Onaylı</text>
+ <!-- Alan 2: T.C. Kimlik No & Doğrulama Rozeti -->
+ <text x="32" y="254" class="font" font-size="11" font-weight="600" fill="#475569">T.C. KİMLİK NUMARASI</text>
+ <rect x="32" y="260" width="220" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="285" class="mono" font-size="13" font-weight="600" fill="#0F172A">23020404712</text>
+ <rect x="258" y="260" width="100" height="40" rx="6" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
+ <text x="308" y="284" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">NVİ Onaylı</text>
 
-  <!-- Alan 3: Telefon Numarası -->
-  <text x="32" y="316" class="font" font-size="11" font-weight="600" fill="#475569">TELEFON NUMARASI (SMS DOĞRULAMA İÇİN)</text>
-  <rect x="32" y="322" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="347" class="mono" font-size="13" font-weight="600" fill="#0F172A">+90 532 984 47 00</text>
+ <!-- Alan 3: Telefon Numarası -->
+ <text x="32" y="316" class="font" font-size="11" font-weight="600" fill="#475569">TELEFON NUMARASI </text>
+ <rect x="32" y="322" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="347" class="mono" font-size="13" font-weight="600" fill="#0F172A">+90 532 984 47 00</text>
 
-  <!-- Alan 4: E-Posta Adresi -->
-  <text x="32" y="378" class="font" font-size="11" font-weight="600" fill="#475569">E-POSTA ADRESİ</text>
-  <rect x="32" y="384" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="409" class="font" font-size="13" font-weight="500" fill="#0F172A">kaan.kilinc@aflos.org.tr</text>
+ <!-- Alan 4: E-Posta Adresi -->
+ <text x="32" y="378" class="font" font-size="11" font-weight="600" fill="#475569">E-POSTA ADRESİ</text>
+ <rect x="32" y="384" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="409" class="font" font-size="13" font-weight="500" fill="#0F172A">kaan.kilinc@aflos.org.tr</text>
 
-  <!-- Alan 5: İkametgah / Görev Şehri -->
-  <text x="32" y="440" class="font" font-size="11" font-weight="600" fill="#475569">İKAMETGAH / ŞEHİR</text>
-  <rect x="32" y="446" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="471" class="font" font-size="13" font-weight="500" fill="#0F172A">Hatay · Antakya (Afet Bölgesi)</text>
-  <path d="M 340 464 L 344 468 L 348 464" stroke="#64748B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+ <!-- Alan 5: İkametgah / Görev Şehri -->
+ <text x="32" y="440" class="font" font-size="11" font-weight="600" fill="#475569">İKAMETGAH / ŞEHİR</text>
+ <rect x="32" y="446" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="471" class="font" font-size="13" font-weight="500" fill="#0F172A">Hatay · Antakya Afet Bölgesi</text>
+ <path d="M 340 464 L 344 468 L 348 464" stroke="#64748B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
 
-  <!-- Alan 6: Hesap Şifresi -->
-  <text x="32" y="502" class="font" font-size="11" font-weight="600" fill="#475569">GÜVENLİ ŞİFRE</text>
-  <rect x="32" y="508" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="44" y="533" class="font" font-size="15" font-weight="700" fill="#0F172A">••••••••••••</text>
-  <text x="344" y="532" class="font" font-size="11" font-weight="600" fill="#2563EB" text-anchor="end">Göster</text>
+ <!-- Alan 6: Hesap Şifresi -->
+ <text x="32" y="502" class="font" font-size="11" font-weight="600" fill="#475569">GÜVENLİ ŞİFRE</text>
+ <rect x="32" y="508" width="326" height="40" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="44" y="533" class="font" font-size="15" font-weight="700" fill="#0F172A">••••••••••••</text>
+ <text x="344" y="532" class="font" font-size="11" font-weight="600" fill="#2563EB" text-anchor="end">Göster</text>
 
-  <!-- Alan 7: Rol Seçimi -->
-  <text x="32" y="564" class="font" font-size="11" font-weight="600" fill="#475569">GÖREV PROFİLİ</text>
-  <!-- Rol 1 (Seçili) -->
-  <rect x="32" y="572" width="158" height="34" rx="6" fill="#0F172A"/>
-  <text x="111" y="593" class="font" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Saha Gönüllüsü</text>
-  <!-- Rol 2 -->
-  <rect x="200" y="572" width="158" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="279" y="593" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Gönüllü Taşıyıcı / Tır</text>
+ <!-- Alan 7: Rol Seçimi -->
+ <text x="32" y="564" class="font" font-size="11" font-weight="600" fill="#475569">GÖREV PROFİLİ</text>
+ <!-- Rol 1 (Seçili) -->
+ <rect x="32" y="572" width="158" height="34" rx="6" fill="#0F172A"/>
+ <text x="111" y="593" class="font" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Saha Gönüllüsü</text>
+ <!-- Rol 2 -->
+ <rect x="200" y="572" width="158" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="279" y="593" class="font" font-size="11" font-weight="600" fill="#475569" text-anchor="middle">Gönüllü Taşıyıcı / Tır</text>
 
-  <!-- KVKK & Gizlilik -->
-  <rect x="32" y="620" width="16" height="16" rx="4" fill="#0F172A"/>
-  <path d="M 35 628 L 38 631 L 45 624" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-  <text x="56" y="632" class="font" font-size="11" fill="#475569">KVKK Açık Rıza ve Afet Görev Yönetmeliğini onaylıyorum.</text>
-  <text x="56" y="646" class="font" font-size="10" fill="#94A3B8">Kimlik bilgileriniz yalnızca AFAD akreditasyonu için işlenir.</text>
+ <!-- KVKK & Gizlilik -->
+ <rect x="32" y="620" width="16" height="16" rx="4" fill="#0F172A"/>
+ <path d="M 35 628 L 38 631 L 45 624" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+ <text x="56" y="632" class="font" font-size="11" fill="#475569">KVKK Açık Rıza ve Afet Görev Yönetmeliğini onaylıyorum.</text>
+ <text x="56" y="646" class="font" font-size="10" fill="#94A3B8">Kimlik bilgileriniz yalnızca AFAD akreditasyonu için işlenir.</text>
 
-  <!-- Buton -->
-  <rect x="16" y="704" width="358" height="50" rx="8" fill="#B91C1C"/>
-  <text x="195" y="735" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Kayıt Ol ve Kimliği Doğrula</text>
+ <!-- Buton -->
+ <rect x="16" y="704" width="358" height="50" rx="8" fill="#B91C1C"/>
+ <text x="195" y="735" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Kayıt Ol ve Kimliği Doğrula</text>
 
-  <!-- Zaten Hesabım Var -->
-  <text x="195" y="774" class="font" font-size="12" fill="#64748B" text-anchor="middle">Zaten yetkili hesabınız var mı? <tspan font-weight="700" fill="#0F172A">Giriş Yap</tspan></text>
+ <!-- Zaten Hesabım Var -->
+ <text x="195" y="774" class="font" font-size="12" fill="#64748B" text-anchor="middle">Zaten yetkili hesabınız var mı? <tspan font-weight="700" fill="#0F172A">Giriş Yap</tspan></text>
 
-  <!-- iOS Ana Ekran Çizgisi -->
-  <rect x="128" y="830" width="134" height="5" rx="2.5" fill="#0F172A"/>
+ <!-- iOS Ana Ekran Çizgisi -->
+ <rect x="128" y="830" width="134" height="5" rx="2.5" fill="#0F172A"/>
 </svg>

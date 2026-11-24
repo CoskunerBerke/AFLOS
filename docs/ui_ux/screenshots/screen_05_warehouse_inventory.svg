@@ -1,109 +1,109 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768">
-  <defs>
-    <style>
-      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    </style>
-  </defs>
+ <defs>
+ <style>
+ .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+ .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+ </style>
+ </defs>
 
-  <rect width="1024" height="768" fill="#F8FAFC"/>
+ <rect width="1024" height="768" fill="#F8FAFC"/>
 
-  <!-- Kurumsal Üst Bar -->
-  <rect width="1024" height="56" fill="#0F172A"/>
-  <text x="24" y="34" class="font" font-size="16" font-weight="800" fill="#FFF">AFLOS</text>
-  <text x="88" y="34" class="font" font-size="13" font-weight="500" fill="#94A3B8">|  Sahra Depo Envanter ve Mal Kabul Terminali</text>
-  <rect x="780" y="14" width="220" height="28" rx="4" fill="#1E293B"/>
-  <circle cx="796" cy="28" r="4" fill="#10B981"/>
-  <text x="896" y="33" class="font" font-size="11" font-weight="600" fill="#F8FAFC" text-anchor="middle">Antakya Sahra Hub-2 (Çevrimiçi)</text>
+ <!-- Kurumsal Üst Bar -->
+ <rect width="1024" height="56" fill="#0F172A"/>
+ <text x="24" y="34" class="font" font-size="16" font-weight="800" fill="#FFF">AFLOS</text>
+ <text x="88" y="34" class="font" font-size="13" font-weight="500" fill="#94A3B8">| Sahra Depo Envanter ve Mal Kabul Terminali</text>
+ <rect x="780" y="14" width="220" height="28" rx="4" fill="#1E293B"/>
+ <circle cx="796" cy="28" r="4" fill="#10B981"/>
+ <text x="896" y="33" class="font" font-size="11" font-weight="600" fill="#F8FAFC" text-anchor="middle">Antakya Sahra Hub-2 </text>
 
-  <!-- 4 Metrik Kartı -->
-  <rect x="24" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="40" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">TOPLAM MEVCUT STOK</text>
-  <text x="40" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">24,800 Kalem</text>
+ <!-- 4 Metrik Kartı -->
+ <rect x="24" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="40" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">TOPLAM MEVCUT STOK</text>
+ <text x="40" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">24,800 Kalem</text>
 
-  <rect x="272" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="288" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">GİRİŞ BEKLEYEN ARAÇ</text>
-  <text x="288" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">3 Tır</text>
+ <rect x="272" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="288" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">GİRİŞ BEKLEYEN ARAÇ</text>
+ <text x="288" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">3 Tır</text>
 
-  <rect x="520" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="536" y="100" class="font" font-size="11" font-weight="600" fill="#B91C1C">KRİTİK STOK UYARISI</text>
-  <text x="536" y="132" class="mono" font-size="22" font-weight="700" fill="#B91C1C">2 Kalem &lt; %20</text>
+ <rect x="520" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="536" y="100" class="font" font-size="11" font-weight="600" fill="#B91C1C">KRİTİK STOK UYARISI</text>
+ <text x="536" y="132" class="mono" font-size="22" font-weight="700" fill="#B91C1C">2 Kalem &lt; %20</text>
 
-  <rect x="768" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="784" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">BUGÜNKÜ ÇIKIŞ</text>
-  <text x="784" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">14,200 Adet</text>
+ <rect x="768" y="76" width="232" height="76" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="784" y="100" class="font" font-size="11" font-weight="600" fill="#64748B">BUGÜNKÜ ÇIKIŞ</text>
+ <text x="784" y="132" class="mono" font-size="22" font-weight="700" fill="#0F172A">14,200 Adet</text>
 
-  <!-- Sol Form Paneli (360px) -->
-  <rect x="24" y="172" width="360" height="568" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="44" y="204" class="font" font-size="15" font-weight="700" fill="#0F172A">Hızlı Mal Kabul (Barkod Girişi)</text>
+ <!-- Sol Form Paneli (360px) -->
+ <rect x="24" y="172" width="360" height="568" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="44" y="204" class="font" font-size="15" font-weight="700" fill="#0F172A">Hızlı Mal Kabul </text>
 
-  <rect x="44" y="224" width="320" height="140" rx="6" fill="#0F172A"/>
-  <rect x="74" y="244" width="260" height="100" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1" stroke-dasharray="4,4"/>
-  <text x="204" y="296" class="font" font-size="12" font-weight="500" fill="#94A3B8" text-anchor="middle">El Terminali veya Kamera ile Okutun</text>
+ <rect x="44" y="224" width="320" height="140" rx="6" fill="#0F172A"/>
+ <rect x="74" y="244" width="260" height="100" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1" stroke-dasharray="4,4"/>
+ <text x="204" y="296" class="font" font-size="12" font-weight="500" fill="#94A3B8" text-anchor="middle">El Terminali veya Kamera ile Okutun</text>
 
-  <text x="44" y="394" class="font" font-size="12" font-weight="600" fill="#334155">Parti / İrsaliye Numarası</text>
-  <rect x="44" y="404" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="56" y="428" class="mono" font-size="13" fill="#0F172A">TR-2026-HAT-849</text>
+ <text x="44" y="394" class="font" font-size="12" font-weight="600" fill="#334155">Parti / İrsaliye Numarası</text>
+ <rect x="44" y="404" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="56" y="428" class="mono" font-size="13" fill="#0F172A">TR-2026-HAT-849</text>
 
-  <text x="44" y="464" class="font" font-size="12" font-weight="600" fill="#334155">Malzeme Adı</text>
-  <rect x="44" y="474" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="56" y="498" class="font" font-size="13" fill="#0F172A">İçme Suyu (Koli - 0.5L)</text>
+ <text x="44" y="464" class="font" font-size="12" font-weight="600" fill="#334155">Malzeme Adı</text>
+ <rect x="44" y="474" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="56" y="498" class="font" font-size="13" fill="#0F172A">İçme Suyu (Koli - 0.5L)</text>
 
-  <text x="44" y="534" class="font" font-size="12" font-weight="600" fill="#334155">Giriş Miktarı</text>
-  <rect x="44" y="544" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="56" y="568" class="mono" font-size="13" font-weight="700" fill="#0F172A">1,000 Koli</text>
+ <text x="44" y="534" class="font" font-size="12" font-weight="600" fill="#334155">Giriş Miktarı</text>
+ <rect x="44" y="544" width="320" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="56" y="568" class="mono" font-size="13" font-weight="700" fill="#0F172A">1,000 Koli</text>
 
-  <rect x="44" y="604" width="320" height="44" rx="6" fill="#0F172A"/>
-  <text x="204" y="631" class="font" font-size="13" font-weight="600" fill="#FFF" text-anchor="middle">Stoğa İşle ve Rezervasyona Aç</text>
+ <rect x="44" y="604" width="320" height="44" rx="6" fill="#0F172A"/>
+ <text x="204" y="631" class="font" font-size="13" font-weight="600" fill="#FFF" text-anchor="middle">Stoğa İşle ve Rezervasyona Aç</text>
 
-  <rect x="44" y="660" width="320" height="56" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="56" y="682" class="font" font-size="11" font-weight="700" fill="#0F172A">Otomatik Talep Eşleşmesi:</text>
-  <text x="56" y="700" class="font" font-size="11" fill="#475569">Girilen 600 Koli, Defne bölgesindeki acil talebe rezerve edildi.</text>
+ <rect x="44" y="660" width="320" height="56" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="56" y="682" class="font" font-size="11" font-weight="700" fill="#0F172A">Otomatik Talep Eşleşmesi:</text>
+ <text x="56" y="700" class="font" font-size="11" fill="#475569">Girilen 600 Koli, Defne bölgesindeki acil talebe rezerve edildi.</text>
 
-  <!-- Sağ Tablo Paneli (600px) -->
-  <rect x="408" y="172" width="592" height="568" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="428" y="204" class="font" font-size="15" font-weight="700" fill="#0F172A">Canlı Depo Envanteri (Sphere Standardı)</text>
+ <!-- Sağ Tablo Paneli (600px) -->
+ <rect x="408" y="172" width="592" height="568" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="428" y="204" class="font" font-size="15" font-weight="700" fill="#0F172A">Canlı Depo Envanteri </text>
 
-  <rect x="428" y="224" width="552" height="34" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="440" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">KALEM / KATEGORİ</text>
-  <text x="640" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">MEVCUT</text>
-  <text x="730" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">REZERVE</text>
-  <text x="830" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">DURUM</text>
-  <text x="930" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">İŞLEM</text>
+ <rect x="428" y="224" width="552" height="34" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="440" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">KALEM / KATEGORİ</text>
+ <text x="640" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">MEVCUT</text>
+ <text x="730" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">REZERVE</text>
+ <text x="830" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">DURUM</text>
+ <text x="930" y="246" class="font" font-size="11" font-weight="600" fill="#64748B">İŞLEM</text>
 
-  <!-- Satır 1 -->
-  <line x1="428" y1="298" x2="980" y2="298" stroke="#F1F5F9" stroke-width="1"/>
-  <text x="440" y="282" class="font" font-size="13" font-weight="600" fill="#0F172A">İçme Suyu (Koli)</text>
-  <text x="640" y="282" class="mono" font-size="12" font-weight="700" fill="#0F172A">8,500</text>
-  <text x="730" y="282" class="mono" font-size="12" fill="#475569">3,200</text>
-  <rect x="830" y="268" width="56" height="20" rx="4" fill="#F1F5F9"/>
-  <text x="858" y="282" class="font" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">YETERLİ</text>
-  <text x="946" y="282" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
+ <!-- Satır 1 -->
+ <line x1="428" y1="298" x2="980" y2="298" stroke="#F1F5F9" stroke-width="1"/>
+ <text x="440" y="282" class="font" font-size="13" font-weight="600" fill="#0F172A">İçme Suyu Koli</text>
+ <text x="640" y="282" class="mono" font-size="12" font-weight="700" fill="#0F172A">8,500</text>
+ <text x="730" y="282" class="mono" font-size="12" fill="#475569">3,200</text>
+ <rect x="830" y="268" width="56" height="20" rx="4" fill="#F1F5F9"/>
+ <text x="858" y="282" class="font" font-size="10" font-weight="700" fill="#0F172A" text-anchor="middle">YETERLİ</text>
+ <text x="946" y="282" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
 
-  <!-- Satır 2 -->
-  <line x1="428" y1="344" x2="980" y2="344" stroke="#F1F5F9" stroke-width="1"/>
-  <text x="440" y="328" class="font" font-size="13" font-weight="600" fill="#0F172A">Kışlık Termal Çadır</text>
-  <text x="640" y="328" class="mono" font-size="12" font-weight="700" fill="#B91C1C">140</text>
-  <text x="730" y="328" class="mono" font-size="12" fill="#475569">120</text>
-  <rect x="830" y="314" width="68" height="20" rx="4" fill="#FEE2E2"/>
-  <text x="864" y="328" class="font" font-size="10" font-weight="700" fill="#B91C1C" text-anchor="middle">&lt; %20 KRİTİK</text>
-  <text x="946" y="328" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
+ <!-- Satır 2 -->
+ <line x1="428" y1="344" x2="980" y2="344" stroke="#F1F5F9" stroke-width="1"/>
+ <text x="440" y="328" class="font" font-size="13" font-weight="600" fill="#0F172A">Kışlık Termal Çadır</text>
+ <text x="640" y="328" class="mono" font-size="12" font-weight="700" fill="#B91C1C">140</text>
+ <text x="730" y="328" class="mono" font-size="12" fill="#475569">120</text>
+ <rect x="830" y="314" width="68" height="20" rx="4" fill="#FEE2E2"/>
+ <text x="864" y="328" class="font" font-size="10" font-weight="700" fill="#B91C1C" text-anchor="middle">&lt; %20 KRİTİK</text>
+ <text x="946" y="328" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
 
-  <!-- Satır 3 -->
-  <line x1="428" y1="390" x2="980" y2="390" stroke="#F1F5F9" stroke-width="1"/>
-  <text x="440" y="374" class="font" font-size="13" font-weight="600" fill="#0F172A">Bebek Maması (Kutu)</text>
-  <text x="640" y="374" class="mono" font-size="12" font-weight="700" fill="#0F172A">620</text>
-  <text x="730" y="374" class="mono" font-size="12" fill="#475569">180</text>
-  <rect x="830" y="360" width="56" height="20" rx="4" fill="#F1F5F9"/>
-  <text x="858" y="374" class="font" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">ORTA</text>
-  <text x="946" y="374" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
+ <!-- Satır 3 -->
+ <line x1="428" y1="390" x2="980" y2="390" stroke="#F1F5F9" stroke-width="1"/>
+ <text x="440" y="374" class="font" font-size="13" font-weight="600" fill="#0F172A">Bebek Maması Kutu</text>
+ <text x="640" y="374" class="mono" font-size="12" font-weight="700" fill="#0F172A">620</text>
+ <text x="730" y="374" class="mono" font-size="12" fill="#475569">180</text>
+ <rect x="830" y="360" width="56" height="20" rx="4" fill="#F1F5F9"/>
+ <text x="858" y="374" class="font" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">ORTA</text>
+ <text x="946" y="374" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
 
-  <!-- Satır 4 -->
-  <line x1="428" y1="436" x2="980" y2="436" stroke="#F1F5F9" stroke-width="1"/>
-  <text x="440" y="420" class="font" font-size="13" font-weight="600" fill="#0F172A">Katalitik Soba</text>
-  <text x="640" y="420" class="mono" font-size="12" font-weight="700" fill="#B91C1C">85</text>
-  <text x="730" y="420" class="mono" font-size="12" fill="#475569">60</text>
-  <rect x="830" y="406" width="68" height="20" rx="4" fill="#FEE2E2"/>
-  <text x="864" y="420" class="font" font-size="10" font-weight="700" fill="#B91C1C" text-anchor="middle">&lt; %20 KRİTİK</text>
-  <text x="946" y="420" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
+ <!-- Satır 4 -->
+ <line x1="428" y1="436" x2="980" y2="436" stroke="#F1F5F9" stroke-width="1"/>
+ <text x="440" y="420" class="font" font-size="13" font-weight="600" fill="#0F172A">Katalitik Soba</text>
+ <text x="640" y="420" class="mono" font-size="12" font-weight="700" fill="#B91C1C">85</text>
+ <text x="730" y="420" class="mono" font-size="12" fill="#475569">60</text>
+ <rect x="830" y="406" width="68" height="20" rx="4" fill="#FEE2E2"/>
+ <text x="864" y="420" class="font" font-size="10" font-weight="700" fill="#B91C1C" text-anchor="middle">&lt; %20 KRİTİK</text>
+ <text x="946" y="420" class="font" font-size="11" font-weight="600" fill="#0F172A">Sevk Et</text>
 </svg>
