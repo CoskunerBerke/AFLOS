@@ -1,174 +1,174 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
-  <defs>
-    <style>
-      .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    </style>
-  </defs>
+ <defs>
+ <style>
+ .font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+ .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+ </style>
+ </defs>
 
-  <!-- Arka Plan -->
-  <rect width="1440" height="900" fill="#F8FAFC"/>
+ <!-- Arka Plan -->
+ <rect width="1440" height="900" fill="#F8FAFC"/>
 
-  <!-- Üst Menü Çubuğu (Web Platform) -->
-  <rect width="1440" height="70" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="32" y="19" width="32" height="32" rx="6" fill="#B91C1C"/>
-  <path d="M 40 37 L 48 27 L 56 37 Z" fill="#FFFFFF"/>
-  <text x="76" y="38" class="font" font-size="20" font-weight="900" fill="#0F172A" letter-spacing="-0.5">AFLOS</text>
-  <text x="76" y="51" class="font" font-size="11" font-weight="600" fill="#64748B">Afet Lojistik ve İhtiyaç Koordinasyon Platformu</text>
+ <!-- Üst Menü Çubuğu (Web Platform) -->
+ <rect width="1440" height="70" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ <rect x="32" y="19" width="32" height="32" rx="6" fill="#B91C1C"/>
+ <path d="M 40 37 L 48 27 L 56 37 Z" fill="#FFFFFF"/>
+ <text x="76" y="38" class="font" font-size="20" font-weight="900" fill="#0F172A" letter-spacing="-0.5">AFLOS</text>
+ <text x="76" y="51" class="font" font-size="11" font-weight="600" fill="#64748B">Afet Lojistik ve İhtiyaç Koordinasyon Platformu</text>
 
-  <!-- Navigasyon Menüsü -->
-  <text x="440" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Canlı Afet Haritası</text>
-  <text x="610" y="42" class="font" font-size="14" font-weight="500" fill="#475569">İhtiyaç Talebi Bildir</text>
-  <text x="780" y="42" class="font" font-size="14" font-weight="700" fill="#B91C1C">Talep Sorgula &amp; Takip</text>
-  <line x1="780" y1="68" x2="930" y2="68" stroke="#B91C1C" stroke-width="2.5"/>
-  <text x="960" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Saha Gönüllüsü Ol</text>
-  <text x="1120" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Taşıyıcı / Tır Sevk</text>
+ <!-- Navigasyon Menüsü -->
+ <text x="440" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Canlı Afet Haritası</text>
+ <text x="610" y="42" class="font" font-size="14" font-weight="500" fill="#475569">İhtiyaç Talebi Bildir</text>
+ <text x="780" y="42" class="font" font-size="14" font-weight="700" fill="#B91C1C">Talep Sorgula &amp; Takip</text>
+ <line x1="780" y1="68" x2="930" y2="68" stroke="#B91C1C" stroke-width="2.5"/>
+ <text x="960" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Saha Gönüllüsü Ol</text>
+ <text x="1120" y="42" class="font" font-size="14" font-weight="500" fill="#475569">Taşıyıcı / Tır Sevk</text>
 
-  <!-- Sağ Butonlar -->
-  <rect x="1270" y="19" width="60" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1300" y="41" class="font" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">TR · EN</text>
+ <!-- Sağ Butonlar -->
+ <rect x="1270" y="19" width="60" height="34" rx="6" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="1300" y="41" class="font" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">TR · EN</text>
 
-  <rect x="1340" y="19" width="68" height="34" rx="6" fill="#0F172A"/>
-  <text x="1374" y="41" class="font" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Giriş</text>
+ <rect x="1340" y="19" width="68" height="34" rx="6" fill="#0F172A"/>
+ <text x="1374" y="41" class="font" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Giriş</text>
 
-  <!-- Arama ve Sorgulama Şeridi (Geniş Web 1440px) -->
-  <rect y="70" width="1440" height="84" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  
-  <text x="80" y="104" class="font" font-size="12" font-weight="700" fill="#475569">TALEP SORGULAMA</text>
-  <text x="80" y="132" class="font" font-size="15" font-weight="800" fill="#0F172A">Takip Kodu veya Telefon ile Durum Öğren</text>
+ <!-- Arama ve Sorgulama Şeridi (Geniş Web 1440px) -->
+ <rect y="70" width="1440" height="84" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ 
+ <text x="80" y="104" class="font" font-size="12" font-weight="700" fill="#475569">TALEP SORGULAMA</text>
+ <text x="80" y="132" class="font" font-size="15" font-weight="800" fill="#0F172A">Takip Kodu veya Telefon ile Durum Öğren</text>
 
-  <!-- Input Kutusu -->
-  <rect x="520" y="90" width="380" height="46" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="536" y="119" class="mono" font-size="15" font-weight="700" fill="#0F172A">TRK-8492X</text>
-  <text x="880" y="118" class="font" font-size="12" fill="#94A3B8" text-anchor="end">Kayıtlı Tel: 0532•••00</text>
+ <!-- Input Kutusu -->
+ <rect x="520" y="90" width="380" height="46" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <text x="536" y="119" class="mono" font-size="15" font-weight="700" fill="#0F172A">TRK-8492X</text>
+ <text x="880" y="118" class="font" font-size="12" fill="#94A3B8" text-anchor="end">Kayıtlı Tel: 0532•••00</text>
 
-  <!-- Sorgula Butonu -->
-  <rect x="912" y="90" width="130" height="46" rx="6" fill="#B91C1C"/>
-  <text x="977" y="119" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Sorgula</text>
+ <!-- Sorgula Butonu -->
+ <rect x="912" y="90" width="130" height="46" rx="6" fill="#B91C1C"/>
+ <text x="977" y="119" class="font" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Sorgula</text>
 
-  <!-- Bulunan Durum Rozeti -->
-  <rect x="1180" y="94" width="180" height="38" rx="6" fill="#0F172A"/>
-  <text x="1270" y="118" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">DURUM: SEVKTE (YOLDA)</text>
+ <!-- Bulunan Durum Rozeti -->
+ <rect x="1180" y="94" width="180" height="38" rx="6" fill="#0F172A"/>
+ <text x="1270" y="118" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">DURUM: SEVKTE Yolda</text>
 
-  <!-- ANA İÇERİK: SOLDA CANLI ROTA HARİTASI (Web 840px) -->
-  <rect x="32" y="174" width="850" height="700" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  
-  <rect x="32" y="174" width="850" height="52" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="52" y="206" class="font" font-size="14" font-weight="800" fill="#0F172A">Canlı Sevkiyat ve Lojistik Güzergah Telemetrisi</text>
-  <rect x="700" y="186" width="164" height="28" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
-  <circle cx="714" cy="200" r="4" fill="#15803D"/>
-  <text x="786" y="205" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">Güvenli Lojistik Koridoru</text>
+ <!-- ANA İÇERİK: SOLDA CANLI ROTA HARİTASI (Web 840px) -->
+ <rect x="32" y="174" width="850" height="700" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ 
+ <rect x="32" y="174" width="850" height="52" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="52" y="206" class="font" font-size="14" font-weight="800" fill="#0F172A">Canlı Sevkiyat ve Lojistik Güzergah Telemetrisi</text>
+ <rect x="700" y="186" width="164" height="28" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1"/>
+ <circle cx="714" cy="200" r="4" fill="#15803D"/>
+ <text x="786" y="205" class="font" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">Güvenli Lojistik Koridoru</text>
 
-  <!-- Harita Tuvali -->
-  <rect x="48" y="238" width="818" height="618" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+ <!-- Harita Tuvali -->
+ <rect x="48" y="238" width="818" height="618" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
 
-  <!-- Rota Çizgileri -->
-  <path d="M 120 540 Q 280 440 440 400 T 700 480" fill="none" stroke="#E2E8F0" stroke-width="8"/>
-  <!-- Tamamlanan Yol (Mersin -> Nurdağı Geçişi) -->
-  <path d="M 120 540 Q 280 440 440 400" fill="none" stroke="#0F172A" stroke-width="5" stroke-linecap="round"/>
-  <!-- Kalan Yol (Nurdağı -> Hatay Odabaşı) -->
-  <path d="M 440 400 T 700 480" fill="none" stroke="#B91C1C" stroke-width="4" stroke-dasharray="6,6" stroke-linecap="round"/>
+ <!-- Rota Çizgileri -->
+ <path d="M 120 540 Q 280 440 440 400 T 700 480" fill="none" stroke="#E2E8F0" stroke-width="8"/>
+ <!-- Tamamlanan Yol (Mersin -> Nurdağı Geçişi) -->
+ <path d="M 120 540 Q 280 440 440 400" fill="none" stroke="#0F172A" stroke-width="5" stroke-linecap="round"/>
+ <!-- Kalan Yol (Nurdağı -> Hatay Odabaşı) -->
+ <path d="M 440 400 T 700 480" fill="none" stroke="#B91C1C" stroke-width="4" stroke-dasharray="6,6" stroke-linecap="round"/>
 
-  <!-- Çıkış Deposu İkonu -->
-  <circle cx="120" cy="540" r="12" fill="#0F172A"/>
-  <text x="120" y="544" class="font" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">HUB</text>
-  <text x="120" y="570" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle">Mersin Liman Deposu</text>
-  <text x="120" y="586" class="font" font-size="10" fill="#64748B" text-anchor="middle">Çıkış: Bugün 08:30</text>
+ <!-- Çıkış Deposu İkonu -->
+ <circle cx="120" cy="540" r="12" fill="#0F172A"/>
+ <text x="120" y="544" class="font" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">HUB</text>
+ <text x="120" y="570" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle">Mersin Liman Deposu</text>
+ <text x="120" y="586" class="font" font-size="10" fill="#64748B" text-anchor="middle">Çıkış: Bugün 08:30</text>
 
-  <!-- Yoldaki Tır (Konum İkonu) -->
-  <circle cx="440" cy="400" r="16" fill="#B91C1C"/>
-  <circle cx="440" cy="400" r="26" fill="none" stroke="#B91C1C" stroke-width="2" opacity="0.3"/>
-  <text x="440" y="405" class="font" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">TIR</text>
-  <text x="440" y="372" class="mono" font-size="13" font-weight="800" fill="#B91C1C" text-anchor="middle">31 KAA 84</text>
-  <text x="440" y="440" class="font" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle">Hız: 62 km/s · Nurdağı Geçildi</text>
+ <!-- Yoldaki Tır (Konum İkonu) -->
+ <circle cx="440" cy="400" r="16" fill="#B91C1C"/>
+ <circle cx="440" cy="400" r="26" fill="none" stroke="#B91C1C" stroke-width="2" opacity="0.3"/>
+ <text x="440" y="405" class="font" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">TIR</text>
+ <text x="440" y="372" class="mono" font-size="13" font-weight="800" fill="#B91C1C" text-anchor="middle">31 KAA 84</text>
+ <text x="440" y="440" class="font" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle">Hız: 62 km/s · Nurdağı Geçildi</text>
 
-  <!-- Hedef Noktası -->
-  <circle cx="700" cy="480" r="12" fill="#15803D"/>
-  <text x="700" y="484" class="font" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">VAR</text>
-  <text x="700" y="510" class="font" font-size="12" font-weight="800" fill="#0F172A" text-anchor="middle">Siz (Odabaşı Mah.)</text>
-  <text x="700" y="526" class="font" font-size="11" font-weight="700" fill="#B91C1C" text-anchor="middle">Kalan Süre: 22 Dakika</text>
+ <!-- Hedef Noktası -->
+ <circle cx="700" cy="480" r="12" fill="#15803D"/>
+ <text x="700" y="484" class="font" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">VAR</text>
+ <text x="700" y="510" class="font" font-size="12" font-weight="800" fill="#0F172A" text-anchor="middle">Siz Odabaşı Mah.</text>
+ <text x="700" y="526" class="font" font-size="11" font-weight="700" fill="#B91C1C" text-anchor="middle">Kalan Süre: 22 Dakika</text>
 
-  <!-- Alt Bilgi Kutusu -->
-  <rect x="68" y="776" width="778" height="60" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" opacity="0.95"/>
-  <circle cx="92" cy="806" r="6" fill="#2563EB"/>
-  <text x="110" y="802" class="font" font-size="12" font-weight="700" fill="#0F172A">Şoför ve Taşıyıcı Bilgisi:</text>
-  <text x="110" y="820" class="font" font-size="11" fill="#64748B">Mehmet K. (0532 ••• 12) · Koridor İzni Onaylandı.</text>
+ <!-- Alt Bilgi Kutusu -->
+ <rect x="68" y="776" width="778" height="60" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" opacity="0.95"/>
+ <circle cx="92" cy="806" r="6" fill="#2563EB"/>
+ <text x="110" y="802" class="font" font-size="12" font-weight="700" fill="#0F172A">Şoför ve Taşıyıcı Bilgisi:</text>
+ <text x="110" y="820" class="font" font-size="11" fill="#64748B">Mehmet K. 0532 ••• 12 · Koridor İzni Onaylandı.</text>
 
 
-  <!-- SAĞ KOLON: SÜREÇ AŞAMALARI VE TALEP İÇERİĞİ (Web 510px) -->
-  <rect x="900" y="174" width="508" height="700" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  
-  <rect x="900" y="174" width="508" height="52" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="924" y="206" class="font" font-size="14" font-weight="800" fill="#0F172A">Talep Aşamaları &amp; Malzeme Dağıtımı</text>
-  <text x="1384" y="206" class="mono" font-size="13" font-weight="700" fill="#64748B" text-anchor="end">TRK-8492X</text>
+ <!-- SAĞ KOLON: SÜREÇ AŞAMALARI VE TALEP İÇERİĞİ (Web 510px) -->
+ <rect x="900" y="174" width="508" height="700" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ 
+ <rect x="900" y="174" width="508" height="52" rx="10 10 0 0" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+ <text x="924" y="206" class="font" font-size="14" font-weight="800" fill="#0F172A">Talep Aşamaları &amp; Malzeme Dağıtımı</text>
+ <text x="1384" y="206" class="mono" font-size="13" font-weight="700" fill="#64748B" text-anchor="end">TRK-8492X</text>
 
-  <!-- Süreç Çizelgesi (Dikey Stepper) -->
-  <rect x="924" y="244" width="460" height="216" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+ <!-- Süreç Çizelgesi (Dikey Stepper) -->
+ <rect x="924" y="244" width="460" height="216" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
 
-  <!-- Adım 1 (Tamamlandı) -->
-  <circle cx="948" cy="272" r="8" fill="#0F172A"/>
-  <path d="M 945 272 L 947 274 L 951 270" stroke="#FFF" stroke-width="1.3" fill="none"/>
-  <line x1="948" y1="280" x2="948" y2="310" stroke="#CBD5E1" stroke-width="1.5"/>
-  <text x="968" y="272" class="font" font-size="12" font-weight="700" fill="#0F172A">Talep Alındı ve Teyit Edildi</text>
-  <text x="968" y="286" class="font" font-size="10" fill="#64748B">23 Kasım 2026 · 09:41 (Web Formu ile)</text>
+ <!-- Adım 1 (Tamamlandı) -->
+ <circle cx="948" cy="272" r="8" fill="#0F172A"/>
+ <path d="M 945 272 L 947 274 L 951 270" stroke="#FFF" stroke-width="1.3" fill="none"/>
+ <line x1="948" y1="280" x2="948" y2="310" stroke="#CBD5E1" stroke-width="1.5"/>
+ <text x="968" y="272" class="font" font-size="12" font-weight="700" fill="#0F172A">Talep Alındı ve Teyit Edildi</text>
+ <text x="968" y="286" class="font" font-size="10" fill="#64748B">23 Kasım 2026 · 09:41 </text>
 
-  <!-- Adım 2 (Tamamlandı) -->
-  <circle cx="948" cy="318" r="8" fill="#0F172A"/>
-  <path d="M 945 318 L 947 320 L 951 316" stroke="#FFF" stroke-width="1.3" fill="none"/>
-  <line x1="948" y1="326" x2="948" y2="356" stroke="#CBD5E1" stroke-width="1.5"/>
-  <text x="968" y="318" class="font" font-size="12" font-weight="700" fill="#0F172A">Triyaj ve Öncelik Onayı (P1 Acil Sevk)</text>
-  <text x="968" y="332" class="font" font-size="10" fill="#64748B">Bebek ve yaşlı mevcudiyeti (P1 Öncelik)</text>
+ <!-- Adım 2 (Tamamlandı) -->
+ <circle cx="948" cy="318" r="8" fill="#0F172A"/>
+ <path d="M 945 318 L 947 320 L 951 316" stroke="#FFF" stroke-width="1.3" fill="none"/>
+ <line x1="948" y1="326" x2="948" y2="356" stroke="#CBD5E1" stroke-width="1.5"/>
+ <text x="968" y="318" class="font" font-size="12" font-weight="700" fill="#0F172A">Triyaj ve Öncelik Onayı · P1 Acil Sevk</text>
+ <text x="968" y="332" class="font" font-size="10" fill="#64748B">Bebek ve yaşlı mevcudiyeti · P1 Öncelik</text>
 
-  <!-- Adım 3 (Aktif) -->
-  <circle cx="948" cy="364" r="9" fill="#B91C1C"/>
-  <circle cx="948" cy="364" r="13" fill="none" stroke="#B91C1C" stroke-width="1.5" opacity="0.4"/>
-  <line x1="948" y1="374" x2="948" y2="406" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3,3"/>
-  <text x="968" y="364" class="font" font-size="12" font-weight="800" fill="#B91C1C">Tıra Yüklendi ve Sevk Halinde (Yolda)</text>
-  <text x="968" y="378" class="font" font-size="10" fill="#64748B">Tahmini Varış: 22 Dk (31 KAA 84)</text>
+ <!-- Adım 3 -->
+ <circle cx="948" cy="364" r="9" fill="#B91C1C"/>
+ <circle cx="948" cy="364" r="13" fill="none" stroke="#B91C1C" stroke-width="1.5" opacity="0.4"/>
+ <line x1="948" y1="374" x2="948" y2="406" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3,3"/>
+ <text x="968" y="364" class="font" font-size="12" font-weight="800" fill="#B91C1C">Tıra Yüklendi ve Sevk Halinde Yolda</text>
+ <text x="968" y="378" class="font" font-size="10" fill="#64748B">Tahmini Varış: 22 Dk 31 KAA 84</text>
 
-  <!-- Adım 4 (Bekliyor) -->
-  <circle cx="948" cy="416" r="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
-  <text x="968" y="416" class="font" font-size="12" font-weight="600" fill="#64748B">Saha Teslimatı &amp; QR Doğrulama</text>
-  <text x="968" y="430" class="font" font-size="10" fill="#94A3B8">Görevli veya talep sahibi tarafından onaylanır.</text>
+ <!-- Adım 4 (Bekliyor) -->
+ <circle cx="948" cy="416" r="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+ <text x="968" y="416" class="font" font-size="12" font-weight="600" fill="#64748B">Saha Teslimatı &amp; QR Doğrulama</text>
+ <text x="968" y="430" class="font" font-size="10" fill="#94A3B8">Görevli veya talep sahibi tarafından onaylanır.</text>
 
-  <!-- Talep İçeriği ve Malzemeler Kartı -->
-  <text x="924" y="484" class="font" font-size="12" font-weight="800" fill="#475569">SEVKİYAT KAPSAMINDAKİ MALZEMELER</text>
-  
-  <rect x="924" y="494" width="460" height="130" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  
-  <text x="944" y="522" class="font" font-size="12" font-weight="700" fill="#0F172A">İçme Suyu (0.5L Şişeli)</text>
-  <text x="1360" y="522" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">12 Koli (144 Adet)</text>
+ <!-- Talep İçeriği ve Malzemeler Kartı -->
+ <text x="924" y="484" class="font" font-size="12" font-weight="800" fill="#475569">SEVKİYAT KAPSAMINDAKİ MALZEMELER</text>
+ 
+ <rect x="924" y="494" width="460" height="130" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+ 
+ <text x="944" y="522" class="font" font-size="12" font-weight="700" fill="#0F172A">İçme Suyu 0.5L Şişeli</text>
+ <text x="1360" y="522" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">12 Koli 144 Adet</text>
 
-  <line x1="944" y1="534" x2="1360" y2="534" stroke="#F1F5F9" stroke-width="1"/>
+ <line x1="944" y1="534" x2="1360" y2="534" stroke="#F1F5F9" stroke-width="1"/>
 
-  <text x="944" y="556" class="font" font-size="12" font-weight="700" fill="#0F172A">Kışlık Isı Yalıtımlı Çadır</text>
-  <text x="1360" y="556" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">1 Adet (4 Kişilik)</text>
+ <text x="944" y="556" class="font" font-size="12" font-weight="700" fill="#0F172A">Kışlık Isı Yalıtımlı Çadır</text>
+ <text x="1360" y="556" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">1 Adet 4 Kişilik</text>
 
-  <line x1="944" y1="568" x2="1360" y2="568" stroke="#F1F5F9" stroke-width="1"/>
+ <line x1="944" y1="568" x2="1360" y2="568" stroke="#F1F5F9" stroke-width="1"/>
 
-  <text x="944" y="590" class="font" font-size="12" font-weight="700" fill="#0F172A">Bebek Maması &amp; Bebek Bezi</text>
-  <text x="1360" y="590" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">4 Kutu Mama + 2 Paket Bez</text>
+ <text x="944" y="590" class="font" font-size="12" font-weight="700" fill="#0F172A">Bebek Maması &amp; Bebek Bezi</text>
+ <text x="1360" y="590" class="font" font-size="12" font-weight="700" fill="#0F172A" text-anchor="end">4 Kutu Mama + 2 Paket Bez</text>
 
-  <line x1="944" y1="602" x2="1360" y2="602" stroke="#F1F5F9" stroke-width="1"/>
+ <line x1="944" y1="602" x2="1360" y2="602" stroke="#F1F5F9" stroke-width="1"/>
 
-  <text x="944" y="618" class="font" font-size="11" font-weight="600" fill="#15803D">Durum: Tır İçi Yük Kontrolü Tamamlandı</text>
-  <text x="1360" y="618" class="font" font-size="11" font-weight="700" fill="#B91C1C" text-anchor="end">Öncelik P1</text>
+ <text x="944" y="618" class="font" font-size="11" font-weight="600" fill="#15803D">Durum: Tır İçi Yük Kontrolü Tamamlandı</text>
+ <text x="1360" y="618" class="font" font-size="11" font-weight="700" fill="#B91C1C" text-anchor="end">Öncelik P1</text>
 
-  <!-- Teslim Alma QR Kodu Kılavuzu -->
-  <rect x="924" y="638" width="460" height="92" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
-  <rect x="940" y="652" width="60" height="60" rx="4" fill="#0F172A"/>
-  <rect x="948" y="660" width="16" height="16" fill="#FFF"/>
-  <rect x="976" y="660" width="16" height="16" fill="#FFF"/>
-  <rect x="948" y="688" width="16" height="16" fill="#FFF"/>
-  <rect x="970" y="682" width="12" height="12" fill="#FFF"/>
-  
-  <text x="1016" y="668" class="font" font-size="12" font-weight="700" fill="#0F172A">Çevrimdışı Teslim Alma QR Kodu</text>
-  <text x="1016" y="686" class="font" font-size="11" fill="#64748B">QR kodu tır şoförüne okutunuz. İnternet gerektirmez.</text>
-  <text x="1016" y="704" class="font" font-size="11" font-weight="700" fill="#B91C1C">Teslim Kodu: 8492</text>
+ <!-- Teslim Alma QR Kodu Kılavuzu -->
+ <rect x="924" y="638" width="460" height="92" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+ <rect x="940" y="652" width="60" height="60" rx="4" fill="#0F172A"/>
+ <rect x="948" y="660" width="16" height="16" fill="#FFF"/>
+ <rect x="976" y="660" width="16" height="16" fill="#FFF"/>
+ <rect x="948" y="688" width="16" height="16" fill="#FFF"/>
+ <rect x="970" y="682" width="12" height="12" fill="#FFF"/>
+ 
+ <text x="1016" y="668" class="font" font-size="12" font-weight="700" fill="#0F172A">Çevrimdışı Teslim Alma QR Kodu</text>
+ <text x="1016" y="686" class="font" font-size="11" fill="#64748B">QR kodu tır şoförüne okutunuz. İnternet gerektirmez.</text>
+ <text x="1016" y="704" class="font" font-size="11" font-weight="700" fill="#B91C1C">Teslim Kodu: 8492</text>
 
-  <!-- Alt Buton -->
-  <rect x="924" y="744" width="460" height="46" rx="6" fill="#0F172A"/>
-  <text x="1154" y="772" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Canlı Haritayı Tam Ekran Büyüt</text>
+ <!-- Alt Buton -->
+ <rect x="924" y="744" width="460" height="46" rx="6" fill="#0F172A"/>
+ <text x="1154" y="772" class="font" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Canlı Haritayı Tam Ekran Büyüt</text>
 
-  <text x="1154" y="810" class="font" font-size="11" fill="#94A3B8" text-anchor="middle">SMS ile Sorgulama: DURUM TRK-8492X -> 122</text>
+ <text x="1154" y="810" class="font" font-size="11" fill="#94A3B8" text-anchor="middle">SMS ile Sorgulama: DURUM TRK-8492X -> 122</text>
 </svg>
